@@ -13,7 +13,7 @@ use App\Http\Controllers\Controller;
 class QuoteController extends Controller{
 
     public function showQuotPage(){
-        return view('employee.quotationNew',['quotation'=>'']);
+        return view('employee.quotation.quotationNew',['quotation'=>'']);
         //return Redirect::to('quoten'. '');
     }
 

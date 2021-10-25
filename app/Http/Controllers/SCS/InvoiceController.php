@@ -12,7 +12,7 @@ class InvoiceController extends Controller
 {
     public function index(){
         $clients = Client::all();
-        return view('employee.invoiceNew',['clients'=>$clients]);
+        return view('employee.invoice.invoiceNew',['clients'=>$clients]);
     }
     public function insertInvoce(Request $request)
     {

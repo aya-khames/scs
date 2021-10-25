@@ -10,10 +10,10 @@ class WorkController extends Controller {
 
     public function showWorkNew(){
         $clients = Client::all();
-        return view('employee.workNew',['clients'=>$clients]);
+        return view('employee.work.workNew',['clients'=>$clients]);
     }
     public function showWorkDes(){
-        return view('employee.workDes');
+        return view('employee.work.workDes');
     }
     public function insertWN(Request $request){
             $quot = new Workorder();
@@ -45,6 +45,5 @@ class WorkController extends Controller {
     public function deleteWD(){
         return view('employee.workDes');
     }
-
 
 }

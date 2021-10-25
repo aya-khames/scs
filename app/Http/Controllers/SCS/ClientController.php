@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class ClientController extends Controller{
     public function create(){
         $clients = Client::all();
-        return view('employee.page',['clients'=>$clients]);
+        return view('employee.client.page',['clients'=>$clients]);
     }
     public function getRule(){
         $rules = [
@@ -52,38 +52,8 @@ class ClientController extends Controller{
         ];
         return $messages;
     }
-    public function getSearchRule(){
-        $rules = [
-            'name' => 'required|max:100',
-        ];
-        return $rules;
-    }
-    public function getSearchMessage()
-    {
-        $msg = 'required';
-        $msg1 = 'exceeded the limits';
-        $messages = [
-            'name.required' => $msg,
-            'name.max' => $msg1
-        ];
-        return $messages;
-    }
-    public function getCpSearchRule(){
-        $rules = [
-            'nameCp' => 'required|max:100',
-        ];
-        return $rules;
-    }
-    public function getCpSearchMessage()
-    {
-        $msg = 'required';
-        $msg1 = 'exceeded the limits';
-        $messages = [
-            'nameCp.required' => $msg,
-            'nameCp.max' => $msg1
-        ];
-        return $messages;
-    }
+
+
 
     public function insertClient(Request $request){
         $validator = Validator::make($request->all(), $this->getRule(), $this->getMessage());
@@ -123,6 +93,50 @@ class ClientController extends Controller{
         //else show alert
         return redirect()->to('page');
     }
+    public function insertCP(Request $request){
+        $validator = Validator::make($request->all(), $this->getCpRule(), $this->getCpMessage());
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInputs($request->all());
+        }
+        $cp = new Cp();
+        $cp->Name_C = $request->nameCp;
+        $cp->C_P = $request->cp;
+        $cp->save();
+        return redirect()->to('addcont')->with('message', 'finally' );
+    }
+
+    public function getSearchRule(){
+        $rules = [
+            'name' => 'required|max:100',
+        ];
+        return $rules;
+    }
+    public function getSearchMessage()
+    {
+        $msg = 'required';
+        $msg1 = 'exceeded the limits';
+        $messages = [
+            'name.required' => $msg,
+            'name.max' => $msg1
+        ];
+        return $messages;
+    }
+    public function getCpSearchRule(){
+        $rules = [
+            'nameCp' => 'required|max:100',
+        ];
+        return $rules;
+    }
+    public function getCpSearchMessage()
+    {
+        $msg = 'required';
+        $msg1 = 'exceeded the limits';
+        $messages = [
+            'nameCp.required' => $msg,
+            'nameCp.max' => $msg1
+        ];
+        return $messages;
+    }
     public function editClient(Request $request){
         $validator = Validator::make($request->all(), $this->getRule(), $this->getMessage());
         if ($validator->fails()){
@@ -152,18 +166,6 @@ class ClientController extends Controller{
         }
         $clients =Client::where('Name_C',$request->name)->first();
         return view('page',['clients'=>$clients]);
-    }
-
-    public function insertCP(Request $request){
-        $validator = Validator::make($request->all(), $this->getCpRule(), $this->getCpMessage());
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInputs($request->all());
-        }
-        $cp = new Cp();
-        $cp->Name_C = $request->nameCp;
-        $cp->C_P = $request->cp;
-        $cp->save();
-        return redirect()->to('addcont')->with('message', 'finally' );
     }
     public function editCP(Request $request){
         $validator = Validator::make($request->all(), $this->getCpRule(), $this->getCpMessage());

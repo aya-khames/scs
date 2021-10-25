@@ -30,130 +30,104 @@ Route::group(['middleware' => 'prevent'],function(){
         Route::get('/start', function () {
             return view('employee.start');
         })->middleware('isClient');
-
         Route::middleware(['isAccountant', 'isOperation', 'isClient'])->group(function (){
             Route::get('/unsafen', function () {
-                return view('employee.unsafeNew');
+                return view('employee.unsafe.unsafeNew');
             });
             Route::get('/unsafed', function () {
-                return view('employee.unsafeDes');
+                return view('employee.unsafe.unsafeDes');
             });
             Route::get('/unsafep', function () {
-                return view('employee.unsafePrint');
+                return view('employee.unsafe.unsafePrint');
             });
             Route::get('/unsafes', function () {
-                return view('employee.unsafeSearch');
-            });
-            Route::get('/dpin', function () {
-                return view('employee.DPINew');
-            });
-            Route::get('/dpip', function () {
-                return view('employee.DPIPrint');
-            });
-            Route::get('/mpin', function () {
-                return view('employee.MPINew');
-            });
-            Route::get('/mpip', function () {
-                return view('employee.MPIPrint');
-            });
-            Route::get('/walln', function () {
-                return view('employee.wallThickNew');
-            });
-            Route::get('/walld', function () {
-                return view('employee.wallThickDes');
-            });
-            Route::get('/wallp', function () {
-                return view('employee.wallThickPrint');
-            });
-            Route::get('/tvn', function () {
-                return view('employee.TVNew');
-            });
-            Route::get('/tvd', function () {
-                return view('employee.TVDes');
+                return view('employee.unsafe.unsafeSearch');
             });
 
-            Route::get('/tvp', function () {
-                return view('employee.TVPrint');
+
+            Route::get('/dpin', function () {
+                return view('employee.ndt.dpi.DPINew');
             });
+            Route::get('/dpip', function () {
+                return view('employee.ndt.dpi.DPIPrint');
+            });
+
+            Route::get('/mpin', function () {
+                return view('employee.ndt.mpi.MPINew');
+            });
+            Route::get('/mpip', function () {
+                return view('employee.ndt.mpi.MPIPrint');
+            });
+
+
+            Route::get('/walln', function () {
+                return view('employee.wall.wallThickNew');
+            });
+            Route::get('/walld', function () {
+                return view('employee.wall.wallThickDes');
+            });
+            Route::get('/wallp', function () {
+                return view('employee.wall.wallThickPrint');
+            });
+
+
+            Route::get('/tvn', function () {
+                return view('employee.test.testvisual.TVNew');
+            });
+            Route::get('/tvd', function () {
+                return view('employee.test.testvisual.TVDes');
+            });
+            Route::get('/tvp', function () {
+                return view('employee.test.testvisual.TVPrint');
+            });
+
             Route::get('/tmvmn', function () {
-                return view('employee.TMVMNew');
+                return view('employee.test.testmpi.TMVMNew');
             });
             Route::get('/tmvmd', function () {
-                return view('employee.TMVMDes');
+                return view('employee.test.testmpi.TMVMDes');
             });
             Route::get('/tmvmp', function () {
-                return view('employee.TMVMPrint');
+                return view('employee.test.testmpi.TMVMPrint');
             });
+
+
             Route::get('/cranep', function () {
-                return view('employee.cranePrint');
+                return view('employee.crane.cranePrint');
             });
             Route::get('/cranen', function () {
-                return view('employee.craneNew');
+                return view('employee.crane.craneNew');
             });
             Route::get('/cranes', function () {
-                return view('employee.craneSearch');
+                return view('employee.crane.craneSearch');
             });
             Route::get('/crawler', function () {
-                return view('employee.crawler');
+                return view('employee.crane.crawler');
             });
             Route::get('/mob', function () {
-                return view('employee.mobile');
+                return view('employee.crane.mobile');
             });
             Route::get('/tower', function () {
-                return view('employee.tower');
+                return view('employee.crane.tower');
             });
+
+
             Route::get('/compn', function () {
-                return view('employee.compNew');
+                return view('employee.compressor.compNew');
             });
             Route::get('/compd', function () {
-                return view('employee.compDes');
+                return view('employee.compressor.compDes');
             });
             Route::get('/compp', function () {
-                return view('employee.compPrint');
+                return view('employee.compressor.compPrint');
             });
+
+
             Route::get('/cdn', function () {
-                return view('employee.CDN');
+                return view('employee.cdn.CDN');
             });
         });
         Route::middleware(['isAccountant', 'isClient'])->group(function (){
-            Route::get('/addcont', function () {
-                return view('employee.addContactPerson');
-            });
-            Route::get('/dnoten', function () {
-                return view('employee.dNoteNew');
-            });
-            Route::get('/dnoted', function () {
-                return view('employee.dNoteDes');
-            });
-            Route::get('/dnotep', function () {
-                return view('employee.dNotePrint');
-            });
-            Route::get('/hireofn', function () {
-                return view('employee.hireOFNew');
-            });
-            Route::get('/hireofp', function () {
-                return view('employee.hireOFPrint');
-            });
-            //client
-            Route::get('/page', 'SCS\ClientController@create');
-            Route::post('/store', 'SCS\ClientController@insertClient')-> name('createClient');
-            Route::post('/edit', 'SCS\ClientController@editClient')-> name('edit');
-            // Route::post('/edit', 'ClientController@searchClient')-> name('searchClient');
-
-            Route::post('/insertcp', 'SCS\ClientController@insertCP')-> name('contactPerson');
-            Route::post('/editcp', 'SCS\ClientController@editCP')-> name('editClient');
-            Route::post('/deletecp', 'SCS\ClientController@deleteCP')-> name('deleteCont');
-
-//        Route::get('/quoten', function () {
-//            return view('employee.quotationNew');
-//        });
-            Route::get('/quoted', function () {
-                return view('employee.quotationDes');
-            });
-            Route::get('/quotep', function () {
-                return view('employee.quotationPrint');
-            });
-
             //quotation
             Route::get('/quoten', 'SCS\QuoteController@showQuotPage')->name('show');
             Route::post('/storeQuote', 'SCS\QuoteController@insertQuote')-> name('insertQuote');
@@ -163,64 +137,64 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::post('/editQuoteDes', 'SCS\QuoteController@editQD')-> name('editQuoteDesc');
             Route::post('/insertQuoteDes', 'SCS\QuoteController@insertQD')-> name('insertQuoteDesc');
 
+            Route::get('/quoted', function () {
+                return view('employee.quotation.quotationDes');
+            });
+            Route::get('/quotep', function () {
+                return view('employee.quotation.quotationPrint');
+            });
+
 
         });
-        Route::middleware(['isSecretary', 'isClient'])->group(function (){
-            Route::get('/addcont', function () {
-                return view('employee.addContactPerson');
-            });
-            Route::get('/workd', function () {
-                return view('employee.workDes');
-            });
+        Route::middleware(['isSecretary', 'isAccountant', 'isClient'])->group(function (){
 
-            Route::get('/workp', function () {
-                return view('employee.workPrint');
-            });
-
-
-            Route::get('/invp', function () {
-                return view('employee.invoicePrint');
-            });
-            Route::get('/invc', function () {
-                return view('employee.invoiceCollect');
-            });
             Route::get('/dnoten', function () {
-                return view('employee.dNoteNew');
+                return view('employee.delivery.dNoteNew');
             });
             Route::get('/dnoted', function () {
-                return view('employee.dNoteDes');
+                return view('employee.delivery.dNoteDes');
             });
             Route::get('/dnotep', function () {
-                return view('employee.dNotePrint');
+                return view('employee.delivery.dNotePrint');
             });
+
             Route::get('/hireofn', function () {
-                return view('employee.hireOFNew');
+                return view('employee.hire.hireOFNew');
             });
             Route::get('/hireofp', function () {
-                return view('employee.hireOFPrint');
+                return view('employee.hire.hireOFPrint');
             });
-
-
             //client
             Route::get('/page', 'SCS\ClientController@create');
             Route::post('/store', 'SCS\ClientController@insertClient')-> name('createClient');
             Route::post('/edit', 'SCS\ClientController@editClient')-> name('edit');
-            // Route::post('/edit', 'ClientController@searchClient')-> name('searchClient');
+
+            Route::get('/addcont', function () {
+                return view('employee.client.addContactPerson');
+            });
 
             Route::post('/insertcp', 'SCS\ClientController@insertCP')-> name('contactPerson');
             Route::post('/editcp', 'SCS\ClientController@editCP')-> name('editClient');
             Route::post('/deletecp', 'SCS\ClientController@deleteCP')-> name('deleteCont');
+
+        });
+        Route::middleware(['isSecretary', 'isClient'])->group(function (){
 
             ###############work###################################################
 
             Route::get('/workn', 'SCS\WorkController@showWorkNew')->name('showWorkNew');
             Route::post('/workedit', 'SCS\WorkController@editWN')->name('editWorkNew');
             Route::post('/workinsert', 'SCS\WorkController@insertWN')->name('insertWorkNew');
-
-            //   Route::get('/workd', 'SCS\WorkController@showWorkDes');
             Route::post('/workdesdelete', 'SCS\WorkController@deleteWD')->name('deleteWorkDes');
             Route::post('/workdesedit', 'SCS\WorkController@editWD')->name('editWorkDes');
             Route::post('/workdesinsert', 'SCS\WorkController@insertWD')->name('insertWorkDes');
+
+            Route::get('/workd', function () {
+                return view('employee.work.workDes');
+            });
+            Route::get('/workp', function () {
+                return view('employee.work.workPrint');
+            });
 
             ########################invoice######################################33
 
@@ -231,11 +205,18 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::get('/findAdd', 'SCS\InvoiceController@findAdd')->name('findAdd');
 
             Route::get('/invd', function () {
-                return view('employee.invoiceDes');
+                return view('employee.invoice.invoiceDes');
             });
             Route::post('/ins-inv-des', 'SCS\InvoiceController@insertInvoceD')->name('insertInvoiceD');
             Route::post('/edit-inv-des', 'SCS\InvoiceController@editInvoiceD')->name('editInvoiceN');
             Route::post('/del-inv-des', 'SCS\InvoiceController@deleteInvoiceD')->name('deleteInvoiceN');
+
+            Route::get('/invp', function () {
+                return view('employee.invoice.invoicePrint');
+            });
+            Route::get('/invc', function () {
+                return view('employee.invoice.invoiceCollect');
+            });
 
         });
         Route::middleware(['isAccountant', 'isOperation', 'isSecretary', 'isAdmin'])->group(function (){
