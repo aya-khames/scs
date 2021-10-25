@@ -19,8 +19,8 @@
                 @csrf
                 <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                     <label class="lab" style="font-size: 20px; width: 130px">Client:</label>
-                    <a href="#" style="padding: unset">
-                        <select name="client" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a style="padding: unset">
+                        <select id="clientname" name="client" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <option value="" disabled selected>Client</option>
                             @foreach($clients as $client)
                                 <option value="{{$client->Name_C}}">{{$client->Name_C}}</option>
@@ -28,21 +28,24 @@
                         </select>
                     </a>
                     <label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">Quotation:</label>
-                        <a href="#" style="padding: unset; text-decoration: none">
+                        <a style="padding: unset; text-decoration: none">
                             {{--there's an issue--}}
-                            <select id="test" name="quotation" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select disabled name="quotation" class="miniDrop2" id="check0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected>Quotation</option>
+                                <option value="">1</option>
                             </select>
                         </a>
-                    <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input name="workOrder" class="text2" style="width: 400px" type="text">
-                    <span><label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">Contact:</label> <input name="contperson" class="text2" style="width: 400px" type="text"></span>
-                    <label class="lab" style="font-size: 20px; width: 130px">PO:</label> <input name="po" class="text2" style="width: 400px" type="text">
-                    <span><label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">Fax No:</label> <input name="fax" class="text2" style="width: 400px" type="text"></span>
-                    <label class="lab" style="font-size: 20px; width: 130px">Currency:</label> <input name="currency" class="text2" style="width: 400px" type="text">
-                    <span><label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">Date:</label> <input name="date" class="Date text2" style="width: 400px" type="date"></span>
-                    <label class="lab" style="font-size: 20px; width: 130px">Delivery Date:</label> <input name="delivery" class="Date text2" style="width: 400px" type="date">
-                    <span><label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">Validity:</label> <input name="valedity" class="text2" style="width: 400px" type="text"></span>
-                    <label class="lab" style="font-size: 20px; width: 130px">Note:</label> <input name="note" class="text2" style="width: 400px; display: inline-block" type="text">
+                    <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input id="b2" disabled readonly name="workOrder" class="text2" style="width: 400px" type="text">
+                    <span><label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">Contact:</label> <input id="check1" disabled readonly name="contperson" class="text2" style="width: 400px" type="text"></span>
+                    <label class="lab" style="font-size: 20px; width: 130px">PO:</label> <input id="b4" disabled name="po" class="text2" style="width: 400px" type="text">
+                    <span><label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">Fax No:</label> <input id="b5" disabled name="fax" class="text2" style="width: 400px" type="text"></span>
+                    <label class="lab" style="font-size: 20px; width: 130px">Currency:</label> <input id="b6" disabled readonly name="currency" class="text2" style="width: 400px" type="text">
+                    <span><label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">Date:</label> <input id="b7" disabled name="date" class="Date text2" style="width: 190px" type="date"> <input id="b8" disabled readonly name="date" class="Date text2" style="width: 195px" type="text"></span>
+                    <label class="lab" style="font-size: 20px; width: 130px">Delivery Date:</label> <input id="b9" disabled name="delivery" class="Date text2" style="width: 400px" type="text">
+                    <span><label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">Validity:</label> <input id="b10" disabled name="valedity" class="text2" style="width: 400px" type="text"></span>
+                    <label class="lab" style="font-size: 20px; width: 130px">Note:</label>
+                    <br>
+                    <textarea id="b11" disabled name="note" class="text2" style="width: 400px; height: 50px; margin-left: 140px; scroll-behavior: smooth; display: inline-block; resize: none"></textarea>
                     <div style="margin-left: 360px; display: inline-block">
                         <button type="submit" onclick="get_action2(this.form)" class="bttn">Edit</button>
                         <button type="submit" onclick="get_action3(this.form)" class="bttn">Insert</button>
@@ -65,10 +68,27 @@
     <script>
         function get_action2(form) {
             form.action = "{{route('editWorkNew')}}";
-        }
+        };
         function get_action3(form) {
             form.action = "{{route('insertWorkNew')}}";
-        }
+        };
+
+        $('#clientname').change(function() {
+            document.getElementById('check1').disabled = false;
+            document.getElementById('check0').disabled = false;
+           });
+
+        $('#check0').change(function() {
+            document.getElementById('b2').disabled = false;
+            document.getElementById('b4').disabled = false;
+            document.getElementById('b5').disabled = false;
+            document.getElementById('b6').disabled = false;
+            document.getElementById('b7').disabled = false;
+            document.getElementById('b8').disabled = false;
+            document.getElementById('b9').disabled = false;
+            document.getElementById('b10').disabled = false;
+            document.getElementById('b11').disabled = false;
+        });
 
     </script>
 @stop

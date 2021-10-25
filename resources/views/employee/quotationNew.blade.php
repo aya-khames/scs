@@ -18,11 +18,24 @@
             <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px" method="POST">
                 @csrf
                 <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
-                    <label class="lab" style="font-size: 20px; width: 130px">Client:</label> <input name="name" class="text2" style="width: 400px" type="text" value="{{ old('name') }}">
+                    <label class="lab" style="font-size: 20px; width: 130px">Client:</label>
+                    <a style="padding: unset">
+                        <select name="client" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <option value="" disabled selected>Client</option>
+{{--                            @foreach($clients as $client)--}}
+{{--                                <option value="{{$client->Name_C}}">{{$client->Name_C}}</option>--}}
+{{--                            @endforeach--}}
+                        </select>
+                    </a>
                     @error('name')
                     <small class="from-text text-danger">{{$message}}</small>
                     @enderror
-                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Contact:</label> <input name="contact" class="text2" style="width: 400px" type="text"></span>
+                    <label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Contact:</label>
+                    <a style="padding: unset">
+                        <select name="client" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <option value="" disabled selected>Contact</option>
+                        </select>
+                    </a>
                     @error('contact')
                     <small class="from-text text-danger">{{$message}}</small>
                     @enderror
@@ -31,11 +44,20 @@
                     @error('enquiry')
                     <small class="from-text text-danger">{{$message}}</small>
                     @enderror
-                    <label class="lab" style="font-size: 20px; width: 130px">Currency:</label> <input name="currency" class="text2" style="width: 400px" type="text">
+                    <label class="lab" style="font-size: 20px; width: 130px">Currency:</label>
+                    <a style="padding: unset">
+                        <select name="client" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <option value="" disabled selected>Currency</option>
+                            <option value="">LE</option>
+                            <option value="">USD</option>
+                            <option value="">EUR</option>
+                            <option value="">GBP</option>
+                        </select>
+                    </a>
                     @error('currency')
                     <small class="from-text text-danger">{{$message}}</small>
                     @enderror
-                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Date:</label> <input name="date" class="text2" style="width: 400px" type="date"></span>
+                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Date:</label> <input name="date" class="text2" style="width: 195px" type="date"><input readonly name="date" class="text2" style="width: 195px" type="text"></span>
                     @error('date')
                     <small class="from-text text-danger">{{$message}}</small>
                     @enderror
@@ -47,8 +69,16 @@
                     @error('transportation')
                     <small class="from-text text-danger">{{$message}}</small>
                     @enderror
-                    <label class="lab" style="font-size: 20px; width: 130px">VAT:</label> <input name="vat" class="text2" style="width: 400px" >
-                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Validity:</label> <input name="validity" class="text2" style="width: 400px" type="text"></span>
+                    <label class="lab" style="font-size: 20px; width: 130px">VAT:</label>
+                    <a style="padding: unset">
+                        <select name="client" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 300px">
+                            <option value="" disabled selected>...</option>
+                            <option value="">With Vat.</option>
+                            <option value="">Without Vat.</option>
+                        </select>
+                    </a>
+                    <input class="text2" type="text" disabled style="width: 70px"> %
+                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Validity:</label> <input disabled name="validity" class="text2" style="width: 400px" type="text"></span>
                     <br><br>
                     <div style="margin-left: 490px">
                         <button class="bttn" onclick="get_action1(this.form)">Edit</button>
@@ -62,7 +92,7 @@
                             href="#">Search</a></span> <br>
                     <label class="lab" style="font-size: 20px; width: 100px">Client:</label> <input class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp"><a
                             href="#">Search</a></span> <br>
-                    <label class="lab" style="font-size: 20px; width: 100px">Date:</label> <input class="Date text2" style="width: 300px" type="text" ><span><label class="lab" style="font-size: 20px; width: 45px; margin-left: 45px">To:</label> <input class="Date text2" style="width: 300px" type="text" ></span> <span class="sp"><a
+                    <label class="lab" style="font-size: 20px; width: 100px">Date:</label> <input class="Date text2" style="width: 300px" type="date" ><span><label class="lab" style="font-size: 20px; width: 45px; margin-left: 45px">To:</label> <input class="Date text2" style="width: 300px" type="date" ></span> <span class="sp"><a
                             href="#">Search</a></span><br>
                 </div>
             </form>

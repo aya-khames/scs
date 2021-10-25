@@ -48,7 +48,7 @@ class LoginController extends Controller
         }
         else {
             // it's a user
-            $redirect = '/page';
+            $redirect = '/start';
         }
         return redirect($redirect)->with('user', $user->user_name);
     }

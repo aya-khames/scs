@@ -23,13 +23,15 @@
                     <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input class="text2" style="width: 400px" type="text">
                     <span class="sp"><a style="margin-left: 10px" href="#">Search</a></span>
                     <br>
-                    <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input class="text2" style="width: 400px" type="text">
-                    <span><label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input class="text2" style="width: 400px" type="text"></span>
+                    <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input disabled class="text2" style="width: 400px" type="text">
+                    <span><label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input disabled class="text2" style="width: 400px" type="text"></span>
+                    <br>
+                    <input style="margin-left: 700px; height: 17px; width: 17px" id="check" value="0" type="checkbox">
                     <br>
                     <label class="lab" style="font-size: 20px; width: 130px">Description:</label>
-                    <label class="lab" style="font-size: 20px; width: 100px; margin-left: 430px">Unit Price:</label><input class="text2" style="width: 70px; margin-top: 10px" type="text">
-                    <label class="lab" style="font-size: 20px; width: 48px; margin-left: 5px">QTY:</label><input class="text2" style="width: 70px" type="text">
-                    <label class="lab" style="font-size: 20px; width: 100px; margin-left: 5px">Total Price:</label><input class="text2" style="width: 70px" type="text">
+                    <label class="lab" style="font-size: 20px; width: 100px; margin-left: 430px">Unit Price:</label><input disabled id="check1" class="text2" style="width: 70px; margin-top: 10px" type="text">
+                    <label class="lab" style="font-size: 20px; width: 48px; margin-left: 5px">QTY:</label><input disabled id="check2" class="text2" style="width: 70px" type="text">
+                    <label class="lab" style="font-size: 20px; width: 100px; margin-left: 5px">Total Price:</label><input disabled readonly class="text2" style="width: 70px" type="text">
                     <br>
                     <textarea disabled class="text2" style="width: 400px;margin-left: 145px; height: 150px; resize: none"></textarea>
                     <br>
@@ -41,4 +43,21 @@
             </form>
         </fieldset>
     </div>
+@stop
+@section('scripts')
+    <script>
+        $('#check').click(function() {
+            console.log(this.getAttribute("value"));
+            if(this.getAttribute("value") === "0"){
+
+                document.getElementById('check1').disabled = false;
+                document.getElementById('check2').disabled = false;
+                this.setAttribute("value", "1");
+            }else {
+                document.getElementById('check1').disabled = true;
+                document.getElementById('check2').disabled = true;
+                this.setAttribute("value", "0");
+            }
+        });
+    </script>
 @stop

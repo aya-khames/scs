@@ -20,24 +20,24 @@
                     <label class="lab" style="font-size: 20px; width: 130px">Client:</label>
                     <a style="padding: unset">
                         <select class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <option value="" disabled selected>Type</option>
+                            <option value="" disabled selected>Client</option>
                         </select>
                     </a>
                     <span>
                         <label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Work Order:</label>
                         <a style="padding: unset">
-                            <select class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <option value="" disabled selected>Type</option>
+                            <select disabled class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <option value="" disabled selected>Work Order</option>
                             </select>
                         </a>
                     </span>
-                    <label class="lab" style="font-size: 20px; width: 130px">Delivery Note:</label> <input class="text2" style="width: 400px" type="text">
+                    <label class="lab" style="font-size: 20px; width: 130px">Delivery Note:</label> <input disabled class="text2" style="width: 400px" type="text">
                     <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Delivery Time:</label>
-                        <input class="Date text2" style="width: 190px" type="date">
-                        <input class="Date text2" style="width: 195px" type="text">
+                        <input disabled class="Date text2" style="width: 190px" type="date">
+                        <input disabled class="Date text2" style="width: 195px" type="text">
                     </span>
-                    <label class="lab" style="font-size: 20px; width: 130px">PO No:</label> <input class="text2" style="width: 400px" type="text">
-                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">REQ NO:</label> <input class="text2" style="width: 400px" type="text"></span>
+                    <label class="lab" style="font-size: 20px; width: 130px">PO No:</label> <input disabled class="text2" style="width: 400px" type="text">
+                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">REQ NO:</label> <input disabled class="text2" style="width: 400px" type="text"></span>
                     <br><br>
                     <div style="margin-left: 490px">
                         <button class="bttn">Edit</button><button class="bttn">Insert</button>
@@ -51,10 +51,10 @@
                     <span style="width: 80px" class="sp"><a href="#">Search</a></span> <br>
 
                     <label class="lab" style="font-size: 20px; width: 130px">Date:</label>
-                    <input class="Date text2" style="width: 175px" type="text" >
+                    <input class="Date text2" style="width: 175px" type="date" >
                     <span>
                         <label class="lab" style="font-size: 20px; width: auto; margin: 5px">To:</label>
-                        <input class="Date text2" style="width: 170px" type="text">
+                        <input class="Date text2" style="width: 170px" type="date">
                     </span> <span class="sp"><a href="#">Search</a></span><br>
 
                     <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label>

@@ -23,16 +23,16 @@
                     <span class="sp">
                         <a style="margin-left: 10px" href="#">Search</a>
                     </span>
-                    <a class="sp" style="margin-left: 20px; text-decoration: none" href="#">Search Edit</a>
+                    <a class="sp" style="margin-left: 20px; text-decoration: none">Search Edit</a>
                     <br>
-                    <label class="lab" style="font-size: 20px; width: 130px">Quotation:</label> <input name="quotation" class="text2" style="width: 400px" type="text">
-                    <span> <a class="sp" style="margin-left: 10px; text-decoration: none" href="#">Search</a> <label class="lab" style="font-size: 20px; width: 60px; margin-left: 20px">Client:</label> <input name="client" class="text2" style="width: 400px" type="text"></span>
+                    <label class="lab" style="font-size: 20px; width: 130px">Quotation:</label> <input disabled name="quotation" class="text2" style="width: 400px" type="text">
+                    <span> <a class="sp" style="margin-left: 10px; text-decoration: none">Search</a> <label class="lab" style="font-size: 20px; width: 60px; margin-left: 20px">Client:</label> <input disabled name="client" class="text2" style="width: 400px" type="text"></span>
                     <br>
                     <label class="lab" style="font-size: 20px; width: 130px">Description:</label>
-                    <label class="lab" style="font-size: 20px; width: 60px; margin-left: 510px">QTY:</label><input name="qty" class="text2" style="width: 135px; margin-top: 10px" type="text">
+                    <label class="lab" style="font-size: 20px; width: 60px; margin-left: 510px">QTY:</label><input disabled name="qty" class="text2" style="width: 135px; margin-top: 10px" type="text">
                     <label class="lab" style="font-size: 20px; width: 110px; margin-left: 5px">ID Number:</label><input name="idN" class="text2" style="width: 135px" type="number">
                     <br>
-                    <textarea name="description" disabled class="text2" style="width: 400px;margin-left: 145px; height: 150px; scroll-behavior: smooth; resize: none"></textarea>
+                    <textarea disabled name="description" class="text2" style="width: 400px;margin-left: 145px; height: 150px; scroll-behavior: smooth; resize: none"></textarea>
                     <span>
                         <div style="margin-left: 120px; display: inline-block">
                             <button class="bttn">Print</button>
@@ -50,13 +50,13 @@
     <script>
         function get_action2(form) {
             form.action = "{{route('deleteWorkDes')}}";
-        }
+        };
         function get_action3(form) {
             form.action = "{{route('editWorkDes')}}";
-        }
+        };
         function get_action4(form) {
             form.action = "{{route('insertWorkDes')}}";
-        }
+        };
     </script>
 @stop
 

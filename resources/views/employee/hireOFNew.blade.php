@@ -23,30 +23,30 @@
                     </a>
                     <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Delivery Note:</label>
                         <a style="padding: unset">
-                            <select class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select disabled class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected></option>
                             </select>
                         </a>
                     </span>
                     <label class="lab" style="font-size: 20px; width: 130px">Hire On:</label>
-                    <input class="text2" style="width: 400px" type="text">
+                    <input disabled class="text2" style="width: 400px" type="text">
 
                     <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Date On:</label>
-                        <input class="Date text2" style="width: 190px" type="date">
-                        <input class="Date text2" style="width: 195px" type="text">
+                        <input disabled class="Date text2" style="width: 190px" type="date">
+                        <input disabled class="Date text2" style="width: 195px" type="text">
                     </span>
 
                     <label class="lab" style="font-size: 20px; width: 130px">Hire Off:</label>
-                    <input class=" text2" style="width: 400px" type="text">
+                    <input disabled class=" text2" style="width: 400px" type="text">
                     <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Date Off:</label>
-                        <input class=" text2" style="width: 190px" type="date">
-                        <input class=" text2" style="width: 195px" type="text">
+                        <input disabled class=" text2" style="width: 190px" type="date">
+                        <input disabled class=" text2" style="width: 195px" type="text">
                     </span>
                 </div>
+                <div style="margin-left: 500px; margin-bottom: 20px">
+                    <button class="bttn">Edit</button><button class="bttn">Insert</button>
+                </div>
             </form>
-            <div style="margin-left: 500px">
-                <button class="bttn">Edit</button><button class="bttn">Insert</button>
-            </div>
             <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px">
                 <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                     <label class="lab" style="font-size: 20px; width: 133px">Hire On:</label> <input class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp">

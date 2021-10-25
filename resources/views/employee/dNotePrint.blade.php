@@ -23,14 +23,14 @@
                     <br>
                     <span>
                         <label class="lab" style="font-size: 20px; width: 130px">Client:</label>
-                        <input class="text2" style="width: 400px" type="text">
+                        <input disabled class="text2" style="width: 400px" type="text">
                     </span>
                 </div>
+                <div style="margin-bottom: 20px; margin-left: 400px; display: inline-block">
+                    <button class="bttn" style="width: 200px; font-size: 18px">Print with logo</button>
+                    <button class="bttn" style="width: 200px; font-size: 18px">Print without logo</button>
+                </div>
             </form>
-            <div style="margin-left: 400px; display: inline-block">
-                <button class="bttn" style="width: 200px; font-size: 18px">Print with logo</button>
-                <button class="bttn" style="width: 200px; font-size: 18px">Print without logo</button>
-            </div>
         </fieldset>
     </div>
 @stop

@@ -48,24 +48,31 @@
                         <a style="padding: unset">
                             <select name="currency" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected>Currency</option>
+                                <option value="">LE</option>
+                                <option value="">USD</option>
+                                <option value="">EUR</option>
+                                <option value="">GBP</option>
                             </select>
                         </a>
                     </span>
                     <label class="lab" style="font-size: 20px; width: 130px">PO No:</label> <input name="po" class="text2" style="width: 400px" type="text">
-                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Date:</label> <input name="date" class="Date text2" style="width: 400px" type="date"></span>
+                    <span><label class="lab" style="font-size: 20px; width: 135px; margin-left: 10px">Date:</label><input name="date" class="text2" style="width: 195px" type="date"><input readonly name="date" class="text2" style="width: 195px" type="text"></span>
                     <label class="lab" style="font-size: 20px; width: 130px">Delivery Date:</label> <input name="delivery" class="Date text2" style="width: 400px" type="date">
                     <span>
                         <label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Transportation:</label> <input name="transportation" class="text2" style="width: 400px" type="text"></span>
                         <label class="lab" style="font-size: 20px; width: 130px">Collect:</label>
                         <a style="padding: unset">
                             <select name="collect" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <option value="" disabled selected></option>
+                                <option value="" selected>NO</option>
+                                <option value="">YES</option>
                             </select>
                         </a>
                         <label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">VAT:</label>
                     <a style="padding: unset">
                         <select name="vat" class="miniDrop2" id="dropdownMenuButton" style="width: 85px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <option value="" disabled selected></option>
+                            <option value="">With Vat</option>
+                            <option value="">Without Vat</option>
                         </select>
                     </a>
                         <input name="percent" class="text2" style="width: 40px" type="text">
@@ -75,6 +82,8 @@
                         <a style="padding: unset">
                             <select name="tax" class="miniDrop2" id="dropdownMenuButton" style="width: 85px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected></option>
+                                <option value="">With Tax</option>
+                                <option value="">Without Tax</option>
                             </select>
                         </a>
                         <input name="tpercent" class="text2" style="width: 40px" type="text">
@@ -90,7 +99,7 @@
             <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px">
                 <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                     <label class="lab" style="font-size: 20px; width: 100px">Invoice:</label> <input class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a href="#">Search</a></span>
-                    <label class="lab" style="font-size: 20px; width: 120px; margin-left: 25px">Date:</label><input class="Date text2" style="width: 150px" type="text"><span><label class="lab" style="font-size: 20px; width: 20px; margin-left: 10px">To:</label> <input class="Date text2" style="width: 150px" type="text" ></span> <span class="sp"><a href="#">Search</a></span>
+                    <label class="lab" style="font-size: 20px; width: 120px; margin-left: 25px">Date:</label><input class="Date text2" style="width: 150px" type="date"><span><label class="lab" style="font-size: 20px; width: 20px; margin-left: 10px">To:</label> <input class="Date text2" style="width: 150px" type="date" ></span> <span class="sp"><a href="#">Search</a></span>
                     <br>
                     <label class="lab" style="font-size: 20px; width: 100px">Client:</label> <input class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a href="#">Search</a></span>
                     <label class="lab" style="font-size: 20px; width: 120px; margin-left: 20px">Work Order:</label> <input class="text2" style="width: 345px" type="text"> <span style="width: 80px" class="sp"><a href="#">Search</a></span>
@@ -129,7 +138,6 @@
                 $("#address").empty();
             }
         });
-
     </script>
 @stop
 

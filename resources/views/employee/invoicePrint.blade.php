@@ -24,7 +24,7 @@
                     <label class="lab" style="font-size: 20px; width: 130px">Invoice:</label> <input class="text2" style="width: 400px" type="text"> <a class="sp" style="margin-left: 20px" href="#">Search</a>
                     <span>
                         <label class="lab" style="font-size: 20px; width: 70px; margin-left: 20px">Client:</label>
-                        <input class="text2" style="width: 400px" type="text">
+                        <input disabled class="text2" style="width: 400px" type="text">
                     </span>
                     <br>
                     <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input disabled class="text2" style="width: 400px" type="text">

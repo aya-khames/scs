@@ -37,6 +37,7 @@
                                 <option value="" disabled selected>User Type</option>
                                 <option class="dropdown-item">Accountant</option>
                                 <option class="dropdown-item">Administrator</option>
+                                <option class="dropdown-item">Client</option>
                                 <option class="dropdown-item">Manager</option>
                                 <option class="dropdown-item">Operation</option>
                                 <option class="dropdown-item">Secretary</option>

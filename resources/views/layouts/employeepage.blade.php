@@ -16,12 +16,12 @@
     {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--}}
 
 
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+{{--    <meta name="csrf-token" content="{{ csrf_token() }}" />--}}
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
 
 </head>
-<body style="background-image: url(/assets/img/bg-masthead.jpg); background-position: center; background-size: cover; background-repeat: no-repeat">
+<body style="background-image: url(/assets/img/bg-masthead.jpg); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: ">
 
 <header>
     <!-- Navbar -->
@@ -56,7 +56,8 @@
                 <li class="nav-item">
                     <a href="{{ route('logout') }}"
                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();" class="list-group-item list-group-item-action py-2 ripple"
+                        document.getElementById('logout-form').submit();"
+                       class="list-group-item list-group-item-action py-2 ripple"
                        style="background-color: rgba(126,18,28,0.94);color: #fff;border-radius: 15px; letter-spacing: 1px;
                             border: 2px rgba(255, 255, 255, 0.15); text-align: center; width: 120px;
                             box-shadow: 0 0 15px gainsboro"><span>Log Out </span><i style="color: whitesmoke" class="fas fa-sign-out-alt"></i>
@@ -73,53 +74,53 @@
 </header>
 <!-- Sidebar -->
 <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" style="background-color: rgba(240,248,248,0.39); margin-top: 92.93px">
-    <div style="margin-top: 5px">
+    <div style="margin-top: 5px; box-sizing: content-box">
         <div class="list-group list-group-flush mx-3 mt-4">
-            <a href="/page" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+            <a id="1" href="/page" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
                 <span>Client</span>
             </a>
-            <a href="/quoten" class="list-group-item list-group-item-action py-2 ripple active">
+            <a id="2" href="/quoten" class="list-group-item list-group-item-action py-2 ripple active">
                 <span>Quotation</span>
             </a>
-            <a href="/workn" class="list-group-item list-group-item-action py-2 ripple">
+            <a id="3" href="/workn" class="list-group-item list-group-item-action py-2 ripple">
                 <span>Work Order</span>
             </a>
-            <a href="/invn" class="list-group-item list-group-item-action py-2 ripple">
+            <a id="4" href="/invn" class="list-group-item list-group-item-action py-2 ripple">
                 <span>Invoice</span>
             </a>
-            <a href="/dnoten" class="list-group-item list-group-item-action py-2 ripple">
+            <a id="5" href="/dnoten" class="list-group-item list-group-item-action py-2 ripple">
                 <span>Delivery Note</span>
             </a>
-            <a href="/hireofn" class="list-group-item list-group-item-action py-2 ripple">
+            <a id="6" href="/hireofn" class="list-group-item list-group-item-action py-2 ripple">
                 <span>Hire ON/OFF</span>
             </a>
-            <a href="/unsafen" class="list-group-item list-group-item-action py-2 ripple">
+            <a id="7" href="/unsafen" class="list-group-item list-group-item-action py-2 ripple">
                 <span>Unsafe</span>
             </a>
-            <a class="list-group-item list-group-item-action py-2 ripple" style="padding: unset">
+            <a id="8" class="list-group-item list-group-item-action py-2 ripple" style="padding: unset">
                 <select onchange="location = this.value;" class="miniDrop" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <option value="" disabled selected>NDT</option>
                     <option value="dpin" class="dropdown-item">NDT D.P.I</option>
                     <option value="mpin" class="dropdown-item">NDT M.P.I</option>
                 </select>
             </a>
-            <a class="list-group-item list-group-item-action py-2 ripple" style="padding: unset">
+            <a id="9" class="list-group-item list-group-item-action py-2 ripple" style="padding: unset">
                 <select onchange="location = this.value;" class="miniDrop" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <option value="" disabled selected>Test Visual MPI</option>
                     <option value="tvn" class="dropdown-item">Test/Visual</option>
                     <option value="tmvmn" class="dropdown-item">Test.MPI/Visual.MPI</option>
                 </select>
             </a>
-            <a href="/cranen" class="list-group-item list-group-item-action py-2 ripple"
-            ><span>Crane</span></a
-            >
-            <a href="compn" class="list-group-item list-group-item-action py-2 ripple"
+            <a id="10" href="/cranen" class="list-group-item list-group-item-action py-2 ripple">
+                <span>Crane</span>
+            </a>
+            <a id="11" href="compn" class="list-group-item list-group-item-action py-2 ripple"
             ><span>Compressor</span></a
             >
-            <a href="/walln" class="list-group-item list-group-item-action py-2 ripple"
+            <a id="12" href="/walln" class="list-group-item list-group-item-action py-2 ripple"
             ><span>Wall Thickness</span></a
             >
-            <a href="/cdn" class="list-group-item list-group-item-action py-2 ripple"
+            <a id="13" href="/cdn" class="list-group-item list-group-item-action py-2 ripple"
             ><span>CDN</span></a
             >
         </div>
@@ -127,10 +128,11 @@
 </nav>
 <!-- Sidebar -->
 
-<!-- Forms -->
-<br> <br>
-@yield('content_1')
-<!-- Forms -->
+<div style="width: 1485px; height: 1000px; box-sizing: border-box">    <!-- Forms -->
+    <br> <p style="z-index: 40" id="userName">{{Auth::user()->user_name}}</p><br>
+    @yield('content_1')
+    <!-- Forms -->
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
@@ -140,7 +142,59 @@
 {{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>--}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
+<script>
+    var x = "{{Auth::user()->position}}";
+    if (x === "Accountant") {
+        document.getElementById("1").style['pointerEvents'] = 'none';
+        document.getElementById("2").style['pointerEvents'] = 'none';
+        document.getElementById("5").style['pointerEvents'] = 'none';
+        document.getElementById("6").style['pointerEvents'] = 'none';
+        document.getElementById("7").style['pointerEvents'] = 'none';
+        document.getElementById("8").style['pointerEvents'] = 'none';
+        document.getElementById("9").style['pointerEvents'] = 'none';
+        document.getElementById("10").style['pointerEvents'] = 'none';
+        document.getElementById("11").style['pointerEvents'] = 'none';
+        document.getElementById("12").style['pointerEvents'] = 'none';
+        document.getElementById("13").style['pointerEvents'] = 'none';
+        document.getElementById("1").style['cursor'] = 'default';
+        document.getElementById("2").style['cursor'] = 'default';
+        document.getElementById("5").style['cursor'] = 'default';
+        document.getElementById("6").style['cursor'] = 'default';
+        document.getElementById("7").style['cursor'] = 'default';
+        document.getElementById("8").style['cursor'] = 'default';
+        document.getElementById("9").style['cursor'] = 'default';
+        document.getElementById("10").style['cursor'] = 'default';
+        document.getElementById("11").style['cursor'] = 'default';
+        document.getElementById("12").style['cursor'] = 'default';
+        document.getElementById("13").style['cursor'] = 'default';
+    } else if (x === "Operation") {
+        document.getElementById("7").style['pointerEvents'] = 'none';
+        document.getElementById("8").style['pointerEvents'] = 'none';
+        document.getElementById("9").style['pointerEvents'] = 'none';
+        document.getElementById("10").style['pointerEvents'] = 'none';
+        document.getElementById("11").style['pointerEvents'] = 'none';
+        document.getElementById("12").style['pointerEvents'] = 'none';
+        document.getElementById("13").style['pointerEvents'] = 'none';
+        document.getElementById("7").style['cursor'] = 'default';
+        document.getElementById("8").style['cursor'] = 'default';
+        document.getElementById("9").style['cursor'] = 'default';
+        document.getElementById("10").style['cursor'] = 'default';
+        document.getElementById("11").style['cursor'] = 'default';
+        document.getElementById("12").style['cursor'] = 'default';
+        document.getElementById("13").style['cursor'] = 'default';
+    } else if (x === "Secretary") {
+        document.getElementById("1").style['pointerEvents'] = 'none';
+        document.getElementById("3").style['pointerEvents'] = 'none';
+        document.getElementById("4").style['pointerEvents'] = 'none';
+        document.getElementById("5").style['pointerEvents'] = 'none';
+        document.getElementById("6").style['pointerEvents'] = 'none';
+        document.getElementById("1").style['cursor'] = 'default';
+        document.getElementById("3").style['cursor'] = 'default';
+        document.getElementById("4").style['cursor'] = 'default';
+        document.getElementById("5").style['cursor'] = 'default';
+        document.getElementById("6").style['cursor'] = 'default';
+    }
+</script>
 @yield('scripts')
 </body>
 </html>

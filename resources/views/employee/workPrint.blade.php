@@ -21,23 +21,23 @@
                     <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input class="text2" style="width: 400px" type="text"> <a class="sp" style="margin-left: 20px" href="#">Search</a>
                     <br>
                     <label class="lab" style="font-size: 20px; width: 130px">Quotation:</label>
-                    <input class="text2" style="width: 400px" type="text">
+                    <input disabled class="text2" style="width: 400px" type="text">
                     <span>
                             <label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label>
-                            <input class="text2" style="width: 400px" type="text">
+                            <input disabled class="text2" style="width: 400px" type="text">
                         </span>
                     <br>
                     <label class="lab" style="font-size: 20px; width: 200px">Terms of payment:</label>
                     <br>
                     <span>
-                        <textarea readonly class="text2" style="width: 400px; height: 50px; resize: none; margin-left: 150px; scroll-behavior: smooth; display: inline-block">Maximum ONE MONTH from invoice date.</textarea>
+                        <textarea readonly class="text2" style="width: 400px; height: 50px; resize: none; margin-left: 145px; scroll-behavior: smooth; display: inline-block">Maximum ONE MONTH from invoice date.</textarea>
                     </span>
                 </div>
+                <div style="margin-bottom: 20px; margin-left: 400px; display: inline-block">
+                    <button class="bttn" style="width: 200px; font-size: 18px">Print with logo</button>
+                    <button class="bttn" style="width: 200px; font-size: 18px">Print without logo</button>
+                </div>
             </form>
-            <div style="margin-left: 400px; display: inline-block">
-                <button class="bttn" style="width: 200px; font-size: 18px">Print with logo</button>
-                <button class="bttn" style="width: 200px; font-size: 18px">Print without logo</button>
-            </div>
         </fieldset>
     </div>
 @stop

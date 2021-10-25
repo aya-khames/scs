@@ -14,7 +14,7 @@
                 <div class="lab tabSelected" style="cursor: default">
                     <a>Print</a>
                 </div>
-                <div onclick="location.href='unsafep';"  class="lab tab">
+                <div onclick="location.href='unsafes';"  class="lab tab">
                     <a>Search</a>
                 </div>
             </nav>
