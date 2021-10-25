@@ -133,6 +133,8 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::post('/storeQuote', 'SCS\QuoteController@insertQuote')-> name('insertQuote');
             Route::post('/editQuote', 'SCS\QuoteController@editQuote')-> name('editQuote');
 
+            Route::get('/findCP', 'SCS\QuoteController@findCP')->name('findCP');
+
             Route::post('/quotemm', 'SCS\QuoteController@deleteQD')->name('deleteQuoteDesc');
             Route::post('/editQuoteDes', 'SCS\QuoteController@editQD')-> name('editQuoteDesc');
             Route::post('/insertQuoteDes', 'SCS\QuoteController@insertQD')-> name('insertQuoteDesc');

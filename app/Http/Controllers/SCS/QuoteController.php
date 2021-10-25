@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\SCS;
 
 
+use App\Models\Client;
+use App\Models\Cp;
 use App\Models\Qitem;
 use App\Models\Quotation;
+use PhpParser\Node\Scalar\String_;
 use Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,13 +16,13 @@ use App\Http\Controllers\Controller;
 class QuoteController extends Controller{
 
     public function showQuotPage(){
-        return view('employee.quotation.quotationNew',['quotation'=>'']);
-        //return Redirect::to('quoten'. '');
+        $clients = Client::all();
+        return view('employee.quotation.quotationNew',['quotation'=>'', 'clients' => $clients]);
     }
 
     public function getRules(){
         $rules = [
-            'name' => 'required|max:100',
+            'client' => 'required|max:100',
             'contact' => 'required|max:100',
             'enquiry' => 'required|max:100',
             'currency' => 'required|max:100',
@@ -33,7 +36,7 @@ class QuoteController extends Controller{
         $msg = 'required';
         $msg1 = 'exceeded the limits';
         $messages = [
-            'name.required' => $msg,
+            'client.required' => $msg,
             'contact.required' => $msg,
             'enquiry.required' => $msg,
             'currency.required' => $msg,
@@ -54,14 +57,14 @@ class QuoteController extends Controller{
         if ($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInputs($request->all());
         }
-        $id = $request->name;
+        $id = $request->client;
         $quotId = 'Q';
         if (str_word_count($id) == 1){
-            $quotId = strtoupper(substr($id,0,3));
+            $quotId .= strtoupper(substr($id,0,3));
         }
         else if (str_word_count($id) == 2){
             $arr = explode(' ',trim($id));
-            $quotId = strtoupper(substr($arr[0],0,2). substr($arr[1],0,2));
+            $quotId .= strtoupper(substr($arr[0],0,2). substr($arr[1],0,2));
         }
         else{
             $arr = explode(' ',trim($id));
@@ -69,13 +72,11 @@ class QuoteController extends Controller{
                 $quotId .= strtoupper(substr($arr[$i],0,1));
             }
         }
-        $q = Quotation::where('Name_C',$request->name);
-
+        $q = Quotation::where('Name_C',$request->client)->first();
         if ($q === null){
-            $quotId .= strval(1);
-
+            $quotId .= '1';
         }
-       else{
+        else{
            $id = $q->orderBy('_id', 'desc')->first();
            if ($id !== null){
                $num =intval(substr($id->ID_QUO,strlen($quotId),strlen($id->ID_QUO)));
@@ -83,10 +84,9 @@ class QuoteController extends Controller{
                $quotId .= strval($num);
            }
         }
-        //return $quotId;
         $quot = new Quotation();
         $quot->ID_QUO = $quotId;
-        $quot->Name_C = $request->name;
+        $quot->Name_C = $request->client;
         $quot->C_P = $request->contact;
         $quot->Enquiry = $request->enquiry;
         $quot->Currency_QUO = $request->currency;
@@ -95,9 +95,16 @@ class QuoteController extends Controller{
         $quot->Delivery_Time = $request->delivery;
         $quot->VALIDITY_QUO = $request->validity;
         $quot->Vat = $request->vat;
+
         $quot->save();
-        return redirect('quoten')->with('quotation',$quotId);
+        return redirect()->back()->with('quotation',$quotId);
     }
+    public function findCP(Request $request)
+    {
+        $cp = Cp::where('Name_C', $request->client)->first();
+        return response()->json($cp);
+    }
+
 
     public function editQuote(Request $request){
         $validator = Validator::make($request->all(), $this->getRules(), $this->getMessage());
@@ -123,11 +130,14 @@ class QuoteController extends Controller{
     }
     #############Quotation Description##############################################
     public function insertQuotDes(Request $request){
+        $this->validate($request,[
+
+        ]);
         $quot = new Qitem();
         $quot->ID_QUO = $request->quotation;
         $quot->Name_C = $request->client;
         $quot->Description = $request->description;
-
+        
         $quot->Price_QUO = $request->unitPrice;
         $quot->QTY = $request->qty;
         $quot->Type_QUO = $request->type;
