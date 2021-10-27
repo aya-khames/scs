@@ -31,18 +31,18 @@
                         </select>
                     </a>
                     <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Address:</label>
-                        <select id="address" name="Address" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     {{--  <input id="address" name="Address" class="text2" style="width: 400px" type="text">--}}
-                        </select>
+{{--                        <select id="address" name="Address" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
+                       <input id="address" name="Address" class="text2" style="width: 400px" type="text">
+{{--                        </select>--}}
                             </span>
                     <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label>
                     <a style="padding: unset">
-                        <select name="workorder" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <select id="work" name="workorder" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <option value="" disabled selected>Work Order</option>
                         </select>
                     </a>
                     {{--generated--}}
-                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Invoice:</label> <input name="invoice" class="text2" style="width: 400px" type="text"></span>
+                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Invoice:</label> <input id="invoice" name="invoice" class="text2" style="width: 400px" type="text"></span>
                     <label class="lab" style="font-size: 20px; width: 130px">REQ NO:</label> <input name="reqnumber" class="text2" style="width: 400px" type="text">
                     <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Currency:</label>
                         <a style="padding: unset">
@@ -120,21 +120,64 @@
                     success: function(res) {
                         if (res) {
                             $("#address").empty();
-                            $("#address").append('<option>Select State</option>');
-                                // console.log(res.Address);
-                                $("#address").append('<option value="' + res.Address + '">' + res.Address +
-                                    '</option>');
-                            // $.each(res, function(value) {
-                            //
-                            // });
+                            $("#work").empty();
+                            $("#work").append('<option>Select Work Order</option>');
+                            $.each(res, function(key,value) {
+                                if(key === "add"){
+                                    $("#address").val(value.Address);
+                                }
+                                if(key === "wo"){
+                                    $.each(value, function(key1, value1) {
+                                        $("#work").append('<option value="' + value1.ID_WO + '">' + value1.ID_WO +
+                                            '</option>');
+                                        // console.log(value1);
+                                    });
+                                }
+                            });
 
                         } else {
                             $("#address").empty();
+                            $("#work").empty();
                         }
                     }
                 });
             } else {
+                $("#work").empty();
+                $("#address").empty();
+            }
+        });
+        $('#work').change(function (){
+            var work = $(this).val();
+            if (work) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('generateInvoice')}}",
+                    data: {work: work},
+                    success: function(res) {
+                        if (res) {
+                            $("#invoice").empty();
+                            $("#invoice").val(res);
+                            // $.each(res, function(key,value) {
+                            //     if(key === "add"){
+                            //         $("#address").val(value.Address);
+                            //     }
+                            //     if(key === "wo"){
+                            //         $.each(value, function(key1, value1) {
+                            //             $("#work").append('<option value="' + value1.ID_WO + '">' + value1.ID_WO +
+                            //                 '</option>');
+                            //             // console.log(value1);
+                            //         });
+                            //     }
+                            // });
 
+                        } else {
+                            $("#address").empty();
+                            $("#work").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#work").empty();
                 $("#address").empty();
             }
         });

@@ -48,7 +48,7 @@ class HireController extends Controller
         $hire = Hire::where('ID_DN', $request->dnote)->first();
         if ($hire === null){
             $dnote = Deliverynote::where('ID_DN', $request->dnote)->first();
-            if($dnote->Name_C !== null){
+            if(Hire::where('Name_C', $dnote->Name_C)->first() === null){
                 $h .= '1';
             }
             else{
@@ -58,14 +58,12 @@ class HireController extends Controller
                 while (Hire::where('Hire_ON', $h)->first() !== null){
                     $num =intval(substr($h,strlen($temp),strlen($h)));
                     $num++;
-                    $hire = $temp;
-                    $hire .= strval($num);
-                    $h = $hire;
+                    $h = $temp;
+                    $h .= strval($num);
                 }
             }
         } else{
-            //generate error
-            //$h .= '1';
+           $h = '';
         }
         return response()->json($h);
     }

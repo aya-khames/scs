@@ -4,6 +4,8 @@ namespace App\Http\Controllers\SCS;
 
 use App\Models\Client;
 use App\Models\Invoice;
+use App\Models\Quotation;
+use App\Models\Workorder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -50,8 +52,46 @@ class InvoiceController extends Controller
     public function findAdd(Request $request)
     {
         $add = Client::where('Name_C', $request->client)->first();
-        return response()->json($add);
+        $wo = Workorder::where('Name_C', $request->client)->get();
+        return response()->json([
+            'add'=>$add,
+            'wo'=>$wo
+        ]);
     }
+    public function generateInvoice(Request $request)
+    {
+        $work = Workorder::where('ID_WO', $request->work)->first();
+        $inID = 'IN'.$work->ID_QUO;
+        $Id = '';
+        for ($i=0 ; $i < strlen($inID) ; $i++){
+            if ( ctype_digit($inID[$i]) ) {
+                break;
+            }else{
+                $Id .= $inID[$i];
+            }
+        }
+        $temp = $Id;
+        $invoice = Invoice::where('ID_WO', $request->work)->first();
+        if ($invoice === null){
+            if (Invoice::where('Name_C', $work->Name_C)->first() === null){
+                $Id .= '1';
+            }else{
+                $num =intval(substr($invoice->ID_IN,strlen($Id),strlen($invoice->ID_IN)));
+                $num++;
+                $Id .= strval($num);
+                while (Invoice::where('ID_IN', $Id)->first() !== null){
+                    $num =intval(substr($Id,strlen($temp),strlen($Id)));
+                    $num++;
+                    $Id = $temp.strval($num);
+                }
+            }
+        }
+        else{
+            $Id = '';
+        }
+        return response()->json($Id);
+    }
+
 
 
 
