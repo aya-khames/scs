@@ -5,8 +5,6 @@ namespace App\Http\Controllers\SCS;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Deliverynote;
-
-use App\Models\Quotation;
 use App\Models\Workorder;
 use Illuminate\Http\Request;
 
@@ -26,6 +24,8 @@ class DeliveryController extends Controller
         $dNote->Delivery_Date1 = $request->date;
         $dNote->P_O = $request->po;
         $dNote->REQ_NO = $request->req;
+        $dNote->save();
+        return redirect()->back();
     }
     public function dynamicDP(Request $request){
         $wo = Workorder::where('Name_C', '=', $request->client)->get();

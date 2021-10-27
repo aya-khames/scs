@@ -13,38 +13,43 @@
                 </div>
             </nav>
             <br>
-            <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px">
+            <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px" method="POST">
+                @csrf
                 <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                     <label class="lab" style="font-size: 20px; width: 130px">Client:</label>
                     <a style="padding: unset">
-                        <select class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <select name="client" id="clientname" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <option value="" disabled selected></option>
+                            @foreach($clients as $client)
+                                <option>{{$client->Name_C}}</option>
+                            @endforeach
                         </select>
                     </a>
                     <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Delivery Note:</label>
                         <a style="padding: unset">
-                            <select disabled class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select name="dnote" id="dnote" disabled class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected></option>
                             </select>
                         </a>
                     </span>
                     <label class="lab" style="font-size: 20px; width: 130px">Hire On:</label>
-                    <input disabled class="text2" style="width: 400px" type="text">
+                    <input id="hireon" name="hireon" readonly disabled class="text2" style="width: 400px" type="text">
 
                     <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Date On:</label>
-                        <input disabled class="Date text2" style="width: 190px" type="date">
+                        <input name="date" id="date" disabled class="Date text2" style="width: 190px" type="date">
                         <input disabled class="Date text2" style="width: 195px" type="text">
                     </span>
 
                     <label class="lab" style="font-size: 20px; width: 130px">Hire Off:</label>
-                    <input disabled class=" text2" style="width: 400px" type="text">
+                    <input name="hireoff" disabled class=" text2" style="width: 400px" type="text">
                     <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Date Off:</label>
-                        <input disabled class=" text2" style="width: 190px" type="date">
+                        <input name="dateoff" disabled class=" text2" style="width: 190px" type="date">
                         <input disabled class=" text2" style="width: 195px" type="text">
                     </span>
                 </div>
                 <div style="margin-left: 500px; margin-bottom: 20px">
-                    <button class="bttn">Edit</button><button class="bttn">Insert</button>
+                    <button class="bttn" type="submit" onclick="get_action1(this.form)">Edit</button>
+                    <button class="bttn" type="submit" onclick="get_action2(this.form)">Insert</button>
                 </div>
             </form>
             <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px">
@@ -66,4 +71,67 @@
             </form>
         </fieldset>
     </div>
+@stop
+@section('scripts')
+    <script>
+        function get_action1(form) {
+            form.action = "{{route('edit')}}";
+        };
+        function get_action2(form) {
+            form.action = "{{route('createClient')}}";
+        };
+        $(document).ready(function(){
+            $('#clientname').change(function() {
+
+                document.getElementById('dnote').disabled = false;
+                var client = $(this).val();
+                if (client) {
+                    $.ajax({
+                        type: "GET",
+                        url: "{{route('dynamicHire')}}",
+                        data: {client: client},
+                        success: function(res) {
+                            console.log("check");
+                            if (res) {
+                                $("#dnote").empty();
+                                $("#dnote").append('<option>Select Delivery Note</option>');
+                                $.each(res, function(key, value) {
+                                    $("#dnote").append('<option value="' + value.ID_DN + '">' + value.ID_DN +
+                                        '</option>');
+                                });
+                            } else {
+                                $("#dnote").empty();
+                            }
+                        }
+                    });
+                } else {
+                    $("#dnote").empty();
+                }
+            });
+            $('#dnote').change(function (){
+
+
+                var dnote = $(this).val();
+                if (dnote) {
+                    $.ajax({
+                        type: "GET",
+                        url: "{{route('generateHire')}}",
+                        data: {dnote: dnote},
+                        success: function(res) {
+                            if (res) {
+                                $("#hireon").empty();
+                                document.getElementById('date').disabled = false;
+                                document.getElementById('hireon').disabled = false;
+                                $("#hireon").val(res);
+                            } else {
+                                $("#hireon").empty();
+                            }
+                        }
+                    });
+                } else {
+                    $("#hireon").empty();
+                }
+            });
+        });
+    </script>
 @stop

@@ -162,9 +162,12 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::get('/dnID', 'SCS\DeliveryController@dnID')->name('dnID');
             Route::post('/insertdnote', 'SCS\DeliveryController@insertDNote')->name('insertdnote');
 
-            Route::get('/hireofn', function () {
-                return view('employee.hire.hireOFNew');
-            });
+            Route::get('/hireofn', 'SCS\HireController@showHire');
+            Route::get('/dynamicHire', 'SCS\HireController@dynamicHire')->name('dynamicHire');
+            Route::get('/generateHire', 'SCS\HireController@generateHire')->name('generateHire');
+//            Route::get('/hireofn', function () {
+//                return view('employee.hire.hireOFNew');
+//            });
             Route::get('/hireofp', function () {
                 return view('employee.hire.hireOFPrint');
             });
@@ -230,14 +233,6 @@ Route::group(['middleware' => 'prevent'],function(){
                 return view('client.getCert');
             });
         });
-
-//    Route::post('/workdesedit', 'SCS\WorkController@editWD')->name('editWorkDes');
-//    Route::post('/workdesinsert', 'SCS\WorkController@insertWD')->name('insertWorkDes');
-//    Route::post('/workdesedit', 'SCS\WorkController@deleteWD')->name('deleteWorkDes');
-
-        // Route::get('/tvn', 'ClientController@getData');
-
-
     });
 
 
