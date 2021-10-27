@@ -39,7 +39,7 @@
                     @error('contact')
                     <small class="from-text text-danger">{{$message}}</small>
                     @enderror
-                    <label class="lab" style="font-size: 20px; width: 130px">Quotation:</label> <input name="quot" id="qid" class="text2" style="width: 400px" type="text" value="{{Session::get('quotation')}}">
+                    <label class="lab" style="font-size: 20px; width: 130px">Quotation:</label> <input name="quot" id="qid" class="text2" style="width: 400px" type="text">
                     <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Enquiry:</label> <input name="enquiry" class="text2" style="width: 400px" type="text"></span>
                     @error('enquiry')
                     <small class="from-text text-danger">{{$message}}</small>
@@ -48,10 +48,10 @@
                     <a style="padding: unset">
                         <select name="currency" class="miniDrop2"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <option value="" disabled selected>Currency</option>
-                            <option value="">LE</option>
-                            <option value="">USD</option>
-                            <option value="">EUR</option>
-                            <option value="">GBP</option>
+                            <option >LE</option>
+                            <option >USD</option>
+                            <option >EUR</option>
+                            <option >GBP</option>
                         </select>
                     </a>
                     @error('currency')
@@ -72,9 +72,9 @@
                     <label class="lab" style="font-size: 20px; width: 130px">VAT:</label>
                     <a style="padding: unset">
                         <select name="vat" class="miniDrop2"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 300px">
-                            <option value="" disabled selected>...</option>
-                            <option value="">With Vat.</option>
-                            <option value="">Without Vat.</option>
+                            <option disabled selected>...</option>
+                            <option >With Vat.</option>
+                            <option >Without Vat.</option>
                         </select>
                     </a>
                     <input class="text2" type="text" disabled style="width: 70px"> %
@@ -101,7 +101,6 @@
 @stop
 @section('scripts')
     <script>
-
         function get_action1(form) {
             form.action = "{{route('editQuote')}}";
         }
@@ -122,10 +121,20 @@
                             $("#contact").empty();
                             $("#contact").append('<option>Select Contact Person</option>');
                             $.each(res, function(key, value) {
-                                if (key == 'C_P'){
-                                    $("#contact").append('<option value="' + value + '">' + value +
-                                        '</option>');
+                                if (key === "cp"){
+                                    $.each(value, function(key1, value1) {
+                                        $("#contact").append('<option value="' + value1.C_P + '">' + value1.C_P +
+                                            '</option>');
+                                        // console.log(value1);
+                                    });
                                 }
+                                if(key === "quotId"){
+                                    console.log(value);
+                                    $("#qid").val(value);
+                                    // $("#qid").append('<option value="' + value.ID_QUO + '">' + value.ID_QUO +
+                                    //     '</option>');
+                                }
+
                             });
 
                         } else {
@@ -135,7 +144,7 @@
                 });
             } else {
 
-                $("#address").empty();
+                $("#contact").empty();
             }
         });
     </script>

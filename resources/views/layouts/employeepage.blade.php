@@ -21,7 +21,7 @@
     <link href="css/styles.css" rel="stylesheet" />
 
 </head>
-<body style="background-image: url(/assets/img/bg-masthead.jpg); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: ">
+<body style="background-image: url(/assets/img/bg-masthead.jpg); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed">
 
 <header>
     <!-- Navbar -->

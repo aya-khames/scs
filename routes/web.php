@@ -150,15 +150,17 @@ Route::group(['middleware' => 'prevent'],function(){
         });
         Route::middleware(['isSecretary', 'isAccountant', 'isClient'])->group(function (){
 
-            Route::get('/dnoten', function () {
-                return view('employee.delivery.dNoteNew');
-            });
+
+            Route::get('/dnoten', 'SCS\DeliveryController@showDNote');
             Route::get('/dnoted', function () {
                 return view('employee.delivery.dNoteDes');
             });
             Route::get('/dnotep', function () {
                 return view('employee.delivery.dNotePrint');
             });
+            Route::get('/dynamicDP', 'SCS\DeliveryController@dynamicDP')->name('dynamicDP');
+            Route::get('/dnID', 'SCS\DeliveryController@dnID')->name('dnID');
+            Route::post('/insertdnote', 'SCS\DeliveryController@insertDNote')->name('insertdnote');
 
             Route::get('/hireofn', function () {
                 return view('employee.hire.hireOFNew');
@@ -185,6 +187,8 @@ Route::group(['middleware' => 'prevent'],function(){
             ###############work###################################################
 
             Route::get('/workn', 'SCS\WorkController@showWorkNew')->name('showWorkNew');
+            Route::get('/findQ', 'SCS\WorkController@findQ')->name('findQ');
+            Route::get('/findCQ', 'SCS\WorkController@findCQ')->name('findCQ');
             Route::post('/workedit', 'SCS\WorkController@editWN')->name('editWorkNew');
             Route::post('/workinsert', 'SCS\WorkController@insertWN')->name('insertWorkNew');
             Route::post('/workdesdelete', 'SCS\WorkController@deleteWD')->name('deleteWorkDes');
