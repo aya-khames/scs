@@ -39,14 +39,14 @@
                     @error('contact')
                     <small class="from-text text-danger">{{$message}}</small>
                     @enderror
-                    <label class="lab" style="font-size: 20px; width: 130px">Quotation:</label> <input name="quot" id="qid" class="text2" style="width: 400px" type="text">
-                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Enquiry:</label> <input name="enquiry" class="text2" style="width: 400px" type="text"></span>
+                    <label class="lab" style="font-size: 20px; width: 130px">Quotation:</label> <input disabled readonly name="quot" id="qid" class="text2" style="width: 400px" type="text">
+                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Enquiry:</label> <input disabled name="enquiry" id="enq" class="text2" style="width: 400px" type="text"></span>
                     @error('enquiry')
                     <small class="from-text text-danger">{{$message}}</small>
                     @enderror
                     <label class="lab" style="font-size: 20px; width: 130px">Currency:</label>
                     <a style="padding: unset">
-                        <select name="currency" class="miniDrop2"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <select disabled id="curr" name="currency" class="miniDrop2"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <option value="" disabled selected>Currency</option>
                             <option >LE</option>
                             <option >USD</option>
@@ -57,28 +57,28 @@
                     @error('currency')
                     <small class="from-text text-danger">{{$message}}</small>
                     @enderror
-                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Date:</label> <input name="date" class="text2" style="width: 195px" type="date"><input readonly class="text2" style="width: 195px" type="text"></span>
+                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Date:</label> <input disabled id="date1" name="date" class="text2" style="width: 195px" type="date"><input disabled readonly id="date2" class="text2" style="width: 195px" type="text"></span>
                     @error('date')
                     <small class="from-text text-danger">{{$message}}</small>
                     @enderror
-                    <label class="lab" style="font-size: 20px; width: 130px">Delivery Time:</label> <input name="delivery" class="text2" style="width: 400px" >
+                    <label class="lab" style="font-size: 20px; width: 130px">Delivery Time:</label> <input disabled id="dt" name="delivery" class="text2" style="width: 400px" >
                     @error('delivery')
                     <small class="from-text text-danger">{{$message}}</small>
                     @enderror
-                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Transportation:</label> <input name="transportation" class="text2" style="width: 400px" type="text"></span>
+                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Transportation:</label> <input id="trans" disabled name="transportation" class="text2" style="width: 400px" type="text"></span>
                     @error('transportation')
                     <small class="from-text text-danger">{{$message}}</small>
                     @enderror
                     <label class="lab" style="font-size: 20px; width: 130px">VAT:</label>
                     <a style="padding: unset">
-                        <select id="vat" name="vat" class="miniDrop2"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 300px">
+                        <select disabled id="vat" name="vat" class="miniDrop2"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 300px">
                             <option disabled selected>...</option>
                             <option>With Vat.</option>
                             <option>Without Vat.</option>
                         </select>
                     </a>
                     <input id="vatOn" class="text2" type="text" disabled style="width: 70px"> %
-                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Validity:</label> <input disabled name="validity" class="text2" style="width: 400px" type="text"></span>
+                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Validity:</label> <input disabled id="val" name="validity" class="text2" style="width: 400px" type="text"></span>
                     <br><br>
                     <div style="margin-left: 490px">
                         <button class="bttn" type="submit" onclick="get_action1(this.form)">Edit</button>
@@ -106,7 +106,6 @@
         }
         function get_action2(form) {
             console.log("check");
-          //  document.getElementById("qid").value = '';
             form.action = "{{route('insertQuote')}}";
         }
         $('#clientname').change(function() {
@@ -125,25 +124,30 @@
                                     $.each(value, function(key1, value1) {
                                         $("#contact").append('<option value="' + value1.C_P + '">' + value1.C_P +
                                             '</option>');
-                                        // console.log(value1);
                                     });
                                 }
                                 if(key === "quotId"){
                                     console.log(value);
                                     $("#qid").val(value);
-                                    // $("#qid").append('<option value="' + value.ID_QUO + '">' + value.ID_QUO +
-                                    //     '</option>');
                                 }
 
                             });
-
+                            document.getElementById('contact').disabled = false;
+                            document.getElementById('qid').disabled = false;
+                            document.getElementById('enq').disabled = false;
+                            document.getElementById('curr').disabled = false;
+                            document.getElementById('date1').disabled = false;
+                            document.getElementById('date2').disabled = false;
+                            document.getElementById('dt').disabled = false;
+                            document.getElementById('trans').disabled = false;
+                            document.getElementById('vat').disabled = false;
+                            document.getElementById('val').disabled = false;
                         } else {
                             $("#contact").empty();
                         }
                     }
                 });
             } else {
-
                 $("#contact").empty();
             }
         });
