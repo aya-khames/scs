@@ -37,6 +37,8 @@ class HireController extends Controller
         $hireOn = 'HO';
         $hireOn .= substr($request->dnote,2, strlen($request->dnote));
         $h = '';
+        $hof = '';
+        $date = '';
         for ($i=0 ; $i < strlen($hireOn) ; $i++){
             if ( ctype_digit($hireOn[$i]) ) {
                 break;
@@ -46,26 +48,41 @@ class HireController extends Controller
         }
         $temp = $h;
         $hire = Hire::where('ID_DN', $request->dnote)->first();
-        if ($hire === null){
+        if($hire === null) {
             $dnote = Deliverynote::where('ID_DN', $request->dnote)->first();
-            if(Hire::where('Name_C', $dnote->Name_C)->first() === null){
+            if (Hire::where('Name_C', $dnote->Name_C)->first() === null) {
                 $h .= '1';
-            }
-            else{
-                $num =intval(substr($hire->Hire_ON,strlen($h),strlen($hire->Hire_ON)));
+            } else {
+
+                $num = intval(substr($hire->Hire_ON, strlen($h), strlen($hire->Hire_ON)));
                 $num++;
                 $h .= strval($num);
-                while (Hire::where('Hire_ON', $h)->first() !== null){
-                    $num =intval(substr($h,strlen($temp),strlen($h)));
+                while (Hire::where('Hire_ON', $h)->first() !== null) {
+                    $num = intval(substr($h, strlen($temp), strlen($h)));
                     $num++;
                     $h = $temp;
                     $h .= strval($num);
                 }
             }
-        } else{
-           $h = '';
         }
-        return response()->json($h);
+        else{
+            $temp = Hire::where('Hire_ON', $hire->Hire_ON)->first();
+            $hire = $temp;
+            $h = $hire->Hire_ON;
+        }
+
+       if ( $hire !== null && $hire->Hire_ON !== "" &&  $hire->Hire_OFF === "" ) {
+            $hof = str_replace('O','F',$h);
+            $date = $hire->Date_ON;
+
+        }
+
+
+        return response()->json([
+            'hon'=>$h,
+            'hof'=>$hof,
+            'date'=>$date
+        ]);
     }
 
 }

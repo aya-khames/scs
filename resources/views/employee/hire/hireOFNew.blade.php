@@ -37,14 +37,14 @@
 
                     <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Date On:</label>
                         <input name="date" id="date" disabled class="Date text2" style="width: 190px" type="date">
-                        <input disabled class="Date text2" style="width: 195px" type="text">
+                        <input id="dateOn" disabled readonly class="Date text2" style="width: 195px" type="text">
                     </span>
 
                     <label class="lab" style="font-size: 20px; width: 130px">Hire Off:</label>
-                    <input name="hireoff" disabled class=" text2" style="width: 400px" type="text">
+                    <input id="hireoff" name="hireoff" disabled readonly class=" text2" style="width: 400px" type="text">
                     <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Date Off:</label>
-                        <input name="dateoff" disabled class=" text2" style="width: 190px" type="date">
-                        <input disabled class=" text2" style="width: 195px" type="text">
+                        <input id="dateoff" name="dateoff" disabled class=" text2" style="width: 190px" type="date">
+                        <input disabled readonly class=" text2" style="width: 195px" type="text">
                     </span>
                 </div>
                 <div style="margin-left: 500px; margin-bottom: 20px">
@@ -91,7 +91,7 @@
                         url: "{{route('dynamicHire')}}",
                         data: {client: client},
                         success: function(res) {
-                            console.log("check");
+                            // console.log("check");
                             if (res) {
                                 $("#dnote").empty();
                                 $("#dnote").append('<option>Select Delivery Note</option>');
@@ -110,7 +110,6 @@
             });
             $('#dnote').change(function (){
 
-
                 var dnote = $(this).val();
                 if (dnote) {
                     $.ajax({
@@ -120,16 +119,37 @@
                         success: function(res) {
                             if (res) {
                                 $("#hireon").empty();
-                                document.getElementById('date').disabled = false;
-                                document.getElementById('hireon').disabled = false;
-                                $("#hireon").val(res);
+                                $.each(res, function(key, value) {
+                                   if (key === "hon"){
+                                       document.getElementById('date').disabled = false;
+                                       document.getElementById('hireon').disabled = false;
+                                       // console.log(value);
+                                       $("#hireon").val(value);
+                                   }
+                                   if(key === "hof"){
+                                       $("#hireoff").val(value);
+                                       if (value !== ""){
+                                           document.getElementById('dateoff').disabled = false;
+                                           document.getElementById('hireoff').disabled = false;
+                                           document.getElementById('date').disabled = true;
+                                       }
+                                   }
+                                   if (key === "date"){
+                                       $("#dateOn").val(value);
+                                   }
+
+                                });
+
+
                             } else {
                                 $("#hireon").empty();
+                                $("#hireoff").empty();
                             }
                         }
                     });
                 } else {
                     $("#hireon").empty();
+                    $("#hireoff").empty();
                 }
             });
         });

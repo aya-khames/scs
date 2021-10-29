@@ -31,9 +31,11 @@ Route::group(['middleware' => 'prevent'],function(){
             return view('employee.start');
         })->middleware('isClient');
         Route::middleware(['isAccountant', 'isOperation', 'isClient'])->group(function (){
-            Route::get('/unsafen', function () {
-                return view('employee.unsafe.unsafeNew');
-            });
+//            Route::get('/unsafen', function () {
+//                return view('employee.unsafe.unsafeNew');
+//            });
+            Route::get('/unsafen', 'SCS\UnsafeController@showunsafe');
+            Route::get('/generateRep', 'SCS\UnsafeController@generateRep')->name('generateRep');
             Route::get('/unsafed', function () {
                 return view('employee.unsafe.unsafeDes');
             });
@@ -122,10 +124,12 @@ Route::group(['middleware' => 'prevent'],function(){
                 return view('employee.compressor.compPrint');
             });
 
+            Route::get('/cdn', 'SCS\CdnController@showcdn');
+            Route::get('/getCP', 'SCS\CdnController@getCP')->name('getCP');
+//            Route::get('/cdn', function () {
+//                return view('employee.cdn.CDN');
+//            });
 
-            Route::get('/cdn', function () {
-                return view('employee.cdn.CDN');
-            });
         });
         Route::middleware(['isAccountant', 'isClient'])->group(function (){
             //quotation

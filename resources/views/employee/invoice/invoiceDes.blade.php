@@ -26,7 +26,7 @@
                     <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input disabled class="text2" style="width: 400px" type="text">
                     <span><label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input disabled class="text2" style="width: 400px" type="text"></span>
                     <br>
-                    <input style="margin-left: 700px; height: 17px; width: 17px" id="check" value="0" type="checkbox">
+                    <input style="margin-left: 675px; height: 17px; width: 17px" disabled id="check" value="0" type="checkbox">
                     <br>
                     <label class="lab" style="font-size: 20px; width: 130px">Description:</label>
                     <label class="lab" style="font-size: 20px; width: 100px; margin-left: 430px">Unit Price:</label><input disabled id="check1" class="text2" style="width: 70px; margin-top: 10px" type="text">

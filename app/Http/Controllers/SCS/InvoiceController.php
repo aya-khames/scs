@@ -76,14 +76,20 @@ class InvoiceController extends Controller
             if (Invoice::where('Name_C', $work->Name_C)->first() === null){
                 $Id .= '1';
             }else{
-                $num =intval(substr($invoice->ID_IN,strlen($Id),strlen($invoice->ID_IN)));
-                $num++;
-                $Id .= strval($num);
-                while (Invoice::where('ID_IN', $Id)->first() !== null){
-                    $num =intval(substr($Id,strlen($temp),strlen($Id)));
+                if ($invoice !== null){
+                    $num =intval(substr($invoice->ID_IN,strlen($Id),strlen($invoice->ID_IN)));
                     $num++;
-                    $Id = $temp.strval($num);
+                    $Id .= strval($num);
+                    while (Invoice::where('ID_IN', $Id)->first() !== null){
+                        $num =intval(substr($Id,strlen($temp),strlen($Id)));
+                        $num++;
+                        $Id = $temp.strval($num);
+                    }
                 }
+                else{
+                    $Id = '';
+                }
+
             }
         }
         else{

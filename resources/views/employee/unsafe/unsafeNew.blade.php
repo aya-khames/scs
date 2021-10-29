@@ -24,37 +24,40 @@
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 20px; width: 140px">Client:</label>
                         <a style="padding: unset">
-                            <select class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select id="client" name="client" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected></option>
+                                @foreach($clients as $client)
+                                    <option>{{$client->Name_C}}</option>
+                                @endforeach
                             </select>
                         </a>
                         <label class="lab" style="font-size: 20px; width: 110px; margin-left: 40px">Address:</label>
-                        <input class="text2" style="width: 400px" type="text">
+                        <input name="address" id="address" class="text2" style="width: 400px" type="text">
                         <label class="lab" style="font-size: 20px; width: 140px">Work Order:</label>
                         <a style="padding: unset">
-                            <select class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select id="work" name="work" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected></option>
                             </select>
                         </a>
                         <label class="lab" style="font-size: 20px; width: 110px; margin-left: 40px">Report No.</label>
-                        <input class="text2" style="width: 400px" type="text">
+                        <input id="report" name="report" class="text2" style="width: 400px" type="text">
                         <label class="lab" style="font-size: 20px; width: 140px">Report Date:</label>
-                        <input class="Date text2" style="width: 190px" type="date">
-                        <input class="Date text2" style="width: 195px" type="text">
+                        <input name="date1" class="Date text2" style="width: 190px" type="date">
+                        <input name="date2" class="Date text2" style="width: 195px" type="text">
                         <label class="lab" style="font-size: 18px; width: 110px; margin-left: 40px">ID No.</label>
-                        <input class="Date text2" style="width: 400px" type="text">
+                        <input name="ID" class="Date text2" style="width: 400px" type="text">
                     </div>
                 </form>
 
                 <form style="display: inline-block; margin: 10px 10px 10px 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 500px">
                     <div style="padding: 10px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 18px; width: 350px; margin-left: 10px">Is this the first examination after installation or assembly at a new site or location?</label>
-                        <input type="radio" style="margin-left: 10px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                        <input type="radio" style="margin-left: 10px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                        <input type="radio" name="radio1" id="box1" style="margin-left: 10px"><label for="box1" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                        <input type="radio" name="radio1" id="box2" style="margin-left: 10px"><label for="box2" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                         <br><br>
                         <label class="lab" style="font-size: 18px; width: 350px; margin-left: 10px">If YES, has the equipment been installed correctly?</label>
-                        <input type="radio" style="margin-left: 10px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                        <input type="radio" style="margin-left: 10px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                        <input type="radio" name="radio2" id="box3" style="margin-left: 10px"><label for="box3" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                        <input type="radio" name="radio2" id="box4" style="margin-left: 10px"><label for="box4" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                     </div>
                 </form>
                 <div style="display: inline-block">
@@ -63,18 +66,18 @@
                     <form style="margin: 10px 20px 10px 10px;box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 750px">
                         <div style="padding: 10px; background-color: rgba(240,248,248,0.05)">
                             <label class="lab" style="font-size: 18px; width: 250px; margin-left: 10px">within an interval of 6 months?</label>
-                            <input type="radio" style="margin-left: 10px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                            <input type="radio" style="margin-left: 10px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                            <input type="radio" name="radio3" id="box5" style="margin-left: 10px"><label for="box5" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                            <input type="radio" name="radio3" id="box6" style="margin-left: 10px"><label for="box6" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                             <label class="lab" style="font-size: 18px; width: 210px; margin-left: 30px">In accordance with an examination scheme?</label>
-                            <input type="radio" style="margin-left: 10px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                            <input type="radio" style="margin-left: 10px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                            <input type="radio" name="radio4" id="box7" style="margin-left: 10px"><label for="box7" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                            <input type="radio" name="radio4" id="box8" style="margin-left: 10px"><label for="box8" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                             <br><br>
                             <label class="lab" style="font-size: 18px; width: 250px; margin-left: 10px">within an interval of 12 months?</label>
-                            <input type="radio" style="margin-left: 10px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                            <input type="radio" style="margin-left: 10px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                            <input type="radio" name="radio5" id="box9" style="margin-left: 10px"><label for="box9" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                            <input type="radio" name="radio5" id="box10" style="margin-left: 10px"><label for="box10" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                             <label class="lab" style="font-size: 18px; width: 210px; margin-left: 30px">After the occurrence of exceptional circumstances?</label>
-                            <input type="radio" style="margin-left: 10px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                            <input type="radio" style="margin-left: 10px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                            <input type="radio" name="radio6" id="box11" style="margin-left: 10px"><label for="box11" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                            <input type="radio" name="radio6" id="box12" style="margin-left: 10px"><label for="box12" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                         </div>
                     </form>
                 </div>
@@ -88,12 +91,12 @@
                 <form style="margin: 10px 20px 10px 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1270px">
                     <div style="padding: 20px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 20px; width: auto">Is the above a defect which is of immediate danger to persons:</label>
-                        <input type="radio" style="margin-left: 20px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                        <input type="radio" style="margin-left: 20px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                        <input type="radio" name="radio7" id="box13" style="margin-left: 20px"><label for="box13" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                        <input type="radio" name="radio7" id="box14" style="margin-left: 20px"><label for="box14" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                         <br>
                         <label class="lab" style="font-size: 20px; width: auto">Is the above a defect which is not yet but could become a danger to persons:</label>
-                        <input type="radio" style="margin-left: 20px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                        <input type="radio" style="margin-left: 20px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                        <input type="radio" name="radio8" id="box15" style="margin-left: 20px"><label for="box15" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                        <input type="radio" name="radio8" id="box16" style="margin-left: 20px"><label for="box16" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                     </div>
                 </form>
                 <form style="margin: 10px 20px 10px 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1270px">
@@ -113,21 +116,21 @@
                 <form style="margin: 10px 20px 10px 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1270px">
                     <div style="padding: 20px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 18px; width: auto">IS THIS EQUIPMENT SAFE TO OPERATE:</label>
-                        <input type="radio" style="margin-left: 20px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                        <input type="radio" style="margin-left: 20px"><label style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                        <input type="radio" name="radio9" id="box17" style="margin-left: 20px"><label for="box17" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                        <input type="radio" name="radio9" id="box18" style="margin-left: 20px"><label for="box18" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                     </div>
                 </form>
                 <form style="margin: 10px 20px 10px 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1270px">
                     <div style="padding: 10px; box-shadow: 0 0 20px rgba(15,70,108,0.65)">
                         <label class="lab" style="font-size: 18px; width: 280px">Name of person making this report:</label>
                         <a style="padding: unset">
-                            <select style="width: 300px" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select style="width: 300px" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected></option>
                             </select>
                         </a>
                         <label class="lab" style="font-size: 18px; width: 280px; margin-left: 20px">Name of person authenticating this report:</label>
                         <a style="padding: unset">
-                            <select style="width: 300px" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select style="width: 300px" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected></option>
                             </select>
                         </a>
@@ -137,7 +140,7 @@
                         <input class="text2" style="width: 145px" type="text">
                         <label class="lab" style="font-size: 18px; width: 280px; margin-left: 20px">Name and address of employer of persons making and authenticating this report:</label>
                         <a style="padding: unset">
-                            <select  style="width: 300px" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select  style="width: 300px" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected></option>
                             </select>
                         </a>
@@ -151,3 +154,65 @@
         </fieldset>
     </div>
 @stop
+@section('scripts')
+    <script>
+
+        $('#client').change(function() {
+            var client = $(this).val();
+            if (client) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('findAdd')}}",
+                    data: {client: client},
+                    success: function(res) {
+                        if (res) {
+                            $("#address").empty();
+                            $("#work").empty();
+                            $("#work").append('<option>Select Work Order</option>');
+                            $.each(res, function(key,value) {
+                                if(key === "add"){
+                                    $("#address").val(value.Address);
+                                }
+                                if(key === "wo"){
+                                    $.each(value, function(key1, value1) {
+                                        $("#work").append('<option value="' + value1.ID_WO + '">' + value1.ID_WO +
+                                            '</option>');
+                                    });
+                                }
+                            });
+
+                        } else {
+                            $("#address").empty();
+                            $("#work").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#work").empty();
+                $("#address").empty();
+            }
+        });
+        $('#work').change(function (){
+            var work = $(this).val();
+            if (work) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('generateRep')}}",
+                    data: {work: work},
+                    success: function(res) {
+                        if (res) {
+                            $("#report").empty();
+                            $("#report").val(res);
+
+                        } else {
+                            $("#report").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#report").empty();
+            }
+        });
+    </script>
+@stop
+

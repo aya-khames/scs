@@ -38,7 +38,7 @@
                     <label class="lab" style="font-size: 20px; width: 130px">Delivery Note:</label> <input id="dnote" readonly name="dnote" disabled class="text2" style="width: 400px" type="text">
                     <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Delivery Time:</label>
                         <input name="date" id="date" disabled class="Date text2" style="width: 190px" type="date">
-                        <input disabled class="Date text2" style="width: 195px" type="text">
+                        <input disabled readonly id="date2" class="Date text2" style="width: 195px" type="text">
                     </span>
                     <label class="lab" style="font-size: 20px; width: 130px">PO No:</label> <input name="po" id="po" disabled class="text2" style="width: 400px" type="text">
                     <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">REQ NO:</label> <input name="req" id="req" disabled class="text2" style="width: 400px" type="text"></span>
@@ -104,18 +104,19 @@
                                 });
 
                             } else {
-                                $("#contact").empty();
+                                $("#work").empty();
                             }
                         }
                     });
                 } else {
 
-                    $("#contact").empty();
+                    $("#work").empty();
                 }
             });
             $('#work').change(function (){
                 document.getElementById('dnote').disabled = false;
                 document.getElementById('date').disabled = false;
+                document.getElementById('date2').disabled = false;
                 document.getElementById('po').disabled = false;
                 document.getElementById('req').disabled = false;
 

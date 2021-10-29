@@ -71,13 +71,13 @@
                     @enderror
                     <label class="lab" style="font-size: 20px; width: 130px">VAT:</label>
                     <a style="padding: unset">
-                        <select name="vat" class="miniDrop2"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 300px">
+                        <select id="vat" name="vat" class="miniDrop2"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 300px">
                             <option disabled selected>...</option>
-                            <option >With Vat.</option>
-                            <option >Without Vat.</option>
+                            <option>With Vat.</option>
+                            <option>Without Vat.</option>
                         </select>
                     </a>
-                    <input class="text2" type="text" disabled style="width: 70px"> %
+                    <input id="vatOn" class="text2" type="text" disabled style="width: 70px"> %
                     <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Validity:</label> <input disabled name="validity" class="text2" style="width: 400px" type="text"></span>
                     <br><br>
                     <div style="margin-left: 490px">
@@ -146,6 +146,14 @@
 
                 $("#contact").empty();
             }
+        });
+        $('#vat').change(function () {
+            if (this.value === "With Vat.") {
+                document.getElementById('vatOn').disabled = false;
+            }else {
+                document.getElementById('vatOn').disabled = true;
+            }
+
         });
     </script>
 @stop
