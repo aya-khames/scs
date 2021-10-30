@@ -18,19 +18,19 @@
                     <label class="lab" style="font-size: 20px; width: 130px">CERT No.</label> <input class="text2" style="width: 400px" type="text"> <a class="sp" style="margin-left: 20px" href="#">Search</a>
                     <br>
                     <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label>
-                    <input class="text2" style="width: 400px" type="text">
+                    <input disabled id="work" class="text2" style="width: 400px" type="text">
                     <br>
                     <span>
                         <label class="lab" style="font-size: 20px; width: 130px">Client:</label>
-                        <input class="text2" style="width: 400px" type="text">
+                        <input disabled id="client" class="text2" style="width: 400px" type="text">
                     </span>
                     <br>
                 </div>
+                <div style="margin-left: 460px; display: inline-block; margin-bottom: 20px">
+                    <button class="bttn" style="width: 200px; font-size: 18px">Print with logo</button>
+                    <button class="bttn" style="width: 200px; font-size: 18px">Print without logo</button>
+                </div>
             </form>
-            <div style="margin-left: 460px; display: inline-block">
-                <button class="bttn" style="width: 200px; font-size: 18px">Print with logo</button>
-                <button class="bttn" style="width: 200px; font-size: 18px">Print without logo</button>
-            </div>
         </fieldset>
     </div>
 @stop

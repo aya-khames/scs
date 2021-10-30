@@ -25,29 +25,29 @@
                     <span class="sp">
                         <a style="margin-left: 10px" href="#">Search</a>
                     </span>
-                    <a class="sp" style="margin-left: 20px; text-decoration: none" href="#">Search Edit</a>
+                    <a class="sp" style="margin-left: 20px; text-decoration: none">Search Edit</a>
                     <br>
-                    <label class="lab" style="font-size: 20px; width: 165px">Work order:</label> <input class="text2" style="margin-left:0; width: 400px" type="text">
-                    <label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input class="text2" style="width: 400px" type="text">
+                    <label class="lab" style="font-size: 20px; width: 165px">Work order:</label> <input disabled id="work" class="text2" style="margin-left:0; width: 400px" type="text">
+                    <label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input disabled id="client" class="text2" style="width: 400px" type="text">
                     <br>
                     <label class="lab" style="font-size: 20px; width: 165px">Safe working load:</label>
-                    <input class="text2" style="width: 400px; margin-left: 0" type="text">
+                    <input disabled id="safe" class="text2" style="width: 400px; margin-left: 0" type="text">
                     <br>
 
                     <label class="lab" style="font-size: 20px; width: 165px">Date of manufacture if known:</label>
-                    <input class="text2" style="width: 190px; margin-left: 0" type="date">
-                    <input class="text2" style="width: 190px" type="text">
+                    <input disabled id="date1" class="text2" style="width: 190px; margin-left: 0" type="date">
+                    <input disabled readonly id="date2" class="text2" style="width: 190px" type="text">
 
                     <label class="lab" style="font-size: 20px; width: 100px; margin-left: 20px">Date of last thorough examination:</label>
-                    <input class="text2" style="width: 190px" type="date">
-                    <input class="text2" style="width: 190px" type="text">
+                    <input disabled id="date3" class="text2" style="width: 190px" type="date">
+                    <input disabled readonly id="date4" class="text2" style="width: 190px" type="text">
                     <br>
                     <label class="lab" style="font-size: 20px; width: 130px">Description:</label>
                     <br>
-                    <textarea disabled class="text2" style="width: 400px;margin-left: 165px; height: 150px; scroll-behavior: smooth; resize: none"></textarea>
+                    <textarea disabled id="txt" class="text2" style="width: 400px;margin-left: 165px; height: 150px; scroll-behavior: smooth; resize: none"></textarea>
                     <span>
                         <div style="margin-left: 120px; display: inline-block">
-                            <button class="bttn">Print</button><button class="bttn">Delete</button><button class="bttn">Edit</button><button class="bttn">Insert</button>
+                            <button disabled class="bttn">Print</button><button class="bttn">Delete</button><button class="bttn">Edit</button><button class="bttn">Insert</button>
                         </div>
                     </span>
                 </div>
