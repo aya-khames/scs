@@ -23,15 +23,15 @@
                     <a class="sp" style="margin-left: 20px" href="#">Search</a>
                     <br>
                     <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label>
-                    <input class="text2" style="width: 400px" type="text">
+                    <input disabled id="work" class="text2" style="width: 400px" type="text">
                     <label class="lab" style="font-size: 20px; width: 70px; margin-left: 20px">Client:</label>
-                    <input class="text2" style="width: 400px" type="text">
+                    <input disabled id="client" class="text2" style="width: 400px" type="text">
+                </div>
+                <div style="margin-left: 460px; display: inline-block; margin-bottom: 20px">
+                    <button class="bttn" style="width: 200px; font-size: 18px">Print with logo</button>
+                    <button class="bttn" style="width: 200px; font-size: 18px">Print without logo</button>
                 </div>
             </form>
-            <div style="margin-left: 460px; display: inline-block">
-                <button class="bttn" style="width: 200px; font-size: 18px">Print with logo</button>
-                <button class="bttn" style="width: 200px; font-size: 18px">Print without logo</button>
-            </div>
         </fieldset>
     </div>
 @stop
