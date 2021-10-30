@@ -22,22 +22,22 @@
                     <input class="text2" style="width: 400px" type="text">
                     <a class="sp" style="margin-left: 20px" href="#">Search</a>
                     <label class="lab" style="font-size: 20px; width: 120px; margin-left: 20px">Work Order:</label>
-                    <input class="text2" style="width: 400px" type="text">
+                    <input disabled id="work" class="text2" style="width: 400px" type="text">
                     <br>
                     <label class="lab" style="font-size: 20px; width: 110px">Client:</label>
-                    <input class="text2" style="width: 400px" type="text">
+                    <input disabled id="client" class="text2" style="width: 400px" type="text">
                     <label class="lab" style="font-size: 20px; width: 120px; margin-left: 100px">Crane Type:</label>
-                    <input class="text2" style="width: 400px" type="text">
+                    <input disabled id="craneT" class="text2" style="width: 400px" type="text">
                     <br>
                     <label class="lab" style="font-size: 20px; width: 110px">CERT End:</label>
-                    <input class="text2" style="width: 400px" type="text">
+                    <input disabled id="certEnd" class="text2" style="width: 400px" type="text">
                     <br>
                 </div>
+                <div style="margin-left: 460px; margin-bottom: 20px">
+                    <button class="bttn" style="width: 200px; font-size: 18px">Print with logo</button>
+                    <button class="bttn" style="width: 200px; font-size: 18px">Print without logo</button>
+                </div>
             </form>
-            <div style="margin-left: 460px">
-                <button class="bttn" style="width: 200px; font-size: 18px">Print with logo</button>
-                <button class="bttn" style="width: 200px; font-size: 18px">Print without logo</button>
-            </div>
         </fieldset>
     </div>
 @stop

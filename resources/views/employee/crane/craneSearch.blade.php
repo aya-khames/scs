@@ -20,8 +20,11 @@
                 <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                     <label class="lab" style="font-size: 20px; width: 120px">Crane Type:</label>
                     <a style="padding: unset">
-                        <select style="width: 350px" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <select style="width: 350px" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <option value="" disabled selected></option>
+                            <option>Crawler Crane</option>
+                            <option>Mobile Crane</option>
+                            <option>Tower Crane</option>
                         </select>
                     </a>
                     <br>
