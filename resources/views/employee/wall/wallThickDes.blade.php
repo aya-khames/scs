@@ -21,32 +21,35 @@
                     <span class="sp">
                         <a style="margin-left: 10px" href="#">Search</a>
                     </span>
-                    <a class="sp" style="margin-left: 20px; text-decoration: none" href="#">Search Edit</a>
+                    <a class="sp" style="margin-left: 20px; text-decoration: none">Search Edit</a>
                     <br>
                     <label class="lab" style="font-size: 20px; width: 140px">Client:</label>
-                    <input class="text2" style="width: 400px" type="text">
+                    <input disabled id="client" class="text2" style="width: 400px" type="text">
                     <label class="lab" style="font-size: 20px; width: 170px; margin-left: 20px">Work Order:</label>
-                    <input class="text2" style="width: 400px" type="text">
+                    <input disabled id="work" class="text2" style="width: 400px" type="text">
                     <br>
 
                     <br>
                     <label class="lab" style="font-size: 20px; width: 140px">ITEM:</label>
-                    <input class="text2" style="width: 400px" type="text">
+                    <input disabled id="item" class="text2" style="width: 400px" type="text">
                     <label class="lab" style="font-size: 20px; width: 170px; margin-left: 20px">Original Thickness:</label>
-                    <input class="text2" style="width: 400px" type="text">
+                    <input disabled id="ot" class="text2" style="width: 400px" type="text">
                     <br>
 
                     <br>
                     <label class="lab" style="font-size: 20px; width: 140px">Min Thickness:</label>
-                    <input class="text2" style="width: 400px" type="text">
+                    <input disabled id="mint" class="text2" style="width: 400px" type="text">
                     <label class="lab" style="font-size: 20px; width: 170px; margin-left: 20px">Max Thickness:</label>
-                    <input class="text2" style="width: 400px" type="text">
+                    <input disabled id="maxt" class="text2" style="width: 400px" type="text">
                     <br>
 
                     <label class="lab" style="font-size: 20px; width: 140px">Remark:</label>
-                    <input type="text" disabled class="text2" style="width: 400px; height: 100px; resize: none">
+                    <input disabled id="remark" type="text" class="text2" style="width: 400px; height: 100px; resize: none">
                     <div style="margin-left: 450px">
-                        <button class="bttn">Print</button><button class="bttn">Delete</button><button class="bttn">Edit</button><button class="bttn">Insert</button>
+                        <button disabled class="bttn">Print</button>
+                        <button class="bttn">Delete</button>
+                        <button class="bttn">Edit</button>
+                        <button class="bttn">Insert</button>
                     </div>
                 </div>
             </form>

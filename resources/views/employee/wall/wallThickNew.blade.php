@@ -20,39 +20,62 @@
                 <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                     <label class="lab" style="font-size: 20px; width: 130px">Client:</label>
                     <a style="padding: unset">
-                        <select class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <select id="client" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <option value="" disabled selected></option>
+                            <option>111</option>
                         </select>
                     </a>
-                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Location:</label> <input class="text2" style="width: 400px" type="text"></span>
+                    <label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Location:</label>
+                    <input disabled id="loc" class="text2" style="width: 400px" type="text">
                     <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label>
                     <a style="padding: unset">
-                        <select class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <select disabled id="work" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <option value="" disabled selected></option>
+                            <option>1111</option>
                         </select>
                     </a>
-                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Report No.</label> <input class="text2" style="width: 400px" type="text"></span>
-                    <label class="lab" style="font-size: 20px; width: 130px">Report Date:</label> <input class="Date text2" style="width: 400px" type="text">
-                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">ID No.</label> <input class="text2" style="width: 400px" type="text"></span>
-                    <label class="lab" style="font-size: 20px; width: 130px">Material:</label> <input class="text2" style="width: 400px" type="text">
-                    <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Details 1:</label> <input class="text2" style="width: 400px" type="text"></span>
+                    <label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Report No.</label>
+                    <input disabled readonly id="reportNo" class="text2" style="width: 400px" type="text">
+                    <label class="lab" style="font-size: 20px; width: 130px">Report Date:</label>
+                    <input disabled id="date1" class="Date text2" style="width: 190px" type="date">
+                    <input disabled id="date2" readonly class="Date text2" style="width: 195px" type="text">
+                    <label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">ID No.</label>
+                    <input disabled id="id" class="text2" style="width: 400px" type="text">
+                    <label class="lab" style="font-size: 20px; width: 130px">Material:</label>
+                    <input disabled id="material" class="text2" style="width: 400px" type="text">
+                    <label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Details 1:</label>
+                    <input disabled id="de1" class="text2" style="width: 400px" type="text" value="OIL SEPARATOR T0ANK">
                     <div style="display: inline-block; height: 100px">
                         <label class="lab" style="font-size: 17px; width: 130px">Name Inspected:</label>
                         <a style="padding: unset">
-                            <select class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select disabled id="nameI" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected></option>
+                                <option>AMR AHMED</option>
+                                <option>AHMED KOTB</option>
+                                <option>HASSAN SALAH</option>
+                                <option>GASEM ELZOHARY</option>
+                                <option>MOHAMED AHMED</option>
+                                <option>MAHMOUD MORSY</option>
+                                <option>YEHIA MOUSTAFA</option>
                             </select>
                         </a>
                         <br>
                         <label class="lab" style="font-size: 17px; width: 130px"> Name Approved:</label>
                         <a style="padding: unset">
-                            <select class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select disabled id="nameA" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected></option>
+                                <option>AMR AHMED</option>
+                                <option>AHMED KOTB</option>
+                                <option>HASSAN SALAH</option>
+                                <option>GASEM ELZOHARY</option>
+                                <option>MOHAMED AHMED</option>
+                                <option>MAHMOUD MORSY</option>
+                                <option>YEHIA MOUSTAFA</option>
                             </select>
                         </a>
                     </div>
                     <label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Details 2:</label>
-                    <input type="text" disabled class="text2" style="display: inline-block; width: 400px; height: 100px; resize: none">
+                    <input disabled id="de2" type="text" class="text2" style="display: inline-block; width: 400px; height: 100px; resize: none">
                     <br>
                     <div style="margin-left: 490px">
                         <button class="bttn">Edit</button><button class="bttn">Insert</button>
@@ -70,4 +93,23 @@
             </form>
         </fieldset>
     </div>
+@stop
+@section('scripts')
+    <script>
+        $('#client').change(function () {
+            document.getElementById('loc').disabled = false;
+            document.getElementById('work').disabled = false;
+        });
+        $('#work').change(function () {
+            document.getElementById('reportNo').disabled = false;
+            document.getElementById('date1').disabled = false;
+            document.getElementById('date2').disabled = false;
+            document.getElementById('id').disabled = false;
+            document.getElementById('material').disabled = false;
+            document.getElementById('de1').disabled = false;
+            document.getElementById('de2').disabled = false;
+            document.getElementById('nameI').disabled = false;
+            document.getElementById('nameA').disabled = false;
+        });
+    </script>
 @stop
