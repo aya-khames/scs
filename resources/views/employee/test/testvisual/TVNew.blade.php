@@ -22,9 +22,11 @@
                         <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                             <label class="lab" style="font-size: 20px; width: 160px">Client:</label>
                             <a style="padding: unset">
-                                <select id="client" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <select id="clientname" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <option value="" disabled selected></option>
-                                    <option>11</option>
+                                    @foreach($clients as $client)
+                                        <option value="{{$client->Name_C}}">{{$client->Name_C}}</option>
+                                    @endforeach
                                 </select>
                             </a>
                             <label class="lab" style="font-size: 20px; width: 170px; margin-left: 20px">Address:</label>
@@ -33,7 +35,7 @@
                             <a style="padding: unset">
                                 <select disabled id="work" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <option value="" disabled selected></option>
-                                    <option>111</option>
+{{--                                    <option>111</option>--}}
                                 </select>
                             </a>
                             <label class="lab" style="font-size: 20px; width: 170px; margin-left: 20px">Report No.</label>
@@ -181,13 +183,68 @@
 @stop
 @section('scripts')
     <script type="text/javascript">
-        $('#client').change(function () {
+
+        $('#clientname').change(function() {
             document.getElementById('address').disabled = false;
             document.getElementById('work').disabled = false;
+            var client = $(this).val();
+            if (client) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('findAdd')}}",
+                    data: {client: client},
+                    success: function(res) {
+                        if (res) {
+                            $("#address").empty();
+                            $("#work").empty();
+                            $("#work").append('<option>Select Work Order</option>');
+                            $.each(res, function(key,value) {
+                                if(key === "add"){
+                                    $("#address").val(value.Address);
+                                }
+                                if(key === "wo"){
+                                    $.each(value, function(key1, value1) {
+                                        $("#work").append('<option value="' + value1.ID_WO + '">' + value1.ID_WO +
+                                            '</option>');
+                                        // console.log(value1);
+                                    });
+                                }
+                            });
+
+                        } else {
+                            $("#address").empty();
+                            $("#work").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#work").empty();
+                $("#address").empty();
+            }
         });
+
         $('#work').change(function () {
-            console.log("hii");
-            document.getElementById('reportNo').disabled = false;
+            var work = $(this).val();
+            if (work) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('getCert')}}",
+                    data: {work: work},
+                    success: function(res) {
+                        if (res) {
+                            document.getElementById('reportNo').disabled = false;
+                            $("#reportNo").empty();
+                            $("#reportNo").val(res);
+                            console.log(res);
+                        } else {
+                            $("#reportNo").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#reportNo").empty();
+            }
+
             document.getElementById('date1').disabled = false;
             document.getElementById('date2').disabled = false;
             document.getElementById('date3').disabled = false;
@@ -213,7 +270,9 @@
             document.getElementById('drop2').disabled = false;
             document.getElementById('drop3').disabled = false;
             document.getElementById('datee').disabled = false;
+
         });
+
         $('#choose').change(function () {
             document.getElementById('label').innerHTML = this.value;
             document.getElementById('tb').disabled = false;

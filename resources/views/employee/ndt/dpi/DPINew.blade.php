@@ -19,16 +19,18 @@
                         <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                             <label class="lab" style="font-size: 20px; width: 130px">Client:</label>
                             <a style="padding: unset">
-                                <select class="miniDrop2" id="client" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <select id="clientname" name="client" class="miniDrop2" id="client" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <option value="" disabled selected></option>
-                                    <option>11</option>
+                                    @foreach($clients as $client)
+                                        <option>{{$client->Name_C}}</option>
+                                    @endforeach
                                 </select>
                             </a>
                             <label class="lab" style="font-size: 20px; width: 140px; margin-left: 20px">Work Order:</label>
                             <a style="padding: unset">
-                                <select disabled class="miniDrop2" id="work" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <select id="work" name="work" disabled class="miniDrop2" id="work" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <option value="" disabled selected></option>
-                                    <option>111</option>
+{{--                                    <option>111</option>--}}
                                 </select>
                             </a>
                             <label class="lab" style="font-size: 20px; width: 130px">CERT No.</label>
@@ -109,11 +111,59 @@
 @stop
 @section('scripts')
     <script>
-        $('#client').change(function () {
+        $('#clientname').change(function() {
             document.getElementById('work').disabled = false;
+            var client = $(this).val();
+            if (client) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('findAdd')}}",
+                    data: {client: client},
+                    success: function(res) {
+                        if (res) {
+                            $("#work").empty();
+                            $("#work").append('<option>Select Work Order</option>');
+                            $.each(res, function(key,value) {
+                                if(key === "wo"){
+                                    $.each(value, function(key1, value1) {
+                                        $("#work").append('<option value="' + value1.ID_WO + '">' + value1.ID_WO +
+                                            '</option>');
+                                    });
+                                }
+                            });
+
+                        } else {
+                            $("#work").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#work").empty();
+            }
         });
+
         $('#work').change(function () {
-            document.getElementById('certNo').disabled = false;
+            document.getElementById('work').disabled = false;
+            var work = $(this).val();
+            if (work) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('getCert')}}",
+                    data: {work: work},
+                    success: function(res) {
+                        if (res) {
+                            document.getElementById('certNo').disabled = false;
+                            $("#certNo").empty();
+                            $("#certNo").val(res);
+                            console.log(res);
+                        } else {
+                            $("#certNo").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#certNo").empty();
+            }
             document.getElementById('reqNo').disabled = false;
             document.getElementById('date1').disabled = false;
             document.getElementById('date2').disabled = false;

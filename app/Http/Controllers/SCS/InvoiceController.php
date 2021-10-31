@@ -52,7 +52,7 @@ class InvoiceController extends Controller
     public function findAdd(Request $request)
     {
         $add = Client::where('Name_C', $request->client)->first();
-        $wo = Workorder::where('Name_C', $request->client)->get();
+        $wo = Workorder::where('Name_C', $request->client)->orderBy('_id', 'asc')->get();
         return response()->json([
             'add'=>$add,
             'wo'=>$wo

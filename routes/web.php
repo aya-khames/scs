@@ -46,25 +46,24 @@ Route::group(['middleware' => 'prevent'],function(){
                 return view('employee.unsafe.unsafeSearch');
             });
 
-
-            Route::get('/dpin', function () {
-                return view('employee.ndt.dpi.DPINew');
-            });
+            Route::get('/dpin', 'SCS\NdtdpiController@showNewDpi');
+            Route::get('/getCert', 'SCS\NdtdpiController@getCert')->name('getCert');
+//            Route::get('/dpin', function () {
+//                return view('employee.ndt.dpi.DPINew');
+//            });
             Route::get('/dpip', function () {
                 return view('employee.ndt.dpi.DPIPrint');
             });
+            Route::get('/mpin', 'SCS\NdtmpiController@showNewMpi');
 
-            Route::get('/mpin', function () {
-                return view('employee.ndt.mpi.MPINew');
-            });
-            Route::get('/mpip', function () {
-                return view('employee.ndt.mpi.MPIPrint');
-            });
+//            Route::get('/mpip', function () {
+//                return view('employee.ndt.mpi.MPIPrint');
+//            });
 
-
-            Route::get('/walln', function () {
-                return view('employee.wall.wallThickNew');
-            });
+            Route::get('/walln', 'SCS\WallController@showNewWall');
+//            Route::get('/walln', function () {
+//                return view('employee.wall.wallThickNew');
+//            });
             Route::get('/walld', function () {
                 return view('employee.wall.wallThickDes');
             });
@@ -72,20 +71,21 @@ Route::group(['middleware' => 'prevent'],function(){
                 return view('employee.wall.wallThickPrint');
             });
 
+            Route::get('/tvn', 'SCS\TestvController@showTVN');
 
-            Route::get('/tvn', function () {
-                return view('employee.test.testvisual.TVNew');
-            });
+//            Route::get('/tvn', function () {
+//                return view('employee.test.testvisual.TVNew');
+//            });
             Route::get('/tvd', function () {
                 return view('employee.test.testvisual.TVDes');
             });
             Route::get('/tvp', function () {
                 return view('employee.test.testvisual.TVPrint');
             });
-
-            Route::get('/tmvmn', function () {
-                return view('employee.test.testmpi.TMVMNew');
-            });
+            Route::get('/tmvmn', 'SCS\TestmpiController@showTVM');
+//            Route::get('/tmvmn', function () {
+//                return view('employee.test.testmpi.TMVMNew');
+//            });
             Route::get('/tmvmd', function () {
                 return view('employee.test.testmpi.TMVMDes');
             });
@@ -113,10 +113,7 @@ Route::group(['middleware' => 'prevent'],function(){
                 return view('employee.crane.tower');
             });
 
-
-            Route::get('/compn', function () {
-                return view('employee.compressor.compNew');
-            });
+            Route::get('/compn', 'SCS\CompressorController@showNewComp');
             Route::get('/compd', function () {
                 return view('employee.compressor.compDes');
             });
