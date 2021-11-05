@@ -75,10 +75,10 @@
 @section('scripts')
     <script>
         function get_action1(form) {
-            form.action = "{{route('edit')}}";
+            {{--form.action = "{{route('edit')}}";--}}
         };
         function get_action2(form) {
-            form.action = "{{route('createClient')}}";
+            form.action = "{{route('insertHire')}}";
         };
         $(document).ready(function(){
             $('#clientname').change(function() {

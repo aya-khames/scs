@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SCS;
 
 use App\Models\Client;
 use App\Models\Invoice;
+use App\Models\Invoiceitem;
 use App\Models\Quotation;
 use App\Models\Workorder;
 use Illuminate\Http\Request;
@@ -20,15 +21,11 @@ class InvoiceController extends Controller
     {
         $quot = new Invoice();
         $quot->Name_C = $request->client;
-     /*   $quot->ID_IN = $request->invoice;
-        $quot->ID_WO = $request->workorder;
-        $quot->INType = $request->contperson;*/
         $quot->ID_IN = $request->invoice;
         $quot->ID_WO = $request->workorder;
         $quot->Address = $request->Address;
         $quot->REQ_NO = $request->reqnumber;
         $quot->Currency_IN = $request->currency;
-    //    $quot->Enquiry = $request->date;
         $quot->Date_IN1 = $request->date;
         $quot->Delivery_Time = $request->delivery;
         $quot->Transportation = $request->transportation;
@@ -37,7 +34,19 @@ class InvoiceController extends Controller
         $quot->Vat = $request->percent;
         $quot->TaxType = $request->tax;
         $quot->Tax = $request->tpercent;
-       // $quot->VatClient = $request->note;
+        $quot->save();
+        return redirect()->back();
+    }
+    public function insertInvoceD(Request $request){
+        $quot = new Invoiceitem();
+        $quot->Name_C = $request->client;
+        $quot->ID_IN = $request->invoice;
+        $quot->ID_WO = $request->work;
+        $quot->Description = $request->description;
+        $quot->Price_IN = $request->price;
+        $quot->QTY = $request->qty;
+        $quot->Total_Price = $request->ttlPrice;
+//        $quot->Type_IN = $request->tax;
         $quot->save();
         return redirect()->back();
     }

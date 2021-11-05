@@ -19,7 +19,8 @@
                 </div>
             </nav>
             <br>
-            <form style="margin: 5px; height: 600px; overflow-y: auto; width: 1340px">
+            <form style="margin: 5px; height: 600px; overflow-y: auto; width: 1340px" method="POST">
+                @csrf
                 <div style="margin: 20px 20px 0 20px;box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1270px">
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 20px; width: 140px">Client:</label>
@@ -52,8 +53,8 @@
                 <div style="display: inline-block; margin: 10px 10px 10px 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 500px">
                     <div style="padding: 10px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 18px; width: 350px; margin-left: 10px">Is this the first examination after installation or assembly at a new site or location?</label>
-                        <input disabled type="radio" name="radio1" id="box1" style="margin-left: 10px"><label for="box1" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                        <input disabled type="radio" name="radio1" id="box2" style="margin-left: 10px"><label for="box2" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                        <input disabled type="radio" name="radio1" value="YES" id="box1" style="margin-left: 10px"><label for="box1" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                        <input disabled type="radio" name="radio1" value="NO" id="box2" style="margin-left: 10px"><label for="box2" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                         <br><br>
                         <label class="lab" style="font-size: 18px; width: 350px; margin-left: 10px">If YES, has the equipment been installed correctly?</label>
                         <input disabled type="radio" name="radio2" id="box3" style="margin-left: 10px"><label for="box3" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
@@ -86,7 +87,7 @@
                     <div style="padding: 20px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 20px; width: 500px">Identification of any part found to have a defect which is or could become a danger to persons and a description of the defect:</label>
 
-                        <textarea id="tx1" disabled class="text2" style="resize: none; width: 600px; height: 80px"></textarea>
+                        <textarea name="test1" id="tx1" disabled class="text2" style="resize: none; width: 600px; height: 80px"></textarea>
                     </div>
                 </div>
                 <br>
@@ -108,12 +109,12 @@
                         <label class="lab" style="font-size: 20px; width: 500px">
                             Particulars of any repair, renewal or alteration required to remedy the defect identified above:
                         </label>
-                        <textarea disabled id="tx2" class="text2" style="resize: none; width: 600px; height: 50px"></textarea>
+                        <textarea name="test2" disabled id="tx2" class="text2" style="resize: none; width: 600px; height: 50px"></textarea>
                         <br>
                         <label class="lab" style="font-size: 20px; width: 500px">
                             particulars of any tests carried out as part of the examination (if none state NONE):
                         </label>
-                        <textarea disabled id="tx3" class="text2" style="resize: none; width: 600px; height: 50px"></textarea>
+                        <textarea name="test3" disabled id="tx3" class="text2" style="resize: none; width: 600px; height: 50px"></textarea>
                     </div>
                 </div>
                 <br>
@@ -129,7 +130,7 @@
                     <div style="padding: 10px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 18px; width: 280px">Name of person making this report:</label>
                         <a style="padding: unset">
-                            <select disabled id="drop1" style="width: 300px" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select name="makeReport" disabled id="drop1" style="width: 300px" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected></option>
                                 <option>AMR AHMED</option>
                                 <option>MOHAMED AHMED</option>
@@ -144,7 +145,7 @@
                         </a>
                         <label class="lab" style="font-size: 18px; width: 280px; margin-left: 20px">Name of person authenticating this report:</label>
                         <a style="padding: unset">
-                            <select disabled id="drop2" style="width: 300px" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select name="authReport" disabled id="drop2" style="width: 300px" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected></option>
                                 <option>AMR AHMED</option>
                                 <option>MOHAMED AHMED</option>
@@ -159,11 +160,11 @@
                         </a>
                         <br>
                         <label class="lab" style="font-size: 18px; width: 280px">Latest date by which next thorough examination must be carried out:</label>
-                        <input disabled id="datee" class="text2" style="width: 140px" type="date">
+                        <input name="latestDate" disabled id="datee" class="text2" style="width: 140px" type="date">
                         <input disabled readonly id="datee2" class="text2" style="width: 145px" type="text">
                         <label class="lab" style="font-size: 18px; width: 280px; margin-left: 20px">Name and address of employer of persons making and authenticating this report:</label>
                         <a style="padding: unset">
-                            <select disabled id="drop3" style="width: 300px" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select name="nameAdd" disabled id="drop3" style="width: 300px" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected></option>
                                 <option>AMR AHMED</option>
                                 <option>MOHAMED AHMED</option>
@@ -180,8 +181,8 @@
                 </div>
                 <br>
                 <div style="margin-left: 530px">
-                    <button class="bttn" style="box-shadow: 0 0 20px rgb(11,55,86)">Edit</button>
-                    <button class="bttn" style="box-shadow: 0 0 20px rgb(11,55,86); margin: 20px">Insert</button>
+                    <button class="bttn"   style="box-shadow: 0 0 20px rgb(11,55,86)">Edit</button>
+                    <button class="bttn" type="submit" onclick="get_action1(this.form)" style="box-shadow: 0 0 20px rgb(11,55,86); margin: 20px">Insert</button>
                 </div>
             </form>
         </fieldset>
@@ -189,6 +190,10 @@
 @stop
 @section('scripts')
     <script>
+        function get_action1(form) {
+            console.log("test")
+            form.action = "{{route('insertUS')}}";
+        };
         $('#client').change(function() {
             var client = $(this).val();
             if (client) {
@@ -283,6 +288,7 @@
         $('#box16').click(function () {
             document.getElementById('radioYes').disabled = true;
         });
+
     </script>
 @stop
 

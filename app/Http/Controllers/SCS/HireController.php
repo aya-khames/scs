@@ -24,7 +24,7 @@ class HireController extends Controller
         $hire->Hire_OFF = $request->hireoff;
         $hire->Date_OFF = $request->dateoff;
         $hire->Date_OFF1 = $request->dateoff;
-        $hire->save($hire);
+        $hire->save();
         return redirect()->back();
 
     }

@@ -90,7 +90,7 @@
                         <label class="lab" style="font-size: 18px; width: auto; margin: 5px">%</label>
                     </span>
                     <div style="margin-left: 460px">
-                        <button class="bttn" onclick="get_action1(this.form)">Edit</button>
+                        <button class="bttn" type="submit" onclick="get_action1(this.form)">Edit</button>
                         <button class="bttn" type="submit" onclick="get_action2(this.form)">Insert</button>
                         <button class="bttn" type="submit" onclick="get_action3(this.form)">Delete</button>
                     </div>
@@ -183,7 +183,6 @@
                 $("#invoice").empty();
             }
         });
-
         $('#box8').change(function () {
             if (this.value === "With Vat") {
                 document.getElementById('box9').disabled = false;
@@ -193,7 +192,6 @@
                 console.log("success");
             }
         });
-
         $('#box10').change(function () {
             if (this.value === "With Tax") {
                 document.getElementById('box11').disabled = false;
@@ -204,6 +202,11 @@
             }
 
         });
+        function get_action3(form) {
+        }
+        function get_action2(form) {
+            form.action = "{{route('insertInvoiceN')}}";
+        }
     </script>
 @stop
 

@@ -36,6 +36,8 @@ Route::group(['middleware' => 'prevent'],function(){
 //            });
             Route::get('/unsafen', 'SCS\UnsafeController@showunsafe');
             Route::get('/generateRep', 'SCS\UnsafeController@generateRep')->name('generateRep');
+            Route::post('/insertUS', 'SCS\UnsafeController@insertUS')->name('insertUS');
+            Route::post('/insertUSD', 'SCS\UnsafeController@insertUSD')->name('insertUSD');
             Route::get('/unsafed', function () {
                 return view('employee.unsafe.unsafeDes');
             });
@@ -162,8 +164,9 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::get('/dynamicDP', 'SCS\DeliveryController@dynamicDP')->name('dynamicDP');
             Route::get('/dnID', 'SCS\DeliveryController@dnID')->name('dnID');
             Route::post('/insertdnote', 'SCS\DeliveryController@insertDNote')->name('insertdnote');
-
+##################hire#################################################
             Route::get('/hireofn', 'SCS\HireController@showHire');
+            Route::post('/insertHire', 'SCS\HireController@insertHire')->name('insertHire');
             Route::get('/dynamicHire', 'SCS\HireController@dynamicHire')->name('dynamicHire');
             Route::get('/generateHire', 'SCS\HireController@generateHire')->name('generateHire');
 //            Route::get('/hireofn', function () {
