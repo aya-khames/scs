@@ -26,20 +26,20 @@
                         <input style="margin-left: 330px; height: 17px; width: 17px" id="check" value="0" type="checkbox"></span>
                     <br>
                     <label class="lab" style="font-size: 20px; width: 130px">Description:</label>
-                    <label class="lab" style="font-size: 20px; width: 100px; margin-left: 430px">Unit Price:</label><input disabled id="check1" name="unitPrice" class="text2" style="width: 70px; margin-top: 10px" type="text">
-                    <label class="lab" style="font-size: 20px; width: 48px; margin-left: 5px">QTY:</label><input disabled id="check2" name="qty" class="text2" style="width: 70px" type="text">
+                    <label class="lab" style="font-size: 20px; width: 100px; margin-left: 430px">Unit Price:</label><input disabled id="check1" name="unitPrice" class="text2" style="width: 70px; margin-top: 10px" type="number" value="0">
+                    <label class="lab" style="font-size: 20px; width: 48px; margin-left: 5px">QTY:</label><input disabled id="check2" name="qty" class="text2" style="width: 70px" type="number" value="0">
                     {{-- it'll appear automatically--}}
-                    <label class="lab" style="font-size: 20px; width: 100px; margin-left: 5px">Total Price:</label><input readonly name="ttlPrice" class="text2" style="width: 70px" type="text">
+                    <label class="lab" style="font-size: 20px; width: 100px; margin-left: 5px">Total Price:</label><input readonly name="ttlPrice" class="text2" style="width: 70px" type="number" value="0">
                     <br>
                     <textarea name="description" class="text2" style="width: 400px;margin-left: 145px; height: 150px; resize: none"></textarea>
                     <br>
                     <span><label class="lab" style="font-size: 20px; width: 120px; margin-left: 10px">Type:</label>
                         <a href="#" style="padding: unset; display: inline-block">
-                            <select name="type" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select name="type" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected>Type</option>
-                                <option value="">Inspection</option>
-                                <option value="">Supply</option>
-                                <option value="">Hire</option>
+                                <option>Inspection</option>
+                                <option>Supply</option>
+                                <option>Hire</option>
                             </select>
                         </a>
                         <div style="margin-left: 120px; display: inline-block">
