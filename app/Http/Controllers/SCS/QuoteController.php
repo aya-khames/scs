@@ -103,12 +103,12 @@ class QuoteController extends Controller{
                 $quotId .= strval($num);
             }
             $temp = $quot;
-            if (Quotation::where('ID_QUO', '=',$quotId) !== null){
+            if (Quotation::where('ID_QUO', '=',$quotId)->first() !== null){
                 $num =intval(substr($quotId,strlen($temp),strlen($quotId)));
                 $num++;
                 $quot = $temp;
                 $quot .= strval($num);
-                $quotId .= $quot;
+                $quotId = $quot;
             }
         }
         return response()->json([
@@ -116,7 +116,6 @@ class QuoteController extends Controller{
             'quotId'=>$quotId
             ]);
     }
-
     public function editQuote(Request $request){
         $validator = Validator::make($request->all(), $this->getRules(), $this->getMessage());
         if ($validator->fails()){
@@ -142,9 +141,11 @@ class QuoteController extends Controller{
 
     #############Quotation Description##############################################
     //Quotation
-    public function insertQuotDes(Request $request){
+    public function insertQD(Request $request){
         $this->validate($request,[
-
+            'client' => 'required',
+            'quotation' => 'required',
+            'description' => 'required'
         ]);
         $quot = new Qitem();
         $quot->ID_QUO = $request->quotation;

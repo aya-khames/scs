@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SCS;
 use App\Models\Client;
 use App\Models\Cp;
 use App\Models\Quotation;
+use App\Models\Woitem;
 use App\Models\Workorder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,9 +18,27 @@ class WorkController extends Controller {
     public function showWorkDes(){
         return view('employee.work.workDes');
     }
+
+    public function insertWD(Request $request){
+        $this->validate($request,[
+
+        ]);
+        $quot = new Woitem();
+            $quot->Name_C = $request->client;
+            $quot->ID_WO = $request->work;
+            $quot->ID_NUM = $request->idN;
+            $quot->Description = $request->description;
+            $quot->save();
+
+        return redirect()->back();
+
+    }
     public function insertWN(Request $request){
             $this->validate($request,[
-
+                'client' => 'required',
+                'quotation' => 'required',
+                'workOrder' => 'required',
+                'C_P' => 'required'
             ]);
             $quot = new Workorder();
             if(Workorder::where('ID_QUO', '=',$request->quotation)->first() === null){
@@ -36,7 +55,6 @@ class WorkController extends Controller {
                 $quot->VALIDITY_WO = $request->valedity;
                 $quot->Note_WO = $request->note;
                 $quot->save();
-
             }
             return redirect()->back();
 
@@ -83,9 +101,6 @@ class WorkController extends Controller {
         return view('employee.workDes');
     }
     public function editWD(){
-        return view('employee.workDes');
-    }
-    public function insertWD(){
         return view('employee.workDes');
     }
     public function deleteWD(){

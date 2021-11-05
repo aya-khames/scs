@@ -39,7 +39,7 @@
                     <label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">Contact:</label> <input id="contact" disabled readonly name="contperson" class="text2" style="width: 400px" type="text">
                     <label class="lab" style="font-size: 20px; width: 130px">PO:</label> <input id="b4" disabled name="po" class="text2" style="width: 400px" type="text">
                     <span><label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">Fax No:</label> <input id="b5" disabled name="fax" class="text2" style="width: 400px" type="text"></span>
-                    <label class="lab" style="font-size: 20px; width: 130px">Currency:</label> <input id="b6" disabled readonly name="currency" class="text2" style="width: 400px" type="text" value="{{Session::get('currency')}}">
+                    <label class="lab" style="font-size: 20px; width: 130px">Currency:</label> <input id="b6" disabled readonly name="currency" class="text2" style="width: 400px" type="text">
                     <span><label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">Date:</label> <input id="b7" disabled name="date" class="Date text2" style="width: 190px" type="date"> <input id="b8" disabled readonly name="date" class="Date text2" style="width: 195px" type="text"></span>
                     <label class="lab" style="font-size: 20px; width: 130px">Delivery Date:</label> <input id="b9" disabled name="delivery" class="Date text2" style="width: 400px" type="text">
                     <span><label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">Validity:</label> <input id="b10" disabled name="valedity" class="text2" style="width: 400px" type="text"></span>
@@ -117,8 +117,8 @@
                             $("#contact").empty();
                             $.each(res, function(key, value) {
                                 if (key === "q"){
-                                    $("#contact").val(value.C_P) ;
-                                    $("#b6").val(value.Currency_QUO) ;
+                                     $("#contact").val(value.C_P) ;
+                                     $("#b6").val(value.Currency_QUO) ;
                                 }
                                 if(key === "wo"){
                                        $("#b2").val(value) ;
