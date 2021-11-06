@@ -1,7 +1,7 @@
 @extends('layouts.employeepage')
 @section('content_1')
 
-    <div style="border-radius: 20px; border: rgba(15,70,108,0.66); box-shadow: 0 0 5px 5px gainsboro; position: fixed; margin-top: 80px; margin-left: 400px; z-index: 20; height: 780px; width: 1370px; background-color: rgba(240,248,248,0.57)">
+    <div style="border-radius: 20px; border: rgba(15,70,108,0.66); box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px; margin-left: 400px; z-index: 20; height: 780px; width: 1370px; background-color: rgba(240,248,248,0.57)">
         <fieldset>
             <legend style="padding: 10px; color: #0b3756; font-family: 'Times New Roman'; font-size: 35px; font-weight: bold">NDT D.P.I</legend>
             <nav id="main-navbar" style="background-color: rgba(240,248,248,0.39); padding: unset" class="navbar navbar-expand-lg navbar-light bg-white">
@@ -13,11 +13,11 @@
                 </div>
             </nav>
             <br>
-            <div style="margin: 5px; height: 600px; overflow-y: auto; width: 1360px">
-                <form style="width: 1320px; margin: unset" method="POST">
+            <div style="margin: 5px; height: 600px; overflow-y: auto; width: 1350px">
+                <form style="width: 1320px; margin: unset; background-color: rgba(240,248,248,0.05)" method="POST">
                     @csrf
                     <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1270px">
-                        <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
+                        <div style="padding: 20px; border-radius: 5px">
                             <label class="lab" style="font-size: 20px; width: 130px">Client:</label>
                             <a style="padding: unset">
                                 <select id="clientname" name="client" class="miniDrop2" id="client" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -91,21 +91,34 @@
                         <button class="bttn" type="submit" onclick="get_action1(this.form)" style="box-shadow: 0 0 20px rgb(11,55,86); margin: 20px">Insert</button>
                     </div>
                 </form>
-                <form style="width: 1270px; margin: unset">
-                    <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 600px">
-                        <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
+                <form style="width: 1320px; margin: unset; background-color: rgba(240,248,248,0.05)">
+                    <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65)">
+                        <div style="padding: 20px; border-radius: 5px">
                             <label class="lab" style="font-size: 18px; width: 90px">CERT No:</label>
                             <input class="text2" style="width: 300px" type="text">
-                            <span style="width: 80px" class="sp"><a href="#">Search</a></span>
+                            <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
                             <br>
                             <label class="lab" style="font-size: 20px; width: 90px">Date:</label>
                             <input class="Date text2" style="width: 120px" type="date">
                             <label class="lab" style="font-size: 20px; width: auto; margin-left: 8px">To:</label>
                             <input class="Date text2" style="width: 125px" type="date" >
-                            <span class="sp"><a href="#">Search</a></span>
+                            <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
                         </div>
                     </div>
                 </form>
+                <br>
+                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1280px; max-height: 400px; overflow-y: auto">
+                    <table id="table" style="display: none; width: 1280px">
+                        <tr style="color: white; background-color: #0b3756; cursor: default">
+                            <th>Company</th>
+                            <th>Contact</th>
+                            <th>Country</th>
+                            <th>Company</th>
+                            <th>Contact</th>
+                            <th>Country</th>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </fieldset>
     </div>
