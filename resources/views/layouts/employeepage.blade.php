@@ -13,11 +13,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&amp;display=swap" rel="stylesheet" />
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--}}
-
-
-{{--    <meta name="csrf-token" content="{{ csrf_token() }}" />--}}
-    <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
 
 </head>
@@ -72,63 +67,65 @@
     </nav>
     <!-- Navbar -->
 </header>
-<!-- Sidebar -->
-<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" style="background-color: rgba(240,248,248,0.39); margin-top: 92.93px">
-    <div style="margin-top: 5px; box-sizing: content-box">
-        <div class="list-group list-group-flush mx-3 mt-4">
-            <a id="1" href="/page" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-                <span>Client</span>
-            </a>
-            <a id="2" href="/quoten" class="list-group-item list-group-item-action py-2 ripple active">
-                <span>Quotation</span>
-            </a>
-            <a id="3" href="/workn" class="list-group-item list-group-item-action py-2 ripple">
-                <span>Work Order</span>
-            </a>
-            <a id="4" href="/invn" class="list-group-item list-group-item-action py-2 ripple">
-                <span>Invoice</span>
-            </a>
-            <a id="5" href="/dnoten" class="list-group-item list-group-item-action py-2 ripple">
-                <span>Delivery Note</span>
-            </a>
-            <a id="6" href="/hireofn" class="list-group-item list-group-item-action py-2 ripple">
-                <span>Hire ON/OFF</span>
-            </a>
-            <a id="7" href="/unsafen" class="list-group-item list-group-item-action py-2 ripple">
-                <span>Unsafe</span>
-            </a>
-            <a id="8" class="list-group-item list-group-item-action py-2 ripple" style="padding: unset">
-                <select onchange="location = this.value;" class="miniDrop" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <option value="" disabled selected>NDT</option>
-                    <option value="dpin" class="dropdown-item">NDT D.P.I</option>
-                    <option value="mpin" class="dropdown-item">NDT M.P.I</option>
-                </select>
-            </a>
-            <a id="9" class="list-group-item list-group-item-action py-2 ripple" style="padding: unset">
-                <select onchange="location = this.value;" class="miniDrop" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <option value="" disabled selected>Test Visual MPI</option>
-                    <option value="tvn" class="dropdown-item">Test/Visual</option>
-                    <option value="tmvmn" class="dropdown-item">Test.MPI/Visual.MPI</option>
-                </select>
-            </a>
-            <a id="10" href="/cranen" class="list-group-item list-group-item-action py-2 ripple">
-                <span>Crane</span>
-            </a>
-            <a id="11" href="compn" class="list-group-item list-group-item-action py-2 ripple"
-            ><span>Compressor</span></a
-            >
-            <a id="12" href="/walln" class="list-group-item list-group-item-action py-2 ripple"
-            ><span>Wall Thickness</span></a
-            >
-            <a id="13" href="/cdn" class="list-group-item list-group-item-action py-2 ripple"
-            ><span>CDN</span></a
-            >
-        </div>
-    </div>
-</nav>
-<!-- Sidebar -->
 
-<div style="width: 1485px; height: 1000px; box-sizing: border-box">    <!-- Forms -->
+<div style="width: 1500px; height: 1000px; box-sizing: border-box">
+    <!-- Sidebar -->
+    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" style="background-color: rgba(240,248,248,0.39); margin-top: 92.93px">
+        <div style="margin-top: 5px; box-sizing: content-box">
+            <div class="list-group list-group-flush mx-3 mt-4">
+                <a id="1" href="/page" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                    <span>Client</span>
+                </a>
+                <a id="2" href="/quoten" class="list-group-item list-group-item-action py-2 ripple active">
+                    <span>Quotation</span>
+                </a>
+                <a id="3" href="/workn" class="list-group-item list-group-item-action py-2 ripple">
+                    <span>Work Order</span>
+                </a>
+                <a id="4" href="/invn" class="list-group-item list-group-item-action py-2 ripple">
+                    <span>Invoice</span>
+                </a>
+                <a id="5" href="/dnoten" class="list-group-item list-group-item-action py-2 ripple">
+                    <span>Delivery Note</span>
+                </a>
+                <a id="6" href="/hireofn" class="list-group-item list-group-item-action py-2 ripple">
+                    <span>Hire ON/OFF</span>
+                </a>
+                <a id="7" href="/unsafen" class="list-group-item list-group-item-action py-2 ripple">
+                    <span>Unsafe</span>
+                </a>
+                <a id="8" class="list-group-item list-group-item-action py-2 ripple" style="padding: unset">
+                    <select onchange="location = this.value;" class="miniDrop" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <option value="" disabled selected>NDT</option>
+                        <option value="dpin" class="dropdown-item">NDT D.P.I</option>
+                        <option value="mpin" class="dropdown-item">NDT M.P.I</option>
+                    </select>
+                </a>
+                <a id="9" class="list-group-item list-group-item-action py-2 ripple" style="padding: unset">
+                    <select onchange="location = this.value;" class="miniDrop" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <option value="" disabled selected>Test Visual MPI</option>
+                        <option value="tvn" class="dropdown-item">Test/Visual</option>
+                        <option value="tmvmn" class="dropdown-item">Test.MPI/Visual.MPI</option>
+                    </select>
+                </a>
+                <a id="10" href="/cranen" class="list-group-item list-group-item-action py-2 ripple">
+                    <span>Crane</span>
+                </a>
+                <a id="11" href="compn" class="list-group-item list-group-item-action py-2 ripple"
+                ><span>Compressor</span></a
+                >
+                <a id="12" href="/walln" class="list-group-item list-group-item-action py-2 ripple"
+                ><span>Wall Thickness</span></a
+                >
+                <a id="13" href="/cdn" class="list-group-item list-group-item-action py-2 ripple"
+                ><span>CDN</span></a
+                >
+            </div>
+        </div>
+    </nav>
+    <!-- Sidebar -->
+
+    <!-- Forms -->
     <br> <p style="z-index: 40" id="userName">{{Auth::user()->user_name}}</p><br>
     @yield('content_1')
     <!-- Forms -->
