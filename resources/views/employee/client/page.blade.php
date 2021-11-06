@@ -38,7 +38,7 @@
                     <div style="padding: 15px; border-radius: 5px">
                         <label class="lab" style="width: 60px">Name</label>
                         <input class="text1" style="width: 400px" type="text" placeholder="Enter the name">
-                        <button onclick="showTable()" style="background-color: #0b3756;color: #fff;border-radius: 15px; letter-spacing: 1px;
+                        <button onclick="showTable('table')" style="background-color: #0b3756;color: #fff;border-radius: 15px; letter-spacing: 1px;
     border: 2px rgba(255, 255, 255, 0.15); text-align: center;
     box-shadow: 0 0 5px 5px gainsboro; margin-right: 10px; margin-left: 10px; height: 40px; width: 90px">search</button>
                     </div>
@@ -66,9 +66,6 @@
         };
         function get_action2(form) {
             form.action = "{{route('createClient')}}";
-        };
-        function showTable () {
-            document.getElementById('table').style.display = "block";
         };
     </script>
 @stop

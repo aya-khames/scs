@@ -1,7 +1,10 @@
 @extends('layouts.employeepage')
 @section('content_1')
 
-    <div style="border-radius: 20px; border: rgba(15,70,108,0.66); box-shadow: 0 0 5px 5px gainsboro; position: fixed; margin-top: 80px; margin-left: 700px; z-index: 20; height: 780px; width: 900px; background-color: rgba(240,248,248,0.57)">
+    <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
+    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px;
+    margin-left: 700px; z-index: 20; height: 700px; width: 920px;
+    background-color: rgba(240,248,248,0.57)">
         <fieldset>
             <legend style="padding: 10px; color: #0b3756; font-family: 'Times New Roman'; font-size: 35px; font-weight: bold">Client</legend>
             <nav id="main-navbar" style="background-color: rgba(240,248,248,0.39); padding: unset" class="navbar navbar-expand-lg navbar-light bg-white">
@@ -12,26 +15,39 @@
                     <a>Add Contact Person</a>
                 </div>
             </nav>
-            <br><br><br><br>
-            <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 850px" method="POST">
-                @csrf
-                <div style="padding: 15px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
-                    <br><br>
-                    <label class="lab" style="width: 200px">Name:</label> <input name="nameCp" class="text1" style="width: 400px" type="text" placeholder="Enter the name"> <span class="sp"><a
-                            href="#">Search</a></span> <span class="sp"><a
-                            href="#">Search Contact</a></span> <br>
-                    <label class="lab" style="width: 200px">Contact Person:</label> <input name="cp" class="text1" style="width: 400px" type="text" placeholder="Enter the contact"> <span class="sp"><a
-                            href="#">Search</a></span> <br>
+            <br><br>
+            <div style="height: 635px; width: 910px; overflow-y: auto">
+                <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 850px" method="POST">
+                    @csrf
+                    <div style="padding: 15px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
+                        <br><br>
+                        <label class="lab" style="width: 200px">Name:</label> <input name="nameCp" class="text1" style="width: 400px" type="text" placeholder="Enter the name">
+                        <span class="sp"><a href="#" onclick="showTable('table')">Search</a></span> <span class="sp"><a href="#" onclick="showTable('table')">Search Contact</a></span> <br>
+                        <label class="lab" style="width: 200px">Contact Person:</label> <input name="cp" class="text1" style="width: 400px" type="text" placeholder="Enter the contact">
+                        <span class="sp"><a href="#" onclick="showTable('table')">Search</a></span> <br>
+                        <br>
+                    </div>
+                    <div style="margin-left: 280px">
+                        <button class="bttn" type="submit" onclick="get_action1(this.form)">Delete</button>
+                        <button class="bttn" type="submit" onclick="get_action2(this.form)">Edit</button>
+                        <button class="bttn" type="submit" onclick="get_action3(this.form)">Insert</button>
+                    </div>
                     <br>
-                </div>
+                </form>
                 <br>
-                <div style="margin-left: 280px">
-                    <button class="bttn" type="submit" onclick="get_action1(this.form)">Delete</button>
-                    <button class="bttn" type="submit" onclick="get_action2(this.form)">Edit</button>
-                    <button class="bttn" type="submit" onclick="get_action3(this.form)">Insert</button>
+                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 850px; overflow-x: auto">
+                    <table id="table" style="display: none">
+                        <tr style="color: white; background-color: #0b3756; cursor: default">
+                            <th>Company</th>
+                            <th>Contact</th>
+                            <th>Country</th>
+                            <th>Company</th>
+                            <th>Contact</th>
+                            <th>Country</th>
+                        </tr>
+                    </table>
                 </div>
-                <br>
-            </form>
+            </div>
         </fieldset>
     </div>
 @stop

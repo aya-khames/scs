@@ -191,6 +191,10 @@
         document.getElementById("5").style['cursor'] = 'default';
         document.getElementById("6").style['cursor'] = 'default';
     }
+
+    function showTable (x) {
+        document.getElementById(x).style.display = "block";
+    };
 </script>
 @yield('scripts')
 </body>
