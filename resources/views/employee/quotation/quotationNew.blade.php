@@ -81,7 +81,7 @@
                     </div>
                 </form>
                 <br>
-                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px; overflow-x: auto">
+                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1160px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
                             <th>Company</th>
