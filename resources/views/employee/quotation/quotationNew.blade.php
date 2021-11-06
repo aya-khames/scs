@@ -19,7 +19,7 @@
                 </div>
             </nav>
             <br>
-            <div  style="height: 635px; width: 1230px; overflow-y: auto">
+            <div style="height: 635px; width: 1230px; overflow-y: auto">
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px" method="POST">
                     @csrf
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
