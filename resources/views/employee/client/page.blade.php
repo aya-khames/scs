@@ -71,34 +71,24 @@
         };
         $('#searchbtn').click(function(e) {
             e.preventDefault();
-
             var _token = $("input[name='_token']").val();
-            // console.log("successssssss");
-
-            // console.log("successssssss");
             showTable('tableDiv');
             var client = $("#search").val();
             if (client === ""){
                 client = "empty";
             }
-            // console.log(client);
             if (client) {
                 $.ajax({
                     type: "POST",
                     url: "{{route('searchClientNew')}}",
                     data: {_token:_token, client: client},
-
                     success: function(res) {
                         if (res) {
-                            // console.log(res);
-                            // document.getElementsByTagName("td").remove();
                             DeleteRows();
-
                             var i = 0;
                             var ID = 'row';
                             $.each(res, function(key,value) {
                                 ID += i;
-                                // console.log(value);
                                 $("#table").append('<tr onclick="show()" id="' + ID + '">'+
                                     '<td>' + value.Name_C + '</td>'+
                                     '<td>' + value.Address + '</td>'+
@@ -108,10 +98,8 @@
                                     '<td>' + value.E_mail + '</td>'+
                                     '<td>' + value.Tel2 + '</td>'+
                                     '</tr>');
-                                // console.log(ID);
                                 ID = 'row';
                                 i++;
-
                             });
                         } else {
                             $("#table").empty();
@@ -131,18 +119,14 @@
         function show() {
             var rowId =
                 event.target.parentNode.id;
-            var data =
-                document.getElementById(rowId).querySelectorAll("td");
-            var name = data[0].innerHTML ;
-            var Address = data[1].innerHTML ;
-            document.getElementById('name').value = check(name);
+            var data = document.getElementById(rowId).querySelectorAll("td");
+            document.getElementById('name').value = check(data[0].innerHTML);
             document.getElementById('address').value = check(data[1].innerHTML);
             document.getElementById('tel1').value = check(data[2].innerHTML);
             document.getElementById('mob1').value = check(data[3].innerHTML);
             document.getElementById('fax').value = check(data[4].innerHTML);
             document.getElementById('mail').value = check(data[5].innerHTML);
             document.getElementById('tel2').value = check(data[6].innerHTML);
-            // alert("Name: " + name + "\nAddress: " + Address);
         }
 
     </script>

@@ -15,11 +15,12 @@
                     <a>Print</a>
                 </div>
             </nav>
-            <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px">
+            <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px" method="POST">
+                @csrf
                 <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                     <label class="lab" style="font-size: 20px; width: 170px">Client:</label>
                     <a style="padding: unset">
-                        <select id="clientname" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <select required id="clientname" name="client" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <option value="" disabled selected></option>
                             @foreach($clients as $client)
                                 <option>{{$client->Name_C}}</option>
@@ -28,23 +29,22 @@
                     </a>
                     <label class="lab" style="font-size: 20px; width: 120px; margin-left: 30px">Work Order:</label>
                     <a style="padding: unset">
-                        <select disabled id="work" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <select name="work" disabled id="work" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <option value="" disabled selected></option>
-{{--                            <option>1111</option>--}}
                         </select>
                     </a>
                     <label class="lab" style="font-size: 20px; width: 170px">Certificate No:</label>
-                    <input disabled readonly id="certNo" class="text2" style="width: 400px" type="text">
+                    <input name="cerno" disabled readonly id="certNo" class="text2" style="width: 400px" type="text">
                     <label class="lab" style="font-size: 20px; width: 120px; margin-left: 30px">Report date:</label>
-                    <input disabled id="date1" class="Date text2" style="width: 190px" type="date">
+                    <input name="repdate" disabled id="date1" class="Date text2" style="width: 190px" type="date">
                     <input disabled readonly id="date2" class="Date text2" style="width: 195px" type="text">
 
                     <label class="lab" style="font-size: 18px; width: 170px">Date of next thorough examination:</label>
-                    <input disabled id="date3" class="Date text2" style="width: 190px" type="date">
+                    <input name="dateNTE" disabled id="date3" class="Date text2" style="width: 190px" type="date">
                     <input disabled readonly id="date4" class="Date text2" style="width: 195px; display: inline-block" type="text">
                     <div style="margin-left: 160px; display: inline-block">
-                        <button class="bttn">Edit</button>
-                        <button class="bttn">Insert</button>
+                        <button type="submit" onclick="get_action1(this.form)" class="bttn">Edit</button>
+                        <button type="submit" onclick="get_action2(this.form)" class="bttn">Insert</button>
                     </div>
                 </div>
             </form>
@@ -123,6 +123,12 @@
             document.getElementById('date3').disabled = false;
             document.getElementById('date4').disabled = false;
         });
+        function get_action1(form) {
+            {{--form.action = "{{route('editComp')}}";--}}
+        }
+        function get_action2(form) {
+            form.action = "{{route('insertComp')}}";
+        }
 
     </script>
 @stop

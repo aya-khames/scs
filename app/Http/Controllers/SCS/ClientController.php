@@ -10,7 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller{
-
+    public function create(){
+        $clients = Client::all();
+        return view('employee.client.page',['clients'=>$clients]);
+    }
     public function searchClientNew(Request $request){
         if($request->client === "empty"){
             $c = Client::all();
@@ -20,59 +23,7 @@ class ClientController extends Controller{
         }
         return response()->json($c);
     }
-
-
-
-    public function create(){
-        $clients = Client::all();
-        return view('employee.client.page',['clients'=>$clients]);
-    }
-    public function getRule(){
-        $rules = [
-            'name' => 'required|max:100',
-            'address' => 'required|max:200'
-        ];
-        return $rules;
-    }
-    public function getMessage()
-    {
-        $msg = 'required';
-        $msg1 = 'exceeded the limits';
-        $messages = [
-            'name.required' => $msg,
-            'address.required' => $msg,
-            'name.max' => $msg1,
-            'address.max' => $msg1
-        ];
-        return $messages;
-    }
-    public function getCpRule(){
-        $rules = [
-            'nameCp' => 'required|max:100',
-            'cp' => 'required|max:100'
-        ];
-        return $rules;
-    }
-    public function getCpMessage()
-    {
-        $msg = 'required';
-        $msg1 = 'exceeded the limits';
-        $messages = [
-            'nameCp.required' => $msg,
-            'cp.required' => $msg,
-            'nameCp.max' => $msg1,
-            'cp.max' => $msg1
-        ];
-        return $messages;
-    }
-
-
-
     public function insertClient(Request $request){
-        $validator = Validator::make($request->all(), $this->getRule(), $this->getMessage());
-        if ($validator->fails()){
-            return redirect()->back()->withErrors($validator)->withInputs($request->all());
-        }
         if (Client::where('Name_C',$request->name)->first() === null ){
             $client = new Client();
             $client->Name_C = $request->name;
@@ -103,27 +54,30 @@ class ClientController extends Controller{
             $client->save();
             return redirect()->to('page')->with('message', 'finally' );
         }
-        //else show alert
         return redirect()->to('page');
     }
     public function insertCP(Request $request){
-        $validator = Validator::make($request->all(), $this->getCpRule(), $this->getCpMessage());
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInputs($request->all());
-        }
+//        $validator = Validator::make($request->all(), $this->getCpRule(), $this->getCpMessage());
+//        if ($validator->fails()) {
+//            return redirect()->back()->withErrors($validator)->withInputs($request->all());
+//        }
         $cp = new Cp();
         $cp->Name_C = $request->nameCp;
         $cp->C_P = $request->cp;
         $cp->save();
-        return redirect()->to('addcont')->with('message', 'finally' );
+        return redirect()->back();
     }
 
-   
+//    public function searchCP(Request $request){
+//        if($request->client === "empty"){
+//            $c = Cp::all();
+//        }
+//        else{
+//            $c = Cp::where('Name_C', $request->client)->get();
+//        }
+//        return response()->json($c);
+//    }
     public function editClient(Request $request){
-        $validator = Validator::make($request->all(), $this->getRule(), $this->getMessage());
-        if ($validator->fails()){
-            return redirect()->back()->withErrors($validator)->withInputs($request->all());
-        }
         $client = Client::where('Name_C',$request->name)->first();
         if ($client !== null){
             $client->Address = $request -> address;
@@ -139,30 +93,25 @@ class ClientController extends Controller{
         return redirect()->back();
         //return alert message
     }
-    public function editCP(Request $request){
-        $validator = Validator::make($request->all(), $this->getCpRule(), $this->getCpMessage());
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInputs($request->all());
-        }
-        $cps = Cp::where('Name_C',$request->nameCp)->get();
-        foreach ($cps as $cp){
-            $cp->C_P = $request->cp;
-            $cp->save();
-        }
-        return redirect()->to('addcont');
-       // return $cps;
-    }
+//    public function editCP(Request $request){
+//        $cps = Cp::where('Name_C',$request->nameCp)->get();
+//        foreach ($cps as $cp){
+//            $cp->C_P = $request->cp;
+//            $cp->save();
+//        }
+//        return redirect()->back();
+//    }
     public function deleteCP(Request $request){
-        $validator = Validator::make($request->all(), $this->getCpRule(), $this->getCpMessage());
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInputs($request->all());
-        }
+//        $validator = Validator::make($request->all(), $this->getCpRule(), $this->getCpMessage());
+//        if ($validator->fails()) {
+//            return redirect()->back()->withErrors($validator)->withInputs($request->all());
+//        }
         $cp = Cp::where([
             ['Name_C', '=', $request->nameCp],
             ['C_P', '=', $request->cp],
         ]);
         $cp->delete();
-        return redirect()->to('addcont');
+        return redirect()->back();
     }
 
 }

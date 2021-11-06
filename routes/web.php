@@ -31,9 +31,6 @@ Route::group(['middleware' => 'prevent'],function(){
             return view('employee.start');
         })->middleware('isClient');
         Route::middleware(['isAccountant', 'isOperation', 'isClient'])->group(function (){
-//            Route::get('/unsafen', function () {
-//                return view('employee.unsafe.unsafeNew');
-//            });
             Route::get('/unsafen', 'SCS\UnsafeController@showunsafe');
             Route::get('/generateRep', 'SCS\UnsafeController@generateRep')->name('generateRep');
             Route::post('/insertUS', 'SCS\UnsafeController@insertUS')->name('insertUS');
@@ -59,13 +56,13 @@ Route::group(['middleware' => 'prevent'],function(){
 
 
             Route::get('/walln', 'SCS\WallController@showNewWall');
+            Route::post('/insertWallN', 'SCS\WallController@insertWallN')->name('insertWallN');
             Route::get('/walld', function () {
                 return view('employee.wall.wallThickDes');
             });
             Route::get('/wallp', function () {
                 return view('employee.wall.wallThickPrint');
             });
-
             Route::get('/tvn', 'SCS\TestvController@showTVN');
             Route::post('/insertTVNew', 'SCS\TestvController@insertTVNew')->name('insertTVNew');
             Route::get('/tvd', function () {
@@ -82,8 +79,6 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::get('/tmvmp', function () {
                 return view('employee.test.testmpi.TMVMPrint');
             });
-
-
             Route::get('/cranep', function () {
                 return view('employee.crane.cranePrint');
             });
@@ -104,6 +99,8 @@ Route::group(['middleware' => 'prevent'],function(){
             });
 
             Route::get('/compn', 'SCS\CompressorController@showNewComp');
+            Route::post('/insertComp', 'SCS\CompressorController@insertComp')->name('insertComp');
+
             Route::get('/compd', function () {
                 return view('employee.compressor.compDes');
             });
@@ -113,10 +110,6 @@ Route::group(['middleware' => 'prevent'],function(){
 
             Route::get('/cdn', 'SCS\CdnController@showcdn');
             Route::get('/getCP', 'SCS\CdnController@getCP')->name('getCP');
-//            Route::get('/cdn', function () {
-//                return view('employee.cdn.CDN');
-//            });
-
         });
         Route::middleware(['isAccountant', 'isClient'])->group(function (){
             //quotation
