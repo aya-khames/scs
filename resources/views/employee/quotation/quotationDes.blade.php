@@ -26,7 +26,7 @@
                         <label class="lab" style="font-size: 20px; width: 130px">Quotation:</label> <input name="quotation" class="text2" style="width: 400px" type="text">
                         <span><label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input readonly name="client" class="text2" style="width: 400px" type="text"></span>
                         <br>
-                        <span class="sp"><a style="margin-left: 150px" href="#" onclick="showTable('table')">Search</a>
+                        <span class="sp"><a style="margin-left: 150px; cursor: pointer" onclick="showTable('table')">Search</a>
                         <a style="margin-left: 50px">Search Edit</a>
                         <input style="margin-left: 330px; height: 17px; width: 17px" id="check" value="0" type="checkbox"></span>
                         <br>
@@ -39,7 +39,7 @@
                         <textarea name="description" class="text2" style="width: 400px;margin-left: 145px; height: 150px; resize: none"></textarea>
                         <br>
                         <span><label class="lab" style="font-size: 20px; width: 120px; margin-left: 10px">Type:</label>
-                        <a href="#" style="padding: unset; display: inline-block">
+                        <a style="padding: unset; display: inline-block">
                             <select name="type" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected>Type</option>
                                 <option>Inspection</option>
@@ -58,7 +58,7 @@
                     </div>
                 </form>
                 <br>
-                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px; overflow-x: auto">
+                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1160px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
                             <th>Company</th>

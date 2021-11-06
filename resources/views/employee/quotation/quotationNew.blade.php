@@ -72,12 +72,12 @@
                 </form>
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px">
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
-                        <label class="lab" style="font-size: 20px; width: 100px">Quotation:</label> <input class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp"><a
-                                href="#" onclick="showTable('table')">Search</a></span> <br>
-                        <label class="lab" style="font-size: 20px; width: 100px">Client:</label> <input class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp"><a
-                                href="#" onclick="showTable('table')">Search</a></span> <br>
-                        <label class="lab" style="font-size: 20px; width: 100px">Date:</label> <input class="Date text2" style="width: 300px" type="date" ><span><label class="lab" style="font-size: 20px; width: 45px; margin-left: 45px">To:</label> <input class="Date text2" style="width: 300px" type="date" ></span> <span class="sp"><a
-                                href="#" onclick="showTable('table')">Search</a></span><br>
+                        <label class="lab" style="font-size: 20px; width: 100px">Quotation:</label> <input class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp">
+                            <a style="cursor: pointer" onclick="showTable('table')">Search</a></span> <br>
+                        <label class="lab" style="font-size: 20px; width: 100px">Client:</label> <input class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp">
+                            <a style="cursor: pointer" onclick="showTable('table')">Search</a></span> <br>
+                        <label class="lab" style="font-size: 20px; width: 100px">Date:</label> <input class="Date text2" style="width: 300px" type="date" ><span><label class="lab" style="font-size: 20px; width: 45px; margin-left: 45px">To:</label> <input class="Date text2" style="width: 300px" type="date" ></span> <span class="sp">
+                            <a style="cursor: pointer" onclick="showTable('table')">Search</a></span><br>
                     </div>
                 </form>
                 <br>

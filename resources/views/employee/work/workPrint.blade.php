@@ -23,7 +23,7 @@
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px">
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input class="text2" style="width: 400px" type="text">
-                        <a class="sp" style="margin-left: 20px" href="#" onclick="showTable('table')">Search</a>
+                        <a class="sp" style="margin-left: 20px; cursor:pointer" onclick="showTable('table')">Search</a>
                         <br>
                         <label class="lab" style="font-size: 20px; width: 130px">Quotation:</label>
                         <input disabled class="text2" style="width: 400px" type="text">
@@ -44,7 +44,7 @@
                     </div>
                 </form>
                 <br>
-                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px; overflow-x: auto">
+                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1250px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
                             <th>Company</th>
