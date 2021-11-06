@@ -22,9 +22,9 @@
                     <div style="padding: 15px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                         <br><br>
                         <label class="lab" style="width: 200px">Name:</label> <input id="name" name="nameCp" class="text1" style="width: 400px" type="text" placeholder="Enter the name">
-                        <span class="sp"><a href="#" onclick="showTable('table')">Search</a></span> <span class="sp"><a href="#" onclick="showTable('table')">Search Contact</a></span> <br>
+                        <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span> <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search Contact</a></span> <br>
                         <label class="lab" style="width: 200px">Contact Person:</label> <input id="cp" name="cp" class="text1" style="width: 400px" type="text" placeholder="Enter the contact">
-                        <span class="sp"><a href="#" onclick="showTable('table')">Search</a></span> <br>
+                        <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span> <br>
                         <br>
                     </div>
                     <div style="margin-left: 280px">
