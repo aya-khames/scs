@@ -55,6 +55,7 @@ Route::group(['middleware' => 'prevent'],function(){
                 return view('employee.ndt.dpi.DPIPrint');
             });
             Route::get('/mpin', 'SCS\NdtmpiController@showNewMpi');
+            Route::post('/insertMPINew', 'SCS\NdtmpiController@insertMPINew')->name('insertMPINew');
 
 
             Route::get('/walln', 'SCS\WallController@showNewWall');

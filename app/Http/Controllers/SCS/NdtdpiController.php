@@ -51,6 +51,12 @@ class NdtdpiController extends Controller
         $dpi->DYE_PEN = $request->dye;
         $dpi->INSPECTOR_C = $request->inspector;
         $dpi->save();
+        $cer = new Cetificate();
+        $cer->Name_C = $request->client;
+        $cer->ID_WO = $request->work;
+        $cer->Report_num = $request->cert;
+        $cer->Report_Type = "NDT DPI";
+        $cer->save();
         return redirect()->back();
 
     }
