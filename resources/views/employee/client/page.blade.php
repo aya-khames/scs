@@ -3,7 +3,7 @@
 
     <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
     box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px;
-    margin-left: 700px; z-index: 20; height: 800px; width: 930px;
+    margin-left: 600px; z-index: 20; height: 780px; width: 930px;
     background-color: rgba(240,248,248,0.57)">
         <fieldset>
             <legend style="padding: 10px; color: #0b3756; font-family: 'Times New Roman'; font-size: 35px; font-weight: bold">Client</legend>
@@ -16,19 +16,19 @@
                 </div>
             </nav>
             <br>
-            <div style="height: 635px; width: 920px; overflow-y: auto">
+            <div style="height: 610px; width: 920px; overflow-y: auto">
                 <form id="form" style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 850px" method="POST">
                     @csrf
                     <div style="padding: 15px; border-radius: 5px">
-                        <label class="lab">Name:</label> <input required name="name" id="name" class="text1" type="text" placeholder="Enter the name"><br>
-                        <label class="lab">Tel_1:</label> <input id="tel1" name="tel1" class="text2" type="text" placeholder="Enter phone number"><label style="margin-left: 10px; width: 80px" class="lab">Tel_2:</label> <input id="tel2" class="text2" name="tel2" type="text" placeholder="Enter another one"><br>
-                        <label class="lab">Mob_1:</label> <input id="mob1" class="text2" name="mob1" type="text" placeholder="Enter mobile number"><label style="margin-left: 10px; width: 80px" class="lab">Mob_2:</label> <input class="text2" name="mob2" type="text" placeholder="Enter another one"><br>
-                        <label class="lab">Fax:</label> <input id="fax" class="text1" name="fax" type="text" placeholder="Enter the fax"><br>
-                        <label class="lab">E-Mail:</label> <input id="mail" class="text1" name="mail" type="text" placeholder="Enter the E-mail"><br>
-                        <label class="lab">Address:</label> <input required id="address" class="text1" name="address" type="text" placeholder="Enter the Address"><br>
-                        <label class="lab">Vat Number:</label> <input id="vat" class="text1" name="vat" type="text" placeholder="Enter the Vat no."><br>
-                        <br>
-                        <div style="margin-left: 300px" id="far">
+                        <label style="font-size: 20px; width: 120px" class="lab">Name:</label> <input required name="name" id="name" class="text1" type="text" placeholder="Enter the name"><br>
+                        <label style="font-size: 20px; width: 120px" class="lab">Tel_1:</label> <input id="tel1" name="tel1" class="text2" type="text" placeholder="Enter phone number"><label style="margin-left: 10px; width: 80px; font-size: 20px" class="lab">Tel_2:</label> <input id="tel2" class="text2" name="tel2" type="text" placeholder="Enter another one"><br>
+                        <label style="font-size: 20px; width: 120px" class="lab">Mob_1:</label> <input id="mob1" class="text2" name="mob1" type="text" placeholder="Enter mobile number"><label style="margin-left: 10px; width: 80px; font-size: 20px" class="lab">Mob_2:</label> <input class="text2" name="mob2" type="text" placeholder="Enter another one"><br>
+                        <label style="font-size: 20px; width: 120px" class="lab">Fax:</label> <input id="fax" class="text1" name="fax" type="text" placeholder="Enter the fax"><br>
+                        <label style="font-size: 20px; width: 120px" class="lab">E-Mail:</label> <input id="mail" class="text1" name="mail" type="text" placeholder="Enter the E-mail"><br>
+                        <label style="font-size: 20px; width: 120px" class="lab">Address:</label> <input required id="address" class="text1" name="address" type="text" placeholder="Enter the Address"><br>
+                        <label style="font-size: 20px; width: 120px" class="lab">Vat Number:</label> <input id="vat" class="text1" name="vat" type="text" placeholder="Enter the Vat no."><br>
+
+                        <div style="margin-left: 300px; margin-top: 5px" id="far">
                             <button id="edit" type="submit" onclick="get_action1(this.form)" class="bttn">Edit</button>
                             <button id="insert" type="submit" onclick="get_action2(this.form)" class="bttn">Insert</button>
                         </div>
@@ -37,7 +37,7 @@
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 850px">
                     @csrf
                     <div style="padding: 15px; border-radius: 5px">
-                        <label class="lab" style="width: 60px">Name</label>
+                        <label style="font-size: 20px; width: 120px" class="lab" style="width: 60px">Name</label>
                         <input id="search" name="search" class="text1" style="width: 400px" type="text" placeholder="Enter the name">
                         <button type="submit" id="searchbtn" onclick="showTable('tableDiv')" style="background-color: #0b3756;color: #fff;border-radius: 15px; letter-spacing: 1px;
     border: 2px rgba(255, 255, 255, 0.15); text-align: center;
