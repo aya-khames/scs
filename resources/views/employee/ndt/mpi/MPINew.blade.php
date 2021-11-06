@@ -92,7 +92,7 @@
                         <button class="bttn" type="submit" onclick="get_action1(this.form)" style="box-shadow: 0 0 20px rgb(11,55,86); margin: 20px">Insert</button>
                     </div>
                 </form>
-                <form style="width: 1270px; margin: unset; background-color: rgba(240,248,248,0.05)">
+                <form style="width: 1320px; margin: unset; background-color: rgba(240,248,248,0.05)">
                     <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65)">
                         <div style="padding: 20px; border-radius: 5px">
                             <label class="lab" style="font-size: 18px; width: 90px">CERT No:</label>
@@ -108,8 +108,8 @@
                     </div>
                 </form>
                 <br>
-                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1270px; max-height: 400px; overflow-y: auto">
-                    <table id="table" style="display: none; width: 1270px">
+                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1280px; max-height: 400px; overflow-y: auto">
+                    <table id="table" style="display: none; width: 1280px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
                             <th>Company</th>
                             <th>Contact</th>
@@ -120,7 +120,6 @@
                         </tr>
                     </table>
                 </div>
-            </div>
             </div>
         </fieldset>
     </div>
