@@ -1,7 +1,10 @@
 @extends('layouts.employeepage')
 @section('content_1')
 
-    <div style="border-radius: 20px; border: rgba(15,70,108,0.66); box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px; margin-left: 700px; z-index: 20; height: 780px; width: 900px; background-color: rgba(240,248,248,0.57)">
+    <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
+    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px;
+    margin-left: 700px; z-index: 20; height: 800px; width: 930px;
+    background-color: rgba(240,248,248,0.57)">
         <fieldset>
             <legend style="padding: 10px; color: #0b3756; font-family: 'Times New Roman'; font-size: 35px; font-weight: bold">Client</legend>
             <nav id="main-navbar" style="background-color: rgba(240,248,248,0.39); padding: unset" class="navbar navbar-expand-lg navbar-light bg-white">
@@ -13,38 +16,46 @@
                 </div>
             </nav>
             <br>
-            <form id="form" style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 850px" method="POST">
-                @csrf
-                <div style="padding: 15px; border-radius: 5px; background-color: rgba(240,248,248,0.49)">
-                    <label class="lab">Name:</label> <input   name="name" class="text1" type="text" placeholder="Enter the name"><br>
-                    @error('name')
-                    <small class="from-text text-danger">{{$message}}</small>
-                    @enderror
-                    <label class="lab">Tel_1:</label> <input name="tel1" class="text2" type="text" placeholder="Enter phone number"><label style="margin-left: 10px; width: 80px" class="lab">Tel_2:</label> <input class="text2" name="tel2" type="text" placeholder="Enter another one"><br>
-                    <label class="lab">Mob_1:</label> <input class="text2" name="mob1" type="text" placeholder="Enter mobile number"><label style="margin-left: 10px; width: 80px" class="lab">Mob_2:</label> <input class="text2" name="mob2" type="text" placeholder="Enter another one"><br>
-                    <label class="lab">Fax:</label> <input class="text1" name="fax" type="text" placeholder="Enter the fax"><br>
-                    <label class="lab">E-Mail:</label> <input class="text1" name="mail" type="text" placeholder="Enter the E-mail"><br>
-                    <label class="lab">Address:</label> <input  class="text1" name="address" type="text" placeholder="Enter the Address"><br>
-                    @error('address')
-                    <small class="from-text text-danger">{{$message}}</small>
-                    @enderror
-                    <label class="lab">Vat Number:</label> <input class="text1" name="vat" type="text" placeholder="Enter the Vat no."><br>
-                    <div style="display: inline-block" id="far">
-                        <button id="edit" type="submit" onclick="get_action1(this.form)" class="bttn">Edit</button>
-                        <button id="insert" type="submit" onclick="get_action2(this.form)" class="bttn">Insert</button>
+            <div style="height: 635px; width: 920px; overflow-y: auto">
+                <form id="form" style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 850px" method="POST">
+                    @csrf
+                    <div style="padding: 15px; border-radius: 5px">
+                        <label class="lab">Name:</label> <input required name="name" id="name" class="text1" type="text" placeholder="Enter the name"><br>
+                        <label class="lab">Tel_1:</label> <input name="tel1" class="text2" type="text" placeholder="Enter phone number"><label style="margin-left: 10px; width: 80px" class="lab">Tel_2:</label> <input class="text2" name="tel2" type="text" placeholder="Enter another one"><br>
+                        <label class="lab">Mob_1:</label> <input class="text2" name="mob1" type="text" placeholder="Enter mobile number"><label style="margin-left: 10px; width: 80px" class="lab">Mob_2:</label> <input class="text2" name="mob2" type="text" placeholder="Enter another one"><br>
+                        <label class="lab">Fax:</label> <input class="text1" name="fax" type="text" placeholder="Enter the fax"><br>
+                        <label class="lab">E-Mail:</label> <input class="text1" name="mail" type="text" placeholder="Enter the E-mail"><br>
+                        <label class="lab">Address:</label> <input required id="address" class="text1" name="address" type="text" placeholder="Enter the Address"><br>
+                        <label class="lab">Vat Number:</label> <input class="text1" name="vat" type="text" placeholder="Enter the Vat no."><br>
+                        <br>
+                        <div style="margin-left: 300px" id="far">
+                            <button id="edit" type="submit" onclick="get_action1(this.form)" class="bttn">Edit</button>
+                            <button id="insert" type="submit" onclick="get_action2(this.form)" class="bttn">Insert</button>
+                        </div>
                     </div>
-                </div>
-
-            </form>
-
-            <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 850px">
-                <div style="padding: 15px; border-radius: 5px; background-color: rgba(240,248,248,0.49)">
-                    <label class="lab" style="width: 60px">Name</label> <input class="text1" style="width: 400px" type="text" placeholder="Enter the name"> <button style="background-color: #0b3756;color: #fff;border-radius: 15px; letter-spacing: 1px;
+                </form>
+                <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 850px">
+                    <div style="padding: 15px; border-radius: 5px">
+                        <label class="lab" style="width: 60px">Name</label>
+                        <input class="text1" style="width: 400px" type="text" placeholder="Enter the name">
+                        <button onclick="showTable()" style="background-color: #0b3756;color: #fff;border-radius: 15px; letter-spacing: 1px;
     border: 2px rgba(255, 255, 255, 0.15); text-align: center;
-    box-shadow: 0 0 5px 5px gainsboro; display: inline-block; text-decoration: underline; margin-right: 10px; margin-left: 10px; height: 40px; width: 90px">search</button>
-
+    box-shadow: 0 0 5px 5px gainsboro; margin-right: 10px; margin-left: 10px; height: 40px; width: 90px">search</button>
+                    </div>
+                </form>
+                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 850px; overflow-x: auto">
+                    <table id="table" style="display: none">
+                        <tr style="color: white; background-color: #0b3756; cursor: default">
+                            <th>Company</th>
+                            <th>Contact</th>
+                            <th>Country</th>
+                            <th>Company</th>
+                            <th>Contact</th>
+                            <th>Country</th>
+                        </tr>
+                    </table>
                 </div>
-            </form>
+            </div>
         </fieldset>
     </div>
 @stop
@@ -52,10 +63,12 @@
     <script>
         function get_action1(form) {
             form.action = "{{route('edit')}}";
-        }
+        };
         function get_action2(form) {
             form.action = "{{route('createClient')}}";
-        }
-
+        };
+        function showTable () {
+            document.getElementById('table').style.display = "block";
+        };
     </script>
 @stop
