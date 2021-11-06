@@ -67,6 +67,7 @@ Route::group(['middleware' => 'prevent'],function(){
             });
 
             Route::get('/tvn', 'SCS\TestvController@showTVN');
+            Route::post('/insertTVNew', 'SCS\TestvController@insertTVNew')->name('insertTVNew');
             Route::get('/tvd', function () {
                 return view('employee.test.testvisual.TVDes');
             });
@@ -74,9 +75,7 @@ Route::group(['middleware' => 'prevent'],function(){
                 return view('employee.test.testvisual.TVPrint');
             });
             Route::get('/tmvmn', 'SCS\TestmpiController@showTVM');
-//            Route::get('/tmvmn', function () {
-//                return view('employee.test.testmpi.TMVMNew');
-//            });
+            Route::post('/insertTVMNew', 'SCS\TestmpiController@insertTVMNew')->name('insertTVMNew');
             Route::get('/tmvmd', function () {
                 return view('employee.test.testmpi.TMVMDes');
             });
