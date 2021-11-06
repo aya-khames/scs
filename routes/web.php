@@ -166,6 +166,7 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::get('/addcont', function () {
                 return view('employee.client.addContactPerson');
             });
+             Route::get('/searchCP', 'SCS\ClientController@searchByName')->name('searchCP');
 
             Route::post('/insertcp', 'SCS\ClientController@insertCP')-> name('contactPerson');
             Route::post('/editcp', 'SCS\ClientController@editCP')-> name('editClient');

@@ -23,6 +23,21 @@ class ClientController extends Controller{
         }
         return response()->json($c);
     }
+    public function searchByName(Request $request){
+        if($request->client === "empty"){
+            $c = Cp::all();
+        }
+        else{
+            if($request->searchType === "name"){
+                $c = Cp::where('Name_C', $request->client)->get();
+            }
+            else{
+                $c = Cp::where('C_P', $request->client)->get();
+            }
+        }
+        return response()->json($c);
+    }
+
     public function insertClient(Request $request){
         if (Client::where('Name_C',$request->name)->first() === null ){
             $client = new Client();
@@ -57,10 +72,6 @@ class ClientController extends Controller{
         return redirect()->to('page');
     }
     public function insertCP(Request $request){
-//        $validator = Validator::make($request->all(), $this->getCpRule(), $this->getCpMessage());
-//        if ($validator->fails()) {
-//            return redirect()->back()->withErrors($validator)->withInputs($request->all());
-//        }
         $cp = new Cp();
         $cp->Name_C = $request->nameCp;
         $cp->C_P = $request->cp;
@@ -68,15 +79,6 @@ class ClientController extends Controller{
         return redirect()->back();
     }
 
-//    public function searchCP(Request $request){
-//        if($request->client === "empty"){
-//            $c = Cp::all();
-//        }
-//        else{
-//            $c = Cp::where('Name_C', $request->client)->get();
-//        }
-//        return response()->json($c);
-//    }
     public function editClient(Request $request){
         $client = Client::where('Name_C',$request->name)->first();
         if ($client !== null){
@@ -93,19 +95,20 @@ class ClientController extends Controller{
         return redirect()->back();
         //return alert message
     }
-//    public function editCP(Request $request){
-//        $cps = Cp::where('Name_C',$request->nameCp)->get();
-//        foreach ($cps as $cp){
-//            $cp->C_P = $request->cp;
-//            $cp->save();
-//        }
-//        return redirect()->back();
-//    }
+    public function editCP(Request $request){
+        $cps = Cp::where([
+            ['Name_C', '=', $request->oldname],
+            ['C_P', '=', $request->oldcp],
+        ])->get();
+        foreach ($cps as $cp){
+            $cp->C_P = $request->nameCp;
+            $cp->C_P = $request->cp;
+            $cp->save();
+        }
+        return redirect()->back();
+    }
     public function deleteCP(Request $request){
-//        $validator = Validator::make($request->all(), $this->getCpRule(), $this->getCpMessage());
-//        if ($validator->fails()) {
-//            return redirect()->back()->withErrors($validator)->withInputs($request->all());
-//        }
+
         $cp = Cp::where([
             ['Name_C', '=', $request->nameCp],
             ['C_P', '=', $request->cp],

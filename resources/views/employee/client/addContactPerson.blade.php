@@ -21,10 +21,12 @@
                     @csrf
                     <div style="padding: 15px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                         <br><br>
-                        <label class="lab" style="width: 200px">Name:</label> <input id="name" name="nameCp" class="text1" style="width: 400px" type="text" placeholder="Enter the name">
-                        <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span> <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search Contact</a></span> <br>
-                        <label class="lab" style="width: 200px">Contact Person:</label> <input id="cp" name="cp" class="text1" style="width: 400px" type="text" placeholder="Enter the contact">
-                        <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span> <br>
+                        <label class="lab" style="width: 200px">Name:</label> <input required id="name" name="nameCp" class="text1" style="width: 400px" type="text" placeholder="Enter the name">
+                        <input id="oldname" name="oldname" class="text1" style="display: none" type="text" >
+                        <span class="sp"><a id="searchClient" style="cursor: pointer">Search</a></span> <span class="sp"><a style="cursor: pointer">Search Contact</a></span> <br>
+                        <label class="lab" style="width: 200px">Contact Person:</label> <input required id="cp" name="cp" class="text1" style="width: 400px" type="text" placeholder="Enter the contact">
+                        <input id="oldcp" name="oldcp" class="text1" style="display: none" type="text" >
+                        <span class="sp"><a style="cursor: pointer" id="searchCp">Search</a></span> <br>
                         <br>
                     </div>
                     <div style="margin-left: 280px">
@@ -36,14 +38,10 @@
                 </form>
                 <br>
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 850px; max-height: 400px; overflow-y: auto">
-                    <table id="table" style="display: none">
+                    <table id="table" style="display: none; width: 850px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Name</th>
+                            <th>Contact Person</th>
                         </tr>
                     </table>
                 </div>
@@ -61,6 +59,92 @@
         }
         function get_action3(form) {
             form.action = "{{route('contactPerson')}}";
+        }
+        $('#searchClient').click(function() {
+            showTable('table');
+            var client = $("#name").val();
+            if (client === ""){
+                client = "empty";
+            }
+            if (client) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('searchCP')}}",
+                    data: {client: client, searchType:"name"},
+                    success: function(res) {
+                        if (res) {
+                            DeleteRows();
+                            var i = 0;
+                            var ID = 'row';
+                            $.each(res, function(key,value) {
+                                ID += i;
+                                $("#table").append('<tr onclick="show()" id="' + ID + '">'+
+                                    '<td>' + value.Name_C + '</td>'+
+                                    '<td>' + value.C_P + '</td>'+
+                                    '</tr>');
+                                ID = 'row';
+                                i++;
+                            });
+                        } else {
+                            DeleteRows();
+                        }
+                    }
+                });
+            } else {
+                DeleteRows();
+            }
+        });
+        $('#searchCp').click(function() {
+            showTable('table');
+            var client = $("#cp").val();
+            if (client === ""){
+                client = "empty";
+            }
+            console.log(client);
+            if (client) {
+
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('searchCP')}}",
+                    data: {client: client, searchType:"Cp"},
+                    success: function(res) {
+                        if (res) {
+
+                            DeleteRows();
+                            var i = 0;
+                            var ID = 'row';
+                            $.each(res, function(key,value) {
+                                ID += i;
+                                $("#table").append('<tr onclick="show()" id="' + ID + '">'+
+                                    '<td>' + value.Name_C + '</td>'+
+                                    '<td>' + value.C_P + '</td>'+
+                                    '</tr>');
+                                ID = 'row';
+                                i++;
+                            });
+                        } else {
+                            DeleteRows();
+                        }
+                    }
+                });
+            } else {
+                DeleteRows();
+            }
+        });
+        function DeleteRows() {
+            var rowCount = table.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
+        }
+        function show() {
+            var rowId =
+                event.target.parentNode.id;
+            var data = document.getElementById(rowId).querySelectorAll("td");
+            document.getElementById('name').value = check(data[0].innerHTML);
+            document.getElementById('cp').value = check(data[1].innerHTML);
+            document.getElementById('oldname').value = check(data[0].innerHTML);
+            document.getElementById('oldcp').value = check(data[1].innerHTML);
         }
     </script>
 @stop
