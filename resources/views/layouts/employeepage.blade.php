@@ -196,6 +196,12 @@
     function showTable (x) {
         document.getElementById(x).style.display = "block";
     };
+    function check(x){
+        if (x === "undefined" || x === "null"){
+            x = "";
+        }
+        return x;
+    }
 </script>
 @yield('scripts')
 </body>

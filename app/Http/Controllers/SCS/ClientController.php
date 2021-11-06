@@ -118,38 +118,7 @@ class ClientController extends Controller{
         return redirect()->to('addcont')->with('message', 'finally' );
     }
 
-    public function getSearchRule(){
-        $rules = [
-            'name' => 'required|max:100',
-        ];
-        return $rules;
-    }
-    public function getSearchMessage()
-    {
-        $msg = 'required';
-        $msg1 = 'exceeded the limits';
-        $messages = [
-            'name.required' => $msg,
-            'name.max' => $msg1
-        ];
-        return $messages;
-    }
-    public function getCpSearchRule(){
-        $rules = [
-            'nameCp' => 'required|max:100',
-        ];
-        return $rules;
-    }
-    public function getCpSearchMessage()
-    {
-        $msg = 'required';
-        $msg1 = 'exceeded the limits';
-        $messages = [
-            'nameCp.required' => $msg,
-            'nameCp.max' => $msg1
-        ];
-        return $messages;
-    }
+   
     public function editClient(Request $request){
         $validator = Validator::make($request->all(), $this->getRule(), $this->getMessage());
         if ($validator->fails()){
@@ -166,19 +135,9 @@ class ClientController extends Controller{
             $client->E_mail = $request -> mail;
             $client->Fax_C = $request -> fax;
             $client->save();
-            return redirect()->to('page');
-
         }
-        return redirect()->to('page');
+        return redirect()->back();
         //return alert message
-    }
-    public function searchClient(Request $request){
-        $validator = Validator::make($request->all(), $this->getSearchRule(), $this->getSearchMessage());
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInputs($request->all());
-        }
-        $clients =Client::where('Name_C',$request->name)->first();
-        return view('page',['clients'=>$clients]);
     }
     public function editCP(Request $request){
         $validator = Validator::make($request->all(), $this->getCpRule(), $this->getCpMessage());

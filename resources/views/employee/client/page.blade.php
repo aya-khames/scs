@@ -21,12 +21,12 @@
                     @csrf
                     <div style="padding: 15px; border-radius: 5px">
                         <label class="lab">Name:</label> <input required name="name" id="name" class="text1" type="text" placeholder="Enter the name"><br>
-                        <label class="lab">Tel_1:</label> <input name="tel1" class="text2" type="text" placeholder="Enter phone number"><label style="margin-left: 10px; width: 80px" class="lab">Tel_2:</label> <input class="text2" name="tel2" type="text" placeholder="Enter another one"><br>
-                        <label class="lab">Mob_1:</label> <input class="text2" name="mob1" type="text" placeholder="Enter mobile number"><label style="margin-left: 10px; width: 80px" class="lab">Mob_2:</label> <input class="text2" name="mob2" type="text" placeholder="Enter another one"><br>
-                        <label class="lab">Fax:</label> <input class="text1" name="fax" type="text" placeholder="Enter the fax"><br>
-                        <label class="lab">E-Mail:</label> <input class="text1" name="mail" type="text" placeholder="Enter the E-mail"><br>
+                        <label class="lab">Tel_1:</label> <input id="tel1" name="tel1" class="text2" type="text" placeholder="Enter phone number"><label style="margin-left: 10px; width: 80px" class="lab">Tel_2:</label> <input id="tel2" class="text2" name="tel2" type="text" placeholder="Enter another one"><br>
+                        <label class="lab">Mob_1:</label> <input id="mob1" class="text2" name="mob1" type="text" placeholder="Enter mobile number"><label style="margin-left: 10px; width: 80px" class="lab">Mob_2:</label> <input class="text2" name="mob2" type="text" placeholder="Enter another one"><br>
+                        <label class="lab">Fax:</label> <input id="fax" class="text1" name="fax" type="text" placeholder="Enter the fax"><br>
+                        <label class="lab">E-Mail:</label> <input id="mail" class="text1" name="mail" type="text" placeholder="Enter the E-mail"><br>
                         <label class="lab">Address:</label> <input required id="address" class="text1" name="address" type="text" placeholder="Enter the Address"><br>
-                        <label class="lab">Vat Number:</label> <input class="text1" name="vat" type="text" placeholder="Enter the Vat no."><br>
+                        <label class="lab">Vat Number:</label> <input id="vat" class="text1" name="vat" type="text" placeholder="Enter the Vat no."><br>
                         <br>
                         <div style="margin-left: 300px" id="far">
                             <button id="edit" type="submit" onclick="get_action1(this.form)" class="bttn">Edit</button>
@@ -99,7 +99,7 @@
                             $.each(res, function(key,value) {
                                 ID += i;
                                 // console.log(value);
-                                $("#table").append('<tr id="' + ID + '">'+
+                                $("#table").append('<tr onclick="show()" id="' + ID + '">'+
                                     '<td>' + value.Name_C + '</td>'+
                                     '<td>' + value.Address + '</td>'+
                                     '<td>' + value.Tel1 + '</td>'+
@@ -128,5 +128,22 @@
                 table.deleteRow(i);
             }
         }
+        function show() {
+            var rowId =
+                event.target.parentNode.id;
+            var data =
+                document.getElementById(rowId).querySelectorAll("td");
+            var name = data[0].innerHTML ;
+            var Address = data[1].innerHTML ;
+            document.getElementById('name').value = check(name);
+            document.getElementById('address').value = check(data[1].innerHTML);
+            document.getElementById('tel1').value = check(data[2].innerHTML);
+            document.getElementById('mob1').value = check(data[3].innerHTML);
+            document.getElementById('fax').value = check(data[4].innerHTML);
+            document.getElementById('mail').value = check(data[5].innerHTML);
+            document.getElementById('tel2').value = check(data[6].innerHTML);
+            // alert("Name: " + name + "\nAddress: " + Address);
+        }
+
     </script>
 @stop
