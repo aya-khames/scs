@@ -10,6 +10,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class ClientController extends Controller{
+
+    public function searchClientNew(Request $request){
+        if($request->client === "empty"){
+            $c = Client::all();
+        }
+        else{
+            $c = Client::where('Name_C', $request->client)->get();
+        }
+        return response()->json($c);
+    }
+
+
+
     public function create(){
         $clients = Client::all();
         return view('employee.client.page',['clients'=>$clients]);

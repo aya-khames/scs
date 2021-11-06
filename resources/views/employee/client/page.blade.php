@@ -35,23 +35,25 @@
                     </div>
                 </form>
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 850px">
+                    @csrf
                     <div style="padding: 15px; border-radius: 5px">
                         <label class="lab" style="width: 60px">Name</label>
-                        <input class="text1" style="width: 400px" type="text" placeholder="Enter the name">
-                        <button onclick="showTable('table')" style="background-color: #0b3756;color: #fff;border-radius: 15px; letter-spacing: 1px;
+                        <input id="search" name="search" class="text1" style="width: 400px" type="text" placeholder="Enter the name">
+                        <button type="submit" id="searchbtn" onclick="showTable('tableDiv')" style="background-color: #0b3756;color: #fff;border-radius: 15px; letter-spacing: 1px;
     border: 2px rgba(255, 255, 255, 0.15); text-align: center;
     box-shadow: 0 0 5px 5px gainsboro; margin-right: 10px; margin-left: 10px; height: 40px; width: 90px">search</button>
                     </div>
                 </form>
-                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 850px; overflow-x: auto">
-                    <table id="table" style="display: none">
+                <div id="tableDiv" style="margin: 20px; display: none; height: 400px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 860px; overflow-y: auto">
+                    <table id="table">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Tel</th>
+                            <th>Mobile</th>
+                            <th>Fax</th>
+                            <th>Email</th>
+                            <th>Tel2</th>
                         </tr>
                     </table>
                 </div>
@@ -67,5 +69,64 @@
         function get_action2(form) {
             form.action = "{{route('createClient')}}";
         };
+        $('#searchbtn').click(function(e) {
+            e.preventDefault();
+
+            var _token = $("input[name='_token']").val();
+            // console.log("successssssss");
+
+            // console.log("successssssss");
+            showTable('tableDiv');
+            var client = $("#search").val();
+            if (client === ""){
+                client = "empty";
+            }
+            // console.log(client);
+            if (client) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('searchClientNew')}}",
+                    data: {_token:_token, client: client},
+
+                    success: function(res) {
+                        if (res) {
+                            // console.log(res);
+                            // document.getElementsByTagName("td").remove();
+                            DeleteRows();
+
+                            var i = 0;
+                            var ID = 'row';
+                            $.each(res, function(key,value) {
+                                ID += i;
+                                // console.log(value);
+                                $("#table").append('<tr id="' + ID + '">'+
+                                    '<td>' + value.Name_C + '</td>'+
+                                    '<td>' + value.Address + '</td>'+
+                                    '<td>' + value.Tel1 + '</td>'+
+                                    '<td>' + value.Mobile1 + '</td>'+
+                                    '<td>' + value.Fax_C + '</td>'+
+                                    '<td>' + value.E_mail + '</td>'+
+                                    '<td>' + value.Tel2 + '</td>'+
+                                    '</tr>');
+                                // console.log(ID);
+                                ID = 'row';
+                                i++;
+
+                            });
+                        } else {
+                            $("#table").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#table").empty();
+            }
+        });
+        function DeleteRows() {
+            var rowCount = table.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
+        }
     </script>
 @stop

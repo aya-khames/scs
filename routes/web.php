@@ -121,6 +121,8 @@ Route::group(['middleware' => 'prevent'],function(){
         Route::middleware(['isAccountant', 'isClient'])->group(function (){
             //quotation
             Route::get('/quoten', 'SCS\QuoteController@showQuotPage')->name('show');
+            Route::post('/searchClientNew', 'SCS\ClientController@searchClientNew')->name('searchClientNew');
+
             Route::post('/storeQuote', 'SCS\QuoteController@insertQuote')-> name('insertQuote');
             Route::post('/editQuote', 'SCS\QuoteController@editQuote')-> name('editQuote');
 
