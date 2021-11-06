@@ -3,7 +3,7 @@
 
     <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
     box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px;
-    margin-left: 400px; z-index: 20; height: 780px; width: 1240px;
+    margin-left: 400px; z-index: 20; height: 800px; width: 1240px;
     background-color: rgba(240,248,248,0.57)">
         <fieldset>
             <legend style="padding: 10px; color: #0b3756; font-family: 'Times New Roman'; font-size: 35px; font-weight: bold">Quotation</legend>
@@ -18,6 +18,7 @@
                     <a>Print</a>
                 </div>
             </nav>
+            <br>
             <div  style="height: 635px; width: 1230px; overflow-y: auto">
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px" method="POST">
                     @csrf
