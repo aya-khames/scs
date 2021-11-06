@@ -50,22 +50,15 @@ Route::group(['middleware' => 'prevent'],function(){
 
             Route::get('/dpin', 'SCS\NdtdpiController@showNewDpi');
             Route::get('/getCert', 'SCS\NdtdpiController@getCert')->name('getCert');
-//            Route::get('/dpin', function () {
-//                return view('employee.ndt.dpi.DPINew');
-//            });
+            Route::post('/insertDPINew', 'SCS\NdtdpiController@insertDPINew')->name('insertDPINew');
             Route::get('/dpip', function () {
                 return view('employee.ndt.dpi.DPIPrint');
             });
             Route::get('/mpin', 'SCS\NdtmpiController@showNewMpi');
+            Route::post('/insertMPINew', 'SCS\NdtmpiController@insertMPINew')->name('insertMPINew');
 
-//            Route::get('/mpip', function () {
-//                return view('employee.ndt.mpi.MPIPrint');
-//            });
 
             Route::get('/walln', 'SCS\WallController@showNewWall');
-//            Route::get('/walln', function () {
-//                return view('employee.wall.wallThickNew');
-//            });
             Route::get('/walld', function () {
                 return view('employee.wall.wallThickDes');
             });
@@ -74,10 +67,6 @@ Route::group(['middleware' => 'prevent'],function(){
             });
 
             Route::get('/tvn', 'SCS\TestvController@showTVN');
-
-//            Route::get('/tvn', function () {
-//                return view('employee.test.testvisual.TVNew');
-//            });
             Route::get('/tvd', function () {
                 return view('employee.test.testvisual.TVDes');
             });
