@@ -14,7 +14,8 @@
             </nav>
             <br>
             <div style="margin: 5px; height: 600px; overflow-y: auto; width: 1360px">
-                <form style="width: 1320px; margin: unset">
+                <form style="width: 1320px; margin: unset" method="POST">
+                    @csrf
                     <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1270px">
                         <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                             <label class="lab" style="font-size: 20px; width: 130px">Client:</label>
@@ -34,17 +35,17 @@
                                 </select>
                             </a>
                             <label class="lab" style="font-size: 20px; width: 130px">CERT No.</label>
-                            <input disabled readonly id="certNo" class="text2" style="width: 400px" type="text">
+                            <input name="cert" disabled readonly id="certNo" class="text2" style="width: 400px" type="text">
                             <label class="lab" style="font-size: 20px; width: 140px; margin-left: 20px">Requisition No.</label>
-                            <input disabled id="reqNo" class="text2" style="width: 400px" type="text">
+                            <input name="req" disabled id="reqNo" class="text2" style="width: 400px" type="text">
                             <label class="lab" style="font-size: 20px; width: 130px">Date:</label>
-                            <input disabled id="date1" class="Date text2" style="width: 190px" type="date">
+                            <input name="date" disabled id="date1" class="Date text2" style="width: 190px" type="date">
                             <input disabled id="date2" readonly class="Date text2" style="width: 195px" type="text">
                             <label class="lab" style="font-size: 20px; width: 140px; margin-left: 20px">Date of INSP:</label>
-                            <input disabled id="date3" class="Date text2" style="width: 190px" type="date">
+                            <input name="dateINSP"  disabled id="date3" class="Date text2" style="width: 190px" type="date">
                             <input disabled id="date4" readonly class="Date text2" style="width: 195px" type="text">
                             <label class="lab" style="font-size: 20px; width: 130px">Location:</label>
-                            <input disabled id="location" class="text2" style="width: 400px" type="text">
+                            <input name="location" disabled id="location" class="text2" style="width: 400px" type="text">
                         </div>
                     </div>
 
@@ -52,42 +53,42 @@
                         <div style="margin: 15px">
                             <label class="lab" style="font-size: 20px; width: auto">100% MPI was carried out on critical area of:</label>
                             <br>
-                            <textarea disabled id="disc" class="text2" style="width: 500px; height: 200px; resize: none" type="text"></textarea>
+                            <textarea name="description" disabled id="disc" class="text2" style="width: 500px; height: 200px; resize: none" type="text"></textarea>
                         </div>
                     </div>
                     <div style="display: inline-block; width: 700px; margin: 0 10px 0 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65)">
                         <div style="margin: 30px">
                             <label class="lab" style="font-size: 19px; width: 180px">Surface Condition:</label>
                             <a style="padding: unset">
-                                <select disabled class="miniDrop2" id="sc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <select name="surface" disabled class="miniDrop2" id="sc" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <option value="" disabled selected></option>
                                     <option>AS CLEANED</option>
                                     <option>AS WELDED</option>
                                 </select>
                             </a>
                             <label class="lab" style="font-size: 19px; width: 180px">Test Specification:</label>
-                            <input disabled readonly id="ts" class=" text2" style="width: 400px" type="text">
+                            <input name="testSpec" disabled readonly id="ts" class=" text2" style="width: 400px" type="text">
                             <label class="lab" style="font-size: 18px; width: 180px">Acceptance Standards:</label>
-                            <input disabled readonly id="as" class="text2" style="width: 400px" type="text">
+                            <input name="accept" disabled readonly id="as" class="text2" style="width: 400px" type="text">
                             <label class="lab" style="font-size: 20px; width: 180px"> Material:</label>
-                            <input disabled id="material" class=" text2" style="width: 400px" type="text" value="CARBON STEEL">
+                            <input name="material" disabled id="material" class=" text2" style="width: 400px" type="text" value="CARBON STEEL">
                             <label class="lab" style="font-size: 19px; width: 180px">Test Procedure No.</label>
-                            <input disabled readonly id="tpn" class="text2" style="width: 400px" type="text" value="BSEN9934-1 : 2002">
+                            <input  name="testno" disabled readonly id="tpn" class="text2" style="width: 400px" type="text" value="BSEN9934-1 : 2002">
                         </div>
                     </div>
                     <br>
                     <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1270px">
                         <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                             <label class="lab" style="font-size: 20px; width: 140px"> DYE Penetrant:</label>
-                            <input disabled id="dp" class=" text2" style="width: 400px" type="text">
+                            <input name="dye" disabled id="dp" class=" text2" style="width: 400px" type="text">
                             <label class="lab" style="font-size: 20px; width: 100px; margin-left: 30px">Inspector:</label>
-                            <input disabled id="ins" class="text2" style="width: 400px" type="text">
+                            <input name="inspector" disabled id="ins" class="text2" style="width: 400px" type="text">
                         </div>
                     </div>
 
                     <div style="margin-left: 550px">
-                        <button class="bttn" style="box-shadow: 0 0 20px rgb(11,55,86)">Edit</button>
-                        <button class="bttn" style="box-shadow: 0 0 20px rgb(11,55,86); margin: 20px">Insert</button>
+                        <button class="bttn" type="submit" onclick="get_action2(this.form)" style="box-shadow: 0 0 20px rgb(11,55,86)">Edit</button>
+                        <button class="bttn" type="submit" onclick="get_action1(this.form)" style="box-shadow: 0 0 20px rgb(11,55,86); margin: 20px">Insert</button>
                     </div>
                 </form>
                 <form style="width: 1270px; margin: unset">
@@ -188,5 +189,11 @@
                 document.getElementById('as').value = "ASME V111";
             }
         });
+        function get_action1(form) {
+            form.action = "{{route('insertDPINew')}}";
+        }
+        function get_action2(form) {
+
+        }
     </script>
 @stop
