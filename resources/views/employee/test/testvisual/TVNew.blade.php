@@ -1,7 +1,7 @@
 @extends('layouts.employeepage')
 @section('content_1')
 
-    <div style="border-radius: 20px; border: rgba(15,70,108,0.66); box-shadow: 0 0 5px 5px gainsboro; position: fixed; margin-top: 80px; margin-left: 400px; z-index: 20; height: 780px; width: 1370px; background-color: rgba(240,248,248,0.57)">
+    <div style="border-radius: 20px; border: rgba(15,70,108,0.66); box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px; margin-left: 400px; z-index: 20; height: 780px; width: 1370px; background-color: rgba(240,248,248,0.57)">
         <fieldset>
             <legend style="padding: 10px; color: #0b3756; font-family: 'Times New Roman'; font-size: 35px; font-weight: bold">Test & Visual</legend>
             <nav id="main-navbar" style="background-color: rgba(240,248,248,0.39); padding: unset" class="navbar navbar-expand-lg navbar-light bg-white">
@@ -162,22 +162,35 @@
                         <div style="padding: 20px; background-color: rgba(240,248,248,0.05)">
                             <label class="lab" style="font-size: 18px; width: 90px">Report No:</label>
                             <input class="text2" style="width: 300px" type="text">
-                            <span style="width: 80px" class="sp"><a href="#">Search</a></span>
+                            <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
                             <label class="lab" style="font-size: 18px; width: 110px; margin-left: 30px">Report Date:</label>
                             <input class="Date text2" style="width: 120px" type="date">
                             <label class="lab" style="font-size: 20px; width: auto; margin-left: 8px">To:</label>
                             <input class="Date text2" style="width: 125px" type="date" >
-                            <span class="sp"><a href="#">Search</a></span>
+                            <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
                             <br>
                             <label class="lab" style="font-size: 20px; width: 90px">ID NO.</label>
                             <input class="text2" style="width: 300px" type="text">
-                            <span style="width: 80px" class="sp"><a href="#">Search</a></span>
+                            <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
                             <label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">R.N MPI:</label>
                             <input class="Date text2" style="width: 300px" type="text">
-                            <span class="sp"><a href="#">Search</a></span>
+                            <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
                         </div>
                     </div>
                 </form>
+                <br>
+                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1280px; max-height: 400px; overflow-y: auto">
+                    <table id="table" style="display: none; width: 1280px">
+                        <tr style="color: white; background-color: #0b3756; cursor: default">
+                            <th>Company</th>
+                            <th>Contact</th>
+                            <th>Country</th>
+                            <th>Company</th>
+                            <th>Contact</th>
+                            <th>Country</th>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </fieldset>
     </div>

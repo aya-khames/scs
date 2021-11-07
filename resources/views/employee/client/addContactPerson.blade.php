@@ -3,7 +3,7 @@
 
     <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
     box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px;
-    margin-left: 700px; z-index: 20; height: 700px; width: 930px;
+    margin-left: 600px; z-index: 20; height: 700px; width: 930px;
     background-color: rgba(240,248,248,0.57)">
         <fieldset>
             <legend style="padding: 10px; color: #0b3756; font-family: 'Times New Roman'; font-size: 35px; font-weight: bold">Client</legend>
