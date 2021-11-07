@@ -31,7 +31,7 @@
                     </div>
                     <div style="margin-left: 280px">
                         <button class="bttn" type="submit" onclick="get_action1(this.form)">Delete</button>
-                        <button class="bttn" type="submit" onclick="get_action2(this.form)">Edit</button>
+                        <button class="bttn" type="submit" id="edit">Edit</button>
                         <button class="bttn" type="submit" onclick="get_action3(this.form)">Insert</button>
                     </div>
                     <br>
@@ -54,9 +54,6 @@
         function get_action1(form) {
             form.action = "{{route('deleteCont')}}";
         }
-        function get_action2(form) {
-            form.action = "{{route('editClient')}}";
-        }
         function get_action3(form) {
             form.action = "{{route('contactPerson')}}";
         }
@@ -74,16 +71,16 @@
                     success: function(res) {
                         if (res) {
                             DeleteRows();
-                            var i = 0;
-                            var ID = 'row';
+                            // var i = 0;
+                            // var ID = 'row';
                             $.each(res, function(key,value) {
-                                ID += i;
-                                $("#table").append('<tr onclick="show()" id="' + ID + '">'+
+                                // ID += i;
+                                $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
                                     '<td>' + value.Name_C + '</td>'+
                                     '<td>' + value.C_P + '</td>'+
                                     '</tr>');
-                                ID = 'row';
-                                i++;
+                                // ID = 'row';
+                                // i++;
                             });
                         } else {
                             DeleteRows();
@@ -109,18 +106,12 @@
                     data: {client: client, searchType:"Cp"},
                     success: function(res) {
                         if (res) {
-
                             DeleteRows();
-                            var i = 0;
-                            var ID = 'row';
                             $.each(res, function(key,value) {
-                                ID += i;
-                                $("#table").append('<tr onclick="show()" id="' + ID + '">'+
+                                $("#table").append('<tr class="edit" onclick="show()" id="' + value._id + '">'+
                                     '<td>' + value.Name_C + '</td>'+
                                     '<td>' + value.C_P + '</td>'+
                                     '</tr>');
-                                ID = 'row';
-                                i++;
                             });
                         } else {
                             DeleteRows();
@@ -137,6 +128,8 @@
                 table.deleteRow(i);
             }
         }
+         var r = "";
+
         function show() {
             var rowId =
                 event.target.parentNode.id;
@@ -145,6 +138,28 @@
             document.getElementById('cp').value = check(data[1].innerHTML);
             document.getElementById('oldname').value = check(data[0].innerHTML);
             document.getElementById('oldcp').value = check(data[1].innerHTML);
+            r = rowId;
         }
+        $('#edit').click(function(e) {
+            e.preventDefault();
+            var _token = $("input[name='_token']").val();
+            var client = $("#name").val();
+            var cp = $('#cp').val();
+            if (r === ""){
+                alert("choose a contact to edit");
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('editClient')}}",
+                    data: {_token:_token, client: client, cp: cp, id:r},
+                    success: function(res) {
+                        location.reload()
+                    }
+                });
+            }
+        });
+
+
     </script>
 @stop

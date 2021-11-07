@@ -96,16 +96,17 @@ class ClientController extends Controller{
         //return alert message
     }
     public function editCP(Request $request){
+
+        $cpss = Cp::where('_id',$request->id)->first();
         $cps = Cp::where([
-            ['Name_C', '=', $request->oldname],
-            ['C_P', '=', $request->oldcp],
+            ['Name_C', '=', $cpss->Name_C],
+            ['C_P', '=', $cpss->C_P],
         ])->get();
         foreach ($cps as $cp){
             $cp->C_P = $request->nameCp;
             $cp->C_P = $request->cp;
             $cp->save();
         }
-        return redirect()->back();
     }
     public function deleteCP(Request $request){
 
