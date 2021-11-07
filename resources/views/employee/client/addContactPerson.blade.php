@@ -22,10 +22,10 @@
                     <div style="padding: 15px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                         <br><br>
                         <label class="lab" style="width: 200px">Name:</label> <input required id="name" name="nameCp" class="text1" style="width: 400px" type="text" placeholder="Enter the name">
-                        <input id="oldname" name="oldname" class="text1" style="display: none" type="text" >
+{{--                        <input id="oldname" name="oldname" class="text1" style="display: none" type="text" >--}}
                         <span class="sp"><a id="searchClient" style="cursor: pointer">Search</a></span> <span class="sp"><a style="cursor: pointer">Search Contact</a></span> <br>
                         <label class="lab" style="width: 200px">Contact Person:</label> <input required id="cp" name="cp" class="text1" style="width: 400px" type="text" placeholder="Enter the contact">
-                        <input id="oldcp" name="oldcp" class="text1" style="display: none" type="text" >
+{{--                        <input id="oldcp" name="oldcp" class="text1" style="display: none" type="text" >--}}
                         <span class="sp"><a style="cursor: pointer" id="searchCp">Search</a></span> <br>
                         <br>
                     </div>
@@ -71,16 +71,11 @@
                     success: function(res) {
                         if (res) {
                             DeleteRows();
-                            // var i = 0;
-                            // var ID = 'row';
                             $.each(res, function(key,value) {
-                                // ID += i;
                                 $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
                                     '<td>' + value.Name_C + '</td>'+
                                     '<td>' + value.C_P + '</td>'+
                                     '</tr>');
-                                // ID = 'row';
-                                // i++;
                             });
                         } else {
                             DeleteRows();
@@ -97,9 +92,7 @@
             if (client === ""){
                 client = "empty";
             }
-            console.log(client);
             if (client) {
-
                 $.ajax({
                     type: "GET",
                     url: "{{route('searchCP')}}",
@@ -128,8 +121,7 @@
                 table.deleteRow(i);
             }
         }
-         var r = "";
-
+        var r = "";
         function show() {
             var rowId =
                 event.target.parentNode.id;
@@ -153,13 +145,11 @@
                     type: "POST",
                     url: "{{route('editClient')}}",
                     data: {_token:_token, client: client, cp: cp, id:r},
-                    success: function(res) {
+                    success: function() {
                         location.reload()
                     }
                 });
             }
         });
-
-
     </script>
 @stop

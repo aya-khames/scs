@@ -72,12 +72,12 @@
                 </form>
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px">
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
-                        <label class="lab" style="font-size: 20px; width: 100px">Quotation:</label> <input class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp">
-                            <a style="cursor: pointer" onclick="showTable('table')">Search</a></span> <br>
+                        <label class="lab" style="font-size: 20px; width: 100px">Quotation:</label> <input id="quote" class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp">
+                            <a style="cursor: pointer" id="searchQuote">Search</a></span> <br>
                         <label class="lab" style="font-size: 20px; width: 100px">Client:</label> <input class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp">
-                            <a style="cursor: pointer" onclick="showTable('table')">Search</a></span> <br>
+                            <a style="cursor: pointer" id="searchClient" onclick="showTable('table')">Search</a></span> <br>
                         <label class="lab" style="font-size: 20px; width: 100px">Date:</label> <input class="Date text2" style="width: 300px" type="date" ><span><label class="lab" style="font-size: 20px; width: 45px; margin-left: 45px">To:</label> <input class="Date text2" style="width: 300px" type="date" ></span> <span class="sp">
-                            <a style="cursor: pointer" onclick="showTable('table')">Search</a></span><br>
+                            <a style="cursor: pointer" id="searchDate" onclick="showTable('table')">Search</a></span><br>
                     </div>
                 </form>
                 <br>
@@ -156,6 +156,41 @@
                 document.getElementById('vatOn').disabled = true;
             }
 
+        });
+        $('#searchQuote').click(function() {
+            showTable('table');
+            var quote = $("#quote").val();
+            if (quote === ""){
+                quote = "empty";
+            }
+            if (quote) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('searchCP')}}",
+                    data: {client: quote, searchType:"quote"},
+                    success: function(res) {
+                        if (res) {
+                            DeleteRows();
+                            $.each(res, function(key,value) {
+                                $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
+                                    '<td>' + value.Name_C + '</td>'+
+                                    '<td>' + value.C_P + '</td>'+
+                                    '<td>' + value.Name_C + '</td>'+
+                                    '<td>' + value.C_P + '</td>'+
+                                    '<td>' + value.Name_C + '</td>'+
+                                    '<td>' + value.C_P + '</td>'+
+                                    '<td>' + value.Name_C + '</td>'+
+                                    '<td>' + value.C_P + '</td>'+
+                                    '</tr>');
+                            });
+                        } else {
+                            DeleteRows();
+                        }
+                    }
+                });
+            } else {
+                DeleteRows();
+            }
         });
     </script>
 @stop
