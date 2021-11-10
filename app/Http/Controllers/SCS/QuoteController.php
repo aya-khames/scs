@@ -116,13 +116,8 @@ class QuoteController extends Controller{
             ]);
     }
     public function editQuote(Request $request){
-//        $validator = Validator::make($request->all(), $this->getRules(), $this->getMessage());
-//        if ($validator->fails()){
-//            return redirect()->back()->withErrors($validator)->withInputs($request->all());
-//        }
-        $check = Quotation::where('ID_QUO',$request->quot)->first();
-        if ($check !== null) {
-            $quot = new Quotation();
+        $quot = Quotation::where('_id',$request->id)->first();
+        if ($quot !== null) {
             $quot->ID_QUO = $request->quot;
             $quot->Name_C = $request->name;
             $quot->C_P = $request->contact;

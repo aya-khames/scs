@@ -65,7 +65,7 @@
                         <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Validity:</label> <input disabled id="val" name="validity" class="text2" style="width: 400px" type="text"></span>
                         <br><br>
                         <div style="margin-left: 490px">
-                            <button class="bttn" id="editQuote" type="submit" onclick="get_action1(this.form)">Edit</button>
+                            <button class="bttn" id="editQuote" type="submit">Edit</button>
                             <button class="bttn" type="submit" onclick="get_action2(this.form)">Insert</button>
                         </div>
                     </div>
@@ -76,8 +76,8 @@
                             <a style="cursor: pointer" id="searchQuote">Search</a></span> <br>
                         <label class="lab" style="font-size: 20px; width: 100px">Client:</label> <input id="c" class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp">
                             <a style="cursor: pointer" id="searchClient" onclick="showTable('table')">Search</a></span> <br>
-                        <label class="lab" style="font-size: 20px; width: 100px">Date:</label> <input id="datefrom" class="Date text2" style="width: 300px" type="date" ><span><label class="lab" style="font-size: 20px; width: 45px; margin-left: 45px">To:</label> <input id="dateto" class="Date text2" style="width: 300px" type="date" ></span> <span class="sp">
-                            <a style="cursor: pointer" id="searchDate" onclick="showTable('table')">Search</a></span><br>
+{{--                        <label class="lab" style="font-size: 20px; width: 100px">Date:</label> <input id="datefrom" class="Date text2" style="width: 300px" type="date" ><span><label class="lab" style="font-size: 20px; width: 45px; margin-left: 45px">To:</label> <input id="dateto" class="Date text2" style="width: 300px" type="date" ></span> <span class="sp">--}}
+{{--                            <a style="cursor: pointer" id="searchDate" onclick="showTable('table')">Search</a></span><br>--}}
                     </div>
                 </form>
                 <br>
@@ -103,9 +103,6 @@
 @stop
 @section('scripts')
     <script>
-        function get_action1(form) {
-            form.action = "{{route('editQuote')}}";
-        }
         function get_action2(form) {
             console.log("check");
             form.action = "{{route('insertQuote')}}";
@@ -119,12 +116,12 @@
                     data: {client: client},
                     success: function(res) {
                         if (res) {
-                            $("#contact").empty();
-                            $("#contact").append('<option>Select Contact Person</option>');
+                            $("#contactId").empty();
+                            $("#contactId").append('<option>Select Contact Person</option>');
                             $.each(res, function(key, value) {
                                 if (key === "cp"){
                                     $.each(value, function(key1, value1) {
-                                        $("#contact").append('<option value="' + value1.C_P + '">' + value1.C_P +
+                                        $("#contactId").append('<option value="' + value1.C_P + '">' + value1.C_P +
                                             '</option>');
                                     });
                                 }
@@ -134,7 +131,7 @@
                                 }
 
                             });
-                            document.getElementById('contact').disabled = false;
+                            document.getElementById('contactId').disabled = false;
                             document.getElementById('qid').disabled = false;
                             document.getElementById('enq').disabled = false;
                             document.getElementById('curr').disabled = false;
@@ -145,12 +142,12 @@
                             document.getElementById('vat').disabled = false;
                             document.getElementById('val').disabled = false;
                         } else {
-                            $("#contact").empty();
+                            $("#contactId").empty();
                         }
                     }
                 });
             } else {
-                $("#contact").empty();
+                $("#contactId").empty();
             }
         });
         $('#vat').change(function () {
@@ -206,41 +203,6 @@
         $('#searchQuote').click(function() {
             showTable('table');
             getKey("quote");
-            {{--var quote = $("#quote").val();--}}
-            {{--if (quote === ""){--}}
-            {{--    quote = "empty";--}}
-            {{--}--}}
-            {{--if (quote) {--}}
-            {{--    $.ajax({--}}
-            {{--        type: "GET",--}}
-            {{--        url: "{{route('searchQ')}}",--}}
-            {{--        data: {quote: quote, searchType:"quote"},--}}
-            {{--        success: function(res) {--}}
-            {{--            if (res) {--}}
-            {{--                DeleteRows();--}}
-            {{--                $.each(res, function(key,value) {--}}
-            {{--                    $("#table").append('<tr onclick="show()" id="' + value._id + '">'+--}}
-            {{--                        '<td>' + value.Name_C + '</td>'+--}}
-            {{--                        '<td>' + value.C_P + '</td>'+--}}
-            {{--                        '<td>' + value.ID_QUO + '</td>'+--}}
-            {{--                        '<td>' + value.Enquiry + '</td>'+--}}
-            {{--                        '<td>' + value.Currency_QUO + '</td>'+--}}
-            {{--                        '<td>' + value.Date_QUO1 + '</td>'+--}}
-            {{--                        '<td>' + value.Delivery_Time + '</td>'+--}}
-            {{--                        '<td>' + value.Transportation_QUO + '</td>'+--}}
-            {{--                        '<td>' + value.VatType + '</td>'+--}}
-            {{--                        '<td>' + value.VALIDITY_QUO + '</td>'+--}}
-            {{--                        // '<td>' + value.Transportation_QUO + '</td>'+--}}
-            {{--                        '</tr>');--}}
-            {{--                });--}}
-            {{--            } else {--}}
-            {{--                DeleteRows();--}}
-            {{--            }--}}
-            {{--        }--}}
-            {{--    });--}}
-            {{--} else {--}}
-            {{--    DeleteRows();--}}
-            {{--}--}}
         });
         $('#searchClient').click(function(){
             showTable('table');
@@ -250,8 +212,6 @@
             showTable('table');
             getKey("date");
         });
-
-
         var r = "";
         function show() {
             document.getElementById('contactId').disabled = false;
@@ -291,17 +251,40 @@
         $('#editQuote').click(function(e) {
             e.preventDefault();
             var _token = $("input[name='_token']").val();
-            var data = $("#qform").serialize();
+            // var data = $("#qform").serialize();
+            var name = $("#clientname").val();
+            var contact = $("#contactId").val();
+            var quot = $("#qid").val();
+            var enquiry = $("#enq").val();
+            var currency = $("#curr").val();
+            var date = $("#date1").val();
+            var delivery = $("#dt").val();
+            var transportation = $("#trans").val();
+            var vat = $("#vat").val();
+            var validity = $("#val").val();
+
             if (r === ""){
                 alert("choose a Quote to edit");
             }
             else {
                 $.ajax({
                     type: "POST",
-                    url: "{{route('editClient')}}",
-                    data: {_token:_token, request: data, id:r},
+                    url: "{{route('editQuote')}}",
+                    data: {_token:_token,
+                        name: name,
+                        contact: contact,
+                        quot: quot,
+                        enquiry: enquiry,
+                        currency: currency,
+                        date: date,
+                        delivery: delivery,
+                        transportation: transportation,
+                        vat: vat,
+                        validity: validity,
+                        id:r
+                    },
                     success: function() {
-                        // location.reload()
+                         location.reload()
                     }
                 });
             }

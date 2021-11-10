@@ -96,9 +96,39 @@ class WorkController extends Controller {
             'q'=>$Quot
             ]);
     }
+    public function searchW(Request $request){
+        if ($request->quote === "empty") {
+            $c = Workorder::all();
+        } else{
+            if ($request->searchType === "work") {
+                $c = Workorder::where('ID_WO', $request->quote)->get();
+            } else if ($request->searchType === "client") {
+                $c = Workorder::where('Name_C', $request->quote)->get();
+            } else if ($request->searchType === "quote") {
+                $c = Workorder::where('ID_QUO', $request->quote)->get();
+            }
+        }
+        return response()->json($c);
 
-    public function editWN(){
-        return view('employee.workDes');
+    }
+
+    public function editWN(Request $request){
+        $quot = Workorder::where('_id',$request->id)->first();
+        if ($quot !== null) {
+            $quot->ID_QUO = $request->quot;
+            $quot->Name_C = $request->name;
+            $quot->C_P = $request->contact;
+            $quot->ID_WO = $request->work;
+            $quot->Currency_QUO = $request->currency;
+            $quot->Date_WO = $request->date;
+            $quot->P_O = $request->po;
+            $quot->Delivery_Time = $request->delivery;
+            $quot->VALIDITY_QUO = $request->validity;
+            $quot->Fax_C = $request->fax;
+            $quot->Note_WO = $request->note;
+            $quot->save();
+        }
+        return redirect()->back();
     }
     public function editWD(){
         return view('employee.workDes');

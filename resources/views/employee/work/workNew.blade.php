@@ -51,30 +51,36 @@
                         <br>
                         <textarea id="b11" disabled name="note" class="text2" style="width: 400px; height: 50px; margin-left: 140px; scroll-behavior: smooth; display: inline-block; resize: none"></textarea>
                         <div style="margin-left: 360px; display: inline-block">
-                            <button type="submit" onclick="get_action2(this.form)" class="bttn">Edit</button>
+                            <button type="submit" id="editW" class="bttn">Edit</button>
                             <button type="submit" onclick="get_action3(this.form)" class="bttn">Insert</button>
                         </div>
                     </div>
                 </form>
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px">
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
-                        <label class="lab" style="font-size: 20px; width: 120px">Work Order:</label> <input class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
-                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 25px">Date:</label><input class="Date text2" style="width: 150px" type="date"><span><label class="lab" style="font-size: 20px; width: 20px; margin-left: 10px">To:</label> <input class="Date text2" style="width: 150px" type="date" ></span> <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+                        <label class="lab" style="font-size: 20px; width: 120px">Work Order:</label> <input id="workS" class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a id="searchW" style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+{{--                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 25px">Date:</label><input class="Date text2" style="width: 150px" type="date"><span><label class="lab" style="font-size: 20px; width: 20px; margin-left: 10px">To:</label> <input class="Date text2" style="width: 150px" type="date" ></span> <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>--}}
                         <br>
-                        <label class="lab" style="font-size: 20px; width: 120px">Client:</label> <input class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
-                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 20px">Quotation:</label> <input class="text2" style="width: 345px" type="text"> <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+                        <label class="lab" style="font-size: 20px; width: 120px">Client:</label> <input id="clientS" class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a id="searchC" style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 20px">Quotation:</label> <input id="QS" class="text2" style="width: 345px" type="text"> <span style="width: 80px" class="sp"><a id="searchQ" style="cursor: pointer" onclick="showTable('table')">Search</a></span>
                     </div>
                 </form>
                 <br>
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1250px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Name</th>
+                            <th>Quotation</th>
+                            <th>Work Order</th>
+                            <th>Contact Person</th>
+                            <th>PO</th>
+                            <th>Fax</th>
+                            <th>Currency</th>
+                            <th>Date</th>
+                            <th>Delivery Date</th>
+                            <th>Validity</th>
+                            <th>Note</th>
+                            <th>Case</th>
                         </tr>
                     </table>
                 </div>
@@ -90,7 +96,6 @@
         function get_action3(form) {
             form.action = "{{route('insertWorkNew')}}";
         };
-
         $('#clientname').change(function() {
             document.getElementById('contact').disabled = false;
             document.getElementById('quotation').disabled = false;
@@ -120,7 +125,6 @@
                 $("#quotation").empty();
             }
            });
-
         $('#quotation').change(function() {
             document.getElementById('b2').disabled = false;
             document.getElementById('b6').disabled = false;
@@ -160,6 +164,129 @@
             document.getElementById('b10').disabled = false;
             document.getElementById('b11').disabled = false;
 
+        });
+        function getKey( key){
+            var searchKey;
+            if (key === "work"){
+                searchKey = $("#workS").val();
+            } else if (key === "client"){
+                searchKey = $("#clientS").val();
+            } else {
+                searchKey = $("#QS").val();
+            }
+            if (searchKey === ""){
+                searchKey = "empty"
+            }
+            console.log(searchKey);
+            $.ajax({
+                type: "GET",
+                url: "{{route('searchW')}}",
+                data: {quote: searchKey, searchType:key},
+                success: function(res) {
+                    if (res) {
+                        DeleteRows();
+                        $.each(res, function(key,value) {
+                            $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
+                                '<td>' + value.Name_C + '</td>'+
+                                '<td>' + value.ID_QUO + '</td>'+
+                                '<td>' + value.ID_WO + '</td>'+
+                                '<td>' + value.C_P + '</td>'+
+                                '<td>' + value.P_O + '</td>'+
+                                '<td>' + value.Fax_C + '</td>'+
+                                '<td>' + value.Currency_WO + '</td>'+
+                                '<td>' + value.Date_WO + '</td>'+
+                                '<td>' + value.Delivery_Date + '</td>'+
+                                '<td>' + value.VALIDITY_WO + '</td>'+
+                                '<td>' + value.Note_WO + '</td>'+
+                                '<td>' + value.Case_WO + '</td>'+
+                                '</tr>');
+                        });
+                    } else {
+                        DeleteRows();
+                    }
+                }
+            });
+        }
+        var r = "";
+        function show() {
+            document.getElementById('b11').disabled = false;
+            var rowId =
+                event.target.parentNode.id;
+            var data = document.getElementById(rowId).querySelectorAll("td");
+            document.getElementById('clientname').value = check(data[0].innerHTML);
+             var x = check(data[1].innerHTML)
+             $("#quotation").append('<option>' + x + '</option>');
+            document.getElementById('quotation').value = check(data[1].innerHTML);
+            document.getElementById('b2').value = check(data[2].innerHTML);
+            document.getElementById('contact').value = check(data[3].innerHTML);
+            document.getElementById('b4').value = check(data[4].innerHTML);
+            document.getElementById('b5').value = check(data[5].innerHTML);
+            document.getElementById('b6').value = check(data[6].innerHTML);
+            document.getElementById('b8').value = check(data[7].innerHTML);
+            document.getElementById('b9').value = check(data[8].innerHTML);
+            document.getElementById('b10').value = check(data[9].innerHTML);
+            document.getElementById('b11').value = check(data[10].innerHTML);
+            r = rowId;
+        }
+        function DeleteRows() {
+            var rowCount = table.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
+        }
+        $('#searchW').click(function() {
+            showTable('table');
+            getKey("work");
+        });
+        $('#searchC').click(function() {
+            showTable('table');
+            getKey("client");
+        });
+        $('#searchQ').click(function() {
+            showTable('table');
+            getKey("quote");
+        });
+        $('#editW').click(function(e) {
+            e.preventDefault();
+            var _token = $("input[name='_token']").val();
+            var name = $("#clientname").val();
+            var contact = $("#contact").val();
+            var quot = $("#quotation").val();
+            var work = $("#b2").val();
+            var po = $("#b4").val();
+            var fax = $("#b5").val();
+            var currency = $("#b6").val();
+            var date = $("#b7").val();
+            var delivery = $("#b9").val();
+            var note = $("#b11").val();
+            var validity = $("#b10").val();
+
+            if (r === ""){
+                alert("choose a Quote to edit");
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('editWorkNew')}}",
+                    data: {_token:_token,
+                        work:work,
+                        po:po,
+                        fax:fax,
+                        note:note,
+                        name: name,
+                        contact: contact,
+                        quot: quot,
+                        currency: currency,
+                        date: date,
+                        delivery: delivery,
+                        validity: validity,
+                        id:r
+                    },
+                    success: function() {
+                        location.reload()
+                    }
+                });
+            }
         });
 
 

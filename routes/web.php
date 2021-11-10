@@ -188,6 +188,9 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::post('/workdesdelete', 'SCS\WorkController@deleteWD')->name('deleteWorkDes');
             Route::post('/workdesedit', 'SCS\WorkController@editWD')->name('editWorkDes');
             Route::post('/workdesinsert', 'SCS\WorkController@insertWD')->name('insertWorkDes');
+            Route::get('/searchW', 'SCS\WorkController@searchW')->name('searchW');
+
+
 
             Route::get('/workd', function () {
                 return view('employee.work.workDes');
