@@ -118,6 +118,9 @@ Route::group(['middleware' => 'prevent'],function(){
 
             Route::post('/storeQuote', 'SCS\QuoteController@insertQuote')-> name('insertQuote');
             Route::post('/editQuote', 'SCS\QuoteController@editQuote')-> name('editQuote');
+            Route::get('/searchQ', 'SCS\QuoteController@searchQ')-> name('searchQ');
+
+
 
             Route::get('/findCP', 'SCS\QuoteController@findCP')->name('findCP');
 

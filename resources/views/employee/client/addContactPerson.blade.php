@@ -101,7 +101,7 @@
                         if (res) {
                             DeleteRows();
                             $.each(res, function(key,value) {
-                                $("#table").append('<tr class="edit" onclick="show()" id="' + value._id + '">'+
+                                $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
                                     '<td>' + value.Name_C + '</td>'+
                                     '<td>' + value.C_P + '</td>'+
                                     '</tr>');
@@ -128,8 +128,6 @@
             var data = document.getElementById(rowId).querySelectorAll("td");
             document.getElementById('name').value = check(data[0].innerHTML);
             document.getElementById('cp').value = check(data[1].innerHTML);
-            document.getElementById('oldname').value = check(data[0].innerHTML);
-            document.getElementById('oldcp').value = check(data[1].innerHTML);
             r = rowId;
         }
         $('#edit').click(function(e) {

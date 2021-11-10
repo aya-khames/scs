@@ -20,7 +20,7 @@
             </nav>
             <br>
             <div style="height: 635px; width: 1230px; overflow-y: auto">
-                <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px" method="POST">
+                <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px" method="POST" id="qform">
                     @csrf
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 20px; width: 130px">Client:</label>
@@ -34,8 +34,8 @@
                         </a>
                         <label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Contact:</label>
                         <a style="padding: unset">
-                            <select required id="contact" name="contact" class="miniDrop2"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{--                            <option value="" disabled selected>Contact</option>--}}
+                            <select required id="contactId" name="contact" class="miniDrop2"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <option></option>
                             </select>
                         </a>
                         <label class="lab" style="font-size: 20px; width: 130px">Quotation:</label> <input disabled readonly name="quot" id="qid" class="text2" style="width: 400px" type="text">
@@ -57,15 +57,15 @@
                         <a style="padding: unset">
                             <select disabled id="vat" name="vat" class="miniDrop2"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 300px">
                                 <option disabled selected>...</option>
-                                <option>With Vat.</option>
-                                <option>Without Vat.</option>
+                                <option>With VAT</option>
+                                <option>Without VAT</option>
                             </select>
                         </a>
                         <input id="vatOn" class="text2" type="text" disabled style="width: 70px"> %
                         <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Validity:</label> <input disabled id="val" name="validity" class="text2" style="width: 400px" type="text"></span>
                         <br><br>
                         <div style="margin-left: 490px">
-                            <button class="bttn" type="submit" onclick="get_action1(this.form)">Edit</button>
+                            <button class="bttn" id="editQuote" type="submit" onclick="get_action1(this.form)">Edit</button>
                             <button class="bttn" type="submit" onclick="get_action2(this.form)">Insert</button>
                         </div>
                     </div>
@@ -74,9 +74,9 @@
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 20px; width: 100px">Quotation:</label> <input id="quote" class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp">
                             <a style="cursor: pointer" id="searchQuote">Search</a></span> <br>
-                        <label class="lab" style="font-size: 20px; width: 100px">Client:</label> <input class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp">
+                        <label class="lab" style="font-size: 20px; width: 100px">Client:</label> <input id="c" class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp">
                             <a style="cursor: pointer" id="searchClient" onclick="showTable('table')">Search</a></span> <br>
-                        <label class="lab" style="font-size: 20px; width: 100px">Date:</label> <input class="Date text2" style="width: 300px" type="date" ><span><label class="lab" style="font-size: 20px; width: 45px; margin-left: 45px">To:</label> <input class="Date text2" style="width: 300px" type="date" ></span> <span class="sp">
+                        <label class="lab" style="font-size: 20px; width: 100px">Date:</label> <input id="datefrom" class="Date text2" style="width: 300px" type="date" ><span><label class="lab" style="font-size: 20px; width: 45px; margin-left: 45px">To:</label> <input id="dateto" class="Date text2" style="width: 300px" type="date" ></span> <span class="sp">
                             <a style="cursor: pointer" id="searchDate" onclick="showTable('table')">Search</a></span><br>
                     </div>
                 </form>
@@ -84,12 +84,16 @@
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1160px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
+                            <th>Client</th>
                             <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Quotation</th>
+                            <th>Enquiry</th>
+                            <th>Currency</th>
+                            <th>Date</th>
+                            <th>Delivery Time</th>
+                            <th>Transportation</th>
+                            <th>Vat</th>
+                            <th>Validity</th>
                         </tr>
                     </table>
                 </div>
@@ -157,39 +161,149 @@
             }
 
         });
+        function getKey( key){
+            var searchKey;
+            var searchKeyRed = "";
+            if (key === "quote"){
+                searchKey = $("#quote").val();
+                console.log(searchKey);
+            } else if (key === "client"){
+                searchKey = $("#c").val();
+            } else {
+                searchKey = $("#datefrom").val();
+                searchKeyRed = $("#dateto").val();
+            }
+            if (searchKey === ""){
+                searchKey = "empty"
+            }
+            $.ajax({
+                type: "GET",
+                url: "{{route('searchQ')}}",
+                data: {quote: searchKey, date: searchKeyRed, searchType:key},
+                success: function(res) {
+                    if (res) {
+                        DeleteRows();
+                        $.each(res, function(key,value) {
+                            $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
+                                '<td>' + value.Name_C + '</td>'+
+                                '<td>' + value.C_P + '</td>'+
+                                '<td>' + value.ID_QUO + '</td>'+
+                                '<td>' + value.Enquiry + '</td>'+
+                                '<td>' + value.Currency_QUO + '</td>'+
+                                '<td>' + value.Date_QUO1 + '</td>'+
+                                '<td>' + value.Delivery_Time + '</td>'+
+                                '<td>' + value.Transportation_QUO + '</td>'+
+                                '<td>' + value.VatType + '</td>'+
+                                '<td>' + value.VALIDITY_QUO + '</td>'+
+                                '</tr>');
+                        });
+                    } else {
+                        DeleteRows();
+                    }
+                }
+            });
+        }
         $('#searchQuote').click(function() {
             showTable('table');
-            var quote = $("#quote").val();
-            if (quote === ""){
-                quote = "empty";
+            getKey("quote");
+            {{--var quote = $("#quote").val();--}}
+            {{--if (quote === ""){--}}
+            {{--    quote = "empty";--}}
+            {{--}--}}
+            {{--if (quote) {--}}
+            {{--    $.ajax({--}}
+            {{--        type: "GET",--}}
+            {{--        url: "{{route('searchQ')}}",--}}
+            {{--        data: {quote: quote, searchType:"quote"},--}}
+            {{--        success: function(res) {--}}
+            {{--            if (res) {--}}
+            {{--                DeleteRows();--}}
+            {{--                $.each(res, function(key,value) {--}}
+            {{--                    $("#table").append('<tr onclick="show()" id="' + value._id + '">'+--}}
+            {{--                        '<td>' + value.Name_C + '</td>'+--}}
+            {{--                        '<td>' + value.C_P + '</td>'+--}}
+            {{--                        '<td>' + value.ID_QUO + '</td>'+--}}
+            {{--                        '<td>' + value.Enquiry + '</td>'+--}}
+            {{--                        '<td>' + value.Currency_QUO + '</td>'+--}}
+            {{--                        '<td>' + value.Date_QUO1 + '</td>'+--}}
+            {{--                        '<td>' + value.Delivery_Time + '</td>'+--}}
+            {{--                        '<td>' + value.Transportation_QUO + '</td>'+--}}
+            {{--                        '<td>' + value.VatType + '</td>'+--}}
+            {{--                        '<td>' + value.VALIDITY_QUO + '</td>'+--}}
+            {{--                        // '<td>' + value.Transportation_QUO + '</td>'+--}}
+            {{--                        '</tr>');--}}
+            {{--                });--}}
+            {{--            } else {--}}
+            {{--                DeleteRows();--}}
+            {{--            }--}}
+            {{--        }--}}
+            {{--    });--}}
+            {{--} else {--}}
+            {{--    DeleteRows();--}}
+            {{--}--}}
+        });
+        $('#searchClient').click(function(){
+            showTable('table');
+            getKey("client");
+        });
+        $('#searchDate').click(function(){
+            showTable('table');
+            getKey("date");
+        });
+
+
+        var r = "";
+        function show() {
+            document.getElementById('contactId').disabled = false;
+            document.getElementById('qid').disabled = false;
+            document.getElementById('enq').disabled = false;
+            document.getElementById('curr').disabled = false;
+            document.getElementById('date1').disabled = false;
+            document.getElementById('date2').disabled = false;
+            document.getElementById('dt').disabled = false;
+            document.getElementById('trans').disabled = false;
+            document.getElementById('vat').disabled = false;
+            document.getElementById('val').disabled = false;
+            var rowId =
+                event.target.parentNode.id;
+            var data = document.getElementById(rowId).querySelectorAll("td");
+            document.getElementById('clientname').value = check(data[0].innerHTML);
+            var x = check(data[1].innerHTML)
+            $("#contactId").append('<option>' + x + '</option>');
+            document.getElementById('contactId').value = check(data[1].innerHTML);
+            document.getElementById('qid').value = check(data[2].innerHTML);
+            document.getElementById('enq').value = check(data[3].innerHTML);
+            document.getElementById('curr').value = check(data[4].innerHTML);
+            document.getElementById('date2').value = check(data[5].innerHTML);
+            document.getElementById('dt').value = check(data[6].innerHTML);
+            document.getElementById('trans').value = check(data[7].innerHTML);
+            document.getElementById('vat').value = check(data[8].innerHTML);
+            document.getElementById('val').value = check(data[9].innerHTML);
+
+            r = rowId;
+        }
+        function DeleteRows() {
+            var rowCount = table.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table.deleteRow(i);
             }
-            if (quote) {
+        }
+        $('#editQuote').click(function(e) {
+            e.preventDefault();
+            var _token = $("input[name='_token']").val();
+            var data = $("#qform").serialize();
+            if (r === ""){
+                alert("choose a Quote to edit");
+            }
+            else {
                 $.ajax({
-                    type: "GET",
-                    url: "{{route('searchCP')}}",
-                    data: {client: quote, searchType:"quote"},
-                    success: function(res) {
-                        if (res) {
-                            DeleteRows();
-                            $.each(res, function(key,value) {
-                                $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
-                                    '<td>' + value.Name_C + '</td>'+
-                                    '<td>' + value.C_P + '</td>'+
-                                    '<td>' + value.Name_C + '</td>'+
-                                    '<td>' + value.C_P + '</td>'+
-                                    '<td>' + value.Name_C + '</td>'+
-                                    '<td>' + value.C_P + '</td>'+
-                                    '<td>' + value.Name_C + '</td>'+
-                                    '<td>' + value.C_P + '</td>'+
-                                    '</tr>');
-                            });
-                        } else {
-                            DeleteRows();
-                        }
+                    type: "POST",
+                    url: "{{route('editClient')}}",
+                    data: {_token:_token, request: data, id:r},
+                    success: function() {
+                        // location.reload()
                     }
                 });
-            } else {
-                DeleteRows();
             }
         });
     </script>

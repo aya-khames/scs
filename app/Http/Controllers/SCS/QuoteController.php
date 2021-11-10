@@ -53,10 +53,10 @@ class QuoteController extends Controller{
     }
     //new Quotation
     public function insertQuote(Request $request){
-        $validator = Validator::make($request->all(), $this->getRules(), $this->getMessage());
-        if ($validator->fails()){
-            return redirect()->back()->withErrors($validator)->withInputs($request->all());
-        }
+//        $validator = Validator::make($request->all(), $this->getRules(), $this->getMessage());
+//        if ($validator->fails()){
+//            return redirect()->back()->withErrors($validator)->withInputs($request->all());
+//        }
         $quot = new Quotation();
         $quot->ID_QUO = $request->quot;
         $quot->Name_C = $request->client;
@@ -68,7 +68,6 @@ class QuoteController extends Controller{
         $quot->Delivery_Time = $request->delivery;
         $quot->VALIDITY_QUO = $request->validity;
         $quot->Vat = $request->vat;
-
         $quot->save();
         return redirect()->back();
     }
@@ -117,10 +116,10 @@ class QuoteController extends Controller{
             ]);
     }
     public function editQuote(Request $request){
-        $validator = Validator::make($request->all(), $this->getRules(), $this->getMessage());
-        if ($validator->fails()){
-            return redirect()->back()->withErrors($validator)->withInputs($request->all());
-        }
+//        $validator = Validator::make($request->all(), $this->getRules(), $this->getMessage());
+//        if ($validator->fails()){
+//            return redirect()->back()->withErrors($validator)->withInputs($request->all());
+//        }
         $check = Quotation::where('ID_QUO',$request->quot)->first();
         if ($check !== null) {
             $quot = new Quotation();
@@ -136,22 +135,35 @@ class QuoteController extends Controller{
             $quot->Vat = $request->vat;
             $quot->save();
         }
-        return redirect()->back()->withInputs($request->all());
+        return redirect()->back();
+    }
+    public function searchQ(Request $request)
+    {
+        if ($request->quote === "empty") {
+            $c = Quotation::all();
+        } else{
+            if ($request->searchType === "quote") {
+                $c = Quotation::where('ID_QUO', $request->quote)->get();
+            } else if ($request->searchType === "client") {
+                $c = Quotation::where('Name_C', $request->quote)->get();
+            } else {
+                $c = Quotation::where([
+                        ['Date_QUO1', '>', $request->quote],
+                        ['Date_QUO1', '<', $request->date]
+                    ]
+                )->get();
+            }
+    }
+        return response()->json($c);
     }
 
     #############Quotation Description##############################################
     //Quotation
     public function insertQD(Request $request){
-        $this->validate($request,[
-            'client' => 'required',
-            'quotation' => 'required',
-            'description' => 'required'
-        ]);
         $quot = new Qitem();
         $quot->ID_QUO = $request->quotation;
         $quot->Name_C = $request->client;
         $quot->Description = $request->description;
-
         $quot->Price_QUO = $request->unitPrice;
         $quot->QTY = $request->qty;
         $quot->Type_QUO = $request->type;
