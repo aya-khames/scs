@@ -4,7 +4,6 @@ namespace App\Http\Controllers\SCS;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
-use App\Models\Deliverynote;
 use App\Models\Hire;
 use Illuminate\Http\Request;
 class HireController extends Controller
@@ -84,5 +83,39 @@ class HireController extends Controller
             'date'=>$date
         ]);
     }
+    public function searchH(Request $request){
+        if ($request->quote === "empty") {
+            $c = Hire::all();
+        } else {
+            if ($request->searchType === "hireon"){
+                $c = Hire::where('Hire_ON', $request->quote)->get();
+
+            } else if ($request->searchType === "hireoff") {
+                $c = Hire::where('Hire_OFF', $request->quote)->get();
+            }else if ($request->searchType === "delivery") {
+                $c = Hire::where('ID_DN', $request->quote)->get();
+            } else {
+                $c = Hire::where('Name_C', $request->quote)->get();
+            }
+        }
+        return response()->json($c);
+    }
+    public function editH(Request $request){
+        if ($request->id !== ""){
+            $comp = Hire::where('_id', $request->id)->first();
+            if ($comp !== null){
+                $comp->Name_C = $request->client;
+                $comp->ID_DN = $request->dnote;
+                $comp->Hire_ON = $request->hireon;
+                $comp->Date_ON = $request->date;
+                $comp->Hire_OFF = $request->hireoff;
+                $comp->Date_OFF = $request->dateoff;
+                $comp->save();
+            }
+        }
+        return redirect()->back();
+    }
+
+
 
 }

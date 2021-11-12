@@ -57,6 +57,10 @@ Route::group(['middleware' => 'prevent'],function(){
 
             Route::get('/walln', 'SCS\WallController@showNewWall');
             Route::post('/insertWallN', 'SCS\WallController@insertWallN')->name('insertWallN');
+            Route::post('/editWall', 'SCS\WallController@editWall')->name('editWall');
+            Route::get('/searchWall', 'SCS\WallController@searchWall')->name('searchWall');
+
+
             Route::get('/walld', function () {
                 return view('employee.wall.wallThickDes');
             });
@@ -100,6 +104,8 @@ Route::group(['middleware' => 'prevent'],function(){
 
             Route::get('/compn', 'SCS\CompressorController@showNewComp');
             Route::post('/insertComp', 'SCS\CompressorController@insertComp')->name('insertComp');
+            Route::get('/searchComp', 'SCS\CompressorController@searchComp')->name('searchComp');
+            Route::post('/editComp', 'SCS\CompressorController@editComp')->name('editComp');
 
             Route::get('/compd', function () {
                 return view('employee.compressor.compDes');
@@ -141,6 +147,9 @@ Route::group(['middleware' => 'prevent'],function(){
 
 
             Route::get('/dnoten', 'SCS\DeliveryController@showDNote');
+            Route::get('/searchDN', 'SCS\DeliveryController@searchDN')->name('searchDN');
+            Route::post('/editDN', 'SCS\DeliveryController@editDN')->name('editDN');
+
             Route::get('/dnoted', function () {
                 return view('employee.delivery.dNoteDes');
             });
@@ -155,9 +164,10 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::post('/insertHire', 'SCS\HireController@insertHire')->name('insertHire');
             Route::get('/dynamicHire', 'SCS\HireController@dynamicHire')->name('dynamicHire');
             Route::get('/generateHire', 'SCS\HireController@generateHire')->name('generateHire');
-//            Route::get('/hireofn', function () {
-//                return view('employee.hire.hireOFNew');
-//            });
+            Route::post('/editH', 'SCS\HireController@editH')->name('editH');
+            Route::get('/searchH', 'SCS\HireController@searchH')->name('searchH');
+
+
             Route::get('/hireofp', function () {
                 return view('employee.hire.hireOFPrint');
             });
@@ -203,6 +213,7 @@ Route::group(['middleware' => 'prevent'],function(){
 
             Route::get('/invn', 'SCS\InvoiceController@index');
             Route::post('/ins-inv-new', 'SCS\InvoiceController@insertInvoce')->name('insertInvoiceN');
+            Route::get('/searchIn', 'SCS\InvoiceController@searchIn')->name('searchIn');
             Route::post('/edit-inv-new', 'SCS\InvoiceController@editInvoice')->name('editInvoiceN');
             Route::post('/del-inv-new', 'SCS\InvoiceController@deleteInvoice')->name('deleteInvoiceN');
             Route::get('/findAdd', 'SCS\InvoiceController@findAdd')->name('findAdd');
@@ -212,8 +223,8 @@ Route::group(['middleware' => 'prevent'],function(){
                 return view('employee.invoice.invoiceDes');
             });
             Route::post('/ins-inv-des', 'SCS\InvoiceController@insertInvoceD')->name('insertInvoiceD');
-            Route::post('/edit-inv-des', 'SCS\InvoiceController@editInvoiceD')->name('editInvoiceN');
-            Route::post('/del-inv-des', 'SCS\InvoiceController@deleteInvoiceD')->name('deleteInvoiceN');
+            Route::post('/edit-inv-des', 'SCS\InvoiceController@editInvoiceD')->name('editInvoiceD');
+            Route::post('/del-inv-des', 'SCS\InvoiceController@deleteInvoiceD')->name('deleteInvoiceD');
 
             Route::get('/invp', function () {
                 return view('employee.invoice.invoicePrint');

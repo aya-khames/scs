@@ -36,6 +36,7 @@
                             </select>
                         </a>
                     </span>
+                        <input name="id" readonly id="id" class="text2" style="display: none" type="text">
                         <label class="lab" style="font-size: 20px; width: 130px">Hire On:</label>
                         <input id="hireon" name="hireon" readonly disabled class="text2" style="width: 400px" type="text">
 
@@ -48,7 +49,7 @@
                         <input id="hireoff" name="hireoff" disabled readonly class=" text2" style="width: 400px" type="text">
                         <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Date Off:</label>
                         <input id="dateoff" name="dateoff" disabled class=" text2" style="width: 190px" type="date">
-                        <input disabled readonly class=" text2" style="width: 195px" type="text">
+                        <input id="dateOff" disabled readonly class=" text2" style="width: 195px" type="text">
                     </span>
                     </div>
                     <div style="margin-left: 500px; margin-bottom: 20px">
@@ -58,18 +59,20 @@
                 </form>
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px">
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
-                        <label class="lab" style="font-size: 20px; width: 133px">Hire On:</label> <input class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp">
-                        <a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
-                        <label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Date On:</label> <input class="Date text2" style="width: 150px" type="date" ><span><label class="lab" style="font-size: 20px; width: auto; margin-left: 10px">To:</label> <input class="Date text2" style="width: 150px" type="date" ></span> <span class="sp"><a
-                                style="cursor: pointer" onclick="showTable('table')">Search</a></span> <br>
-                        <label class="lab" style="font-size: 20px; width: 133px">Hire Off:</label> <input class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a
-                                style="cursor: pointer" onclick="showTable('table')">Search</a></span>
-                        <label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Date Off:</label> <input class="Date text2" style="width: 150px" type="date" ><span><label class="lab" style="font-size: 20px; width: auto; margin-left: 10px">To:</label> <input class="Date text2" style="width: 150px" type="date" ></span> <span class="sp"><a
-                                style="cursor: pointer" onclick="showTable('table')">Search</a></span> <br>
-                        <label class="lab" style="font-size: 20px; width: 133px">Delivery Note:</label> <input class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a
-                                style="cursor: pointer" onclick="showTable('table')">Search</a></span>
-                        <label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input class="text2" style="width: 350px" type="text"> <span style="width: 80px" class="sp"><a
-                                style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+                        <label class="lab" style="font-size: 20px; width: 133px">Hire On:</label> <input id="hireO" class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp">
+                        <a style="cursor: pointer" onclick="getKey('hireon')">Search</a></span>
+{{--                        <label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Date On:</label> <input class="Date text2" style="width: 150px" type="date" ><span><label class="lab" style="font-size: 20px; width: auto; margin-left: 10px">To:</label> <input class="Date text2" style="width: 150px" type="date" ></span> <span class="sp"><a--}}
+{{--                                style="cursor: pointer" onclick="showTable('table')">Search</a></span> <br>--}}
+                        <br>
+                        <label class="lab" style="font-size: 20px; width: 133px">Hire Off:</label> <input id="hireF" class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a
+                                style="cursor: pointer" onclick="getKey('hireoff')">Search</a></span>
+{{--                        <label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Date Off:</label> <input class="Date text2" style="width: 150px" type="date" ><span><label class="lab" style="font-size: 20px; width: auto; margin-left: 10px">To:</label> <input class="Date text2" style="width: 150px" type="date" ></span> <span class="sp"><a--}}
+{{--                                style="cursor: pointer" onclick="showTable('table')">Search</a></span> <br>--}}
+                        <br>
+                        <label class="lab" style="font-size: 20px; width: 133px">Delivery Note:</label> <input id="del" class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a
+                                style="cursor: pointer" onclick="getKey('delivery')">Search</a></span>
+                        <label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input id="c" class="text2" style="width: 350px" type="text"> <span style="width: 80px" class="sp"><a
+                                style="cursor: pointer" onclick="getKey('client')">Search</a></span>
                         <br>
                     </div>
                 </form>
@@ -77,12 +80,12 @@
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1250px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Name</th>
+                            <th>Delivery Note</th>
+                            <th>Hire On</th>
+                            <th>Date On</th>
+                            <th>Hire Off</th>
+                            <th>Date Off</th>
                         </tr>
                     </table>
                 </div>
@@ -92,8 +95,12 @@
 @stop
 @section('scripts')
     <script>
+        var r = "";
         function get_action1(form) {
-            {{--form.action = "{{route('edit')}}";--}}
+            if (r === ""){
+                alert("Select a Hire to edit");
+            }
+            form.action = "{{route('editH')}}";
         };
         function get_action2(form) {
             form.action = "{{route('insertHire')}}";
@@ -171,5 +178,65 @@
                 }
             });
         });
+        function getKey(key){
+            showTable('table')
+            var searchKey = "";
+            if (key === "hireon"){
+                searchKey = $("#hireO").val();
+            } else if (key === "hireoff"){
+                searchKey = $("#hireF").val();
+            } else if (key === "delivery") {
+                searchKey = $("#del").val();
+            }else {
+                searchKey = $("#c").val();
+            }
+            if (searchKey === ""){
+                searchKey = "empty"
+            }
+            $.ajax({
+                type: "GET",
+                url: "{{route('searchH')}}",
+                data: {quote: searchKey,searchType: key},
+                success: function(res) {
+                    if (res) {
+                        DeleteRows();
+                        $.each(res, function(key,value) {
+                            $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
+                                '<td>' + value.Name_C + '</td>'+
+                                '<td>' + value.ID_DN + '</td>'+
+                                '<td>' + value.Hire_ON + '</td>'+
+                                '<td>' + value.Date_ON + '</td>'+
+                                '<td>' + value.Hire_OFF + '</td>'+
+                                '<td>' + value.Date_OFF + '</td>'+
+                                '</tr>');
+                        });
+                    } else {
+                        DeleteRows();
+                    }
+                }
+            });
+
+        };
+        function show() {
+            var rowId =
+                event.target.parentNode.id;
+            var data = document.getElementById(rowId).querySelectorAll("td");
+            document.getElementById('clientname').value = check(data[0].innerHTML);
+            var x = check(data[1].innerHTML)
+            $("#dnote").append('<option>' + x + '</option>');
+            document.getElementById('dnote').value = check(data[1].innerHTML);
+            document.getElementById('hireon').value = check(data[2].innerHTML);
+            document.getElementById('dateOn').value = check(data[3].innerHTML);
+            document.getElementById('hireoff').value = check(data[4].innerHTML);
+            document.getElementById('dateOff').value = check(data[4].innerHTML);
+            document.getElementById('id').value = r;
+            r = rowId;
+        }
+        function DeleteRows() {
+            var rowCount = table.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
+        }
     </script>
 @stop

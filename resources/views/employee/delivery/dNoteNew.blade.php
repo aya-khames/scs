@@ -39,6 +39,8 @@
                                 <option value="" disabled selected>Work Order</option>
                             </select>
                         </a>
+                            <input name="id" readonly id="id" class="text2" style="display: none" type="text">
+
                     </span>
                         <label class="lab" style="font-size: 20px; width: 130px">Delivery Note:</label> <input id="dnote" readonly name="dnote" disabled class="text2" style="width: 400px" type="text">
                         <span><label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Delivery Time:</label>
@@ -57,35 +59,35 @@
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px">
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 20px; width: 130px">Delivery Note:</label>
-                        <input class="text2" style="width: 400px" type="text">
-                        <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span> <br>
+                        <input id="del" class="text2" style="width: 400px" type="text">
+                        <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="getKey('delivery')">Search</a></span> <br>
 
-                        <label class="lab" style="font-size: 20px; width: 130px">Date:</label>
-                        <input class="Date text2" style="width: 175px" type="date" >
-                        <span>
-                        <label class="lab" style="font-size: 20px; width: auto; margin: 5px">To:</label>
-                        <input class="Date text2" style="width: 170px" type="date">
-                    </span> <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span><br>
+{{--                        <label class="lab" style="font-size: 20px; width: 130px">Date:</label>--}}
+{{--                        <input class="Date text2" style="width: 175px" type="date" >--}}
+{{--                        <span>--}}
+{{--                        <label class="lab" style="font-size: 20px; width: auto; margin: 5px">To:</label>--}}
+{{--                        <input class="Date text2" style="width: 170px" type="date">--}}
+{{--                    </span> <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span><br>--}}
 
                         <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label>
-                        <input class="text2" style="width: 400px" type="text">
-                        <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span> <br>
+                        <input id="wo" class="text2" style="width: 400px" type="text">
+                        <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="getKey('work')">Search</a></span> <br>
 
                         <label class="lab" style="font-size: 20px; width: 130px">Client:</label>
-                        <input class="text2" style="width: 400px" type="text">
-                        <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span> <br>
+                        <input id="c" class="text2" style="width: 400px" type="text">
+                        <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="getKey('client')">Search</a></span> <br>
                     </div>
                 </form>
                 <br>
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1190px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Name</th>
+                            <th>Work Order</th>
+                            <th>Delivery Note</th>
+                            <th>Delivery Date</th>
+                            <th>PO</th>
+                            <th>REQ NO</th>
                         </tr>
                     </table>
                 </div>
@@ -95,8 +97,12 @@
 @stop
 @section('scripts')
     <script>
+        var r = "";
         function get_action1(form) {
-            {{--form.action = "{{route('edit')}}";--}}
+            if (r === ""){
+                alert("Select a Delivery Note to edit");
+            }
+            form.action = "{{route('editDN')}}";
         };
         function get_action2(form) {
             form.action = "{{route('insertdnote')}}";
@@ -160,5 +166,64 @@
                 }
             });
         });
+        function getKey(key){
+            showTable('table')
+            var searchKey = "";
+            if (key === "delivery"){
+                searchKey = $("#del").val();
+            } else if (key === "work"){
+                searchKey = $("#wo").val();
+            } else {
+                searchKey = $("#c").val();
+            }
+            if (searchKey === ""){
+                searchKey = "empty"
+            }
+            $.ajax({
+                type: "GET",
+                url: "{{route('searchDN')}}",
+                data: {quote: searchKey,searchType: key},
+                success: function(res) {
+                    if (res) {
+                        DeleteRows();
+                        $.each(res, function(key,value) {
+
+                            $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
+                                '<td>' + value.Name_C + '</td>'+
+                                '<td>' + value.ID_WO + '</td>'+
+                                '<td>' + value.ID_DN + '</td>'+
+                                '<td>' + value.Delivery_Date + '</td>'+
+                                '<td>' + value.P_O + '</td>'+
+                                '<td>' + value.REQ_NO + '</td>'+
+                                '</tr>');
+                        });
+                    } else {
+                        DeleteRows();
+                    }
+                }
+            });
+
+        }
+        function show() {
+            var rowId =
+                event.target.parentNode.id;
+            var data = document.getElementById(rowId).querySelectorAll("td");
+            document.getElementById('clientname').value = check(data[0].innerHTML);
+            var x = check(data[1].innerHTML)
+            $("#work").append('<option>' + x + '</option>');
+            document.getElementById('work').value = check(data[1].innerHTML);
+            document.getElementById('dnote').value = check(data[2].innerHTML);
+            document.getElementById('date').value = check(data[3].innerHTML);
+            document.getElementById('po').value = check(data[4].innerHTML);
+            document.getElementById('req').value = check(data[4].innerHTML);
+            document.getElementById('id').value = r;
+            r = rowId;
+        }
+        function DeleteRows() {
+            var rowCount = table.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
+        }
     </script>
 @stop

@@ -64,4 +64,39 @@ class DeliveryController extends Controller
         }
         return response()->json($dn);
     }
+    public function searchDN(Request $request)
+    {
+        if ($request->quote === "empty") {
+            $c = Deliverynote::all();
+        } else {
+            if ($request->searchType === "delivery"){
+                $c = Deliverynote::where('ID_DN', $request->quote)->get();
+
+            } else if ($request->searchType === "work") {
+                $c = Deliverynote::where('ID_WO', $request->quote)->get();
+            } else {
+                $c = Deliverynote::where('Name_C', $request->quote)->get();
+            }
+        }
+        return response()->json($c);
+    }
+    public function editDN(Request $request){
+        if ($request->id !== ""){
+            $comp = Deliverynote::where('_id', $request->id)->first();
+            if ($comp !== null){
+                $comp->Name_C = $request->client;
+                $comp->ID_WO = $request->wid;
+                $comp->ID_DN = $request->dnote;
+                $comp->Delivery_Date = $request->date;
+                $comp->P_O = $request->po;
+                $comp->REQ_NO = $request->req;
+
+                $comp->save();
+            }
+        }
+        return redirect()->back();
+    }
+
+
+
 }

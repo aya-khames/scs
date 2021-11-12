@@ -35,6 +35,8 @@
                                 <option value="" disabled selected></option>
                             </select>
                         </a>
+                        <input name="id" readonly id="id" class="text2" style="display: none" type="text">
+
                         <label class="lab" style="font-size: 20px; width: 170px">Certificate No:</label>
                         <input name="cerno" disabled readonly id="certNo" class="text2" style="width: 400px" type="text">
                         <label class="lab" style="font-size: 20px; width: 120px; margin-left: 30px">Report date:</label>
@@ -53,23 +55,22 @@
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px">
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 20px; width: 150px">Certificate No.</label>
-                        <input class="text2" style="width: 400px" type="text"><span style="width: 80px; margin-left: 10px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
-                        <label class="lab" style="font-size: 20px; width: 60px; margin-left: 20px">Date:</label>
-                        <input class="Date text2" style="width: 160px" type="date"><span>
-                        <label class="lab" style="font-size: 20px; width: auto; margin-left: 5px">To:</label>
-                        <input class="Date text2" style="width: 160px" type="date" ></span> <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+                        <input id="cer" class="text2" style="width: 400px" type="text"><span style="width: 80px; margin-left: 10px" class="sp"><a style="cursor: pointer" onclick="getKey()">Search</a></span>
+{{--                        <label class="lab" style="font-size: 20px; width: 60px; margin-left: 20px">Date:</label>--}}
+{{--                        <input class="Date text2" style="width: 160px" type="date"><span>--}}
+{{--                        <label class="lab" style="font-size: 20px; width: auto; margin-left: 5px">To:</label>--}}
+{{--                        <input class="Date text2" style="width: 160px" type="date" ></span> <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>--}}
                     </div>
                 </form>
                 <br>
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1250px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Name</th>
+                            <th>Work Order</th>
+                            <th>Cert. No</th>
+                            <th>Date Com</th>
+                            <th>Date NTE</th>
                         </tr>
                     </table>
                 </div>
@@ -79,7 +80,7 @@
 @stop
 @section('scripts')
     <script>
-
+        var r = "";
         $('#clientname').change(function() {
             document.getElementById('work').disabled = false;
             var client = $(this).val();
@@ -138,10 +139,63 @@
             document.getElementById('date4').disabled = false;
         });
         function get_action1(form) {
-            {{--form.action = "{{route('editComp')}}";--}}
+            if (r == ""){
+                alert("choose an id to edit");
+            }
+            form.action = "{{route('editComp')}}";
         }
         function get_action2(form) {
             form.action = "{{route('insertComp')}}";
+        }
+        function getKey(){
+            showTable('table')
+            var searchKey = $("#cer").val();
+            if (searchKey === ""){
+                searchKey = "empty"
+            }
+            $.ajax({
+                type: "GET",
+                url: "{{route('searchComp')}}",
+                data: {quote: searchKey},
+                success: function(res) {
+                    if (res) {
+                        DeleteRows();
+                        $.each(res, function(key,value) {
+
+                            $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
+                                '<td>' + value.Name_C + '</td>'+
+                                '<td>' + value.ID_WO + '</td>'+
+                                '<td>' + value.CRET_NO + '</td>'+
+                                '<td>' + value.Date_Com + '</td>'+
+                                '<td>' + value.Date_NTE + '</td>'+
+                                '</tr>');
+                        });
+                    } else {
+                        DeleteRows();
+                    }
+                }
+            });
+
+        }
+        function show() {
+            var rowId =
+                event.target.parentNode.id;
+            var data = document.getElementById(rowId).querySelectorAll("td");
+            document.getElementById('clientname').value = check(data[0].innerHTML);
+            var x = check(data[1].innerHTML)
+            $("#work").append('<option>' + x + '</option>');
+            document.getElementById('work').value = check(data[1].innerHTML);
+            document.getElementById('certNo').value = check(data[2].innerHTML);
+            document.getElementById('date2').value = check(data[3].innerHTML);
+            document.getElementById('date4').value = check(data[4].innerHTML);
+            document.getElementById('id').value = r;
+            r = rowId;
+        }
+        function DeleteRows() {
+            var rowCount = table.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
         }
 
     </script>

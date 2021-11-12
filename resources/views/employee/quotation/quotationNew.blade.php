@@ -104,7 +104,6 @@
 @section('scripts')
     <script>
         function get_action2(form) {
-            console.log("check");
             form.action = "{{route('insertQuote')}}";
         }
         $('#clientname').change(function() {

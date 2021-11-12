@@ -96,7 +96,7 @@
                         </span>
                         <br>
                         <div style="margin-left: 460px">
-                            <button class="bttn" type="submit" onclick="get_action1(this.form)">Edit</button>
+                            <button id="editIn" class="bttn" type="submit">Edit</button>
                             <button class="bttn" type="submit" onclick="get_action2(this.form)">Insert</button>
                             <button class="bttn" type="submit" onclick="get_action3(this.form)">Delete</button>
                         </div>
@@ -105,31 +105,42 @@
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px">
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 20px; width: 100px">Invoice:</label>
-                        <input class="text2" style="width: 400px" type="text">
-                        <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
-                        <label class="lab" style="font-size: 20px; width: 120px; margin-left: 25px">Date:</label>
-                        <input class="Date text2" style="width: 150px" type="date">
-                        <span><label class="lab" style="font-size: 20px; width: 20px; margin-left: 10px">To:</label>
-                            <input class="Date text2" style="width: 150px" type="date" ></span>
-                        <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+                        <input id="inv" class="text2" style="width: 400px" type="text">
+                        <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="getKey('invoice')">Search</a></span>
+{{--                        <label class="lab" style="font-size: 20px; width: 120px; margin-left: 25px">Date:</label>--}}
+{{--                        <input class="Date text2" style="width: 150px" type="date">--}}
+{{--                        <span><label class="lab" style="font-size: 20px; width: 20px; margin-left: 10px">To:</label>--}}
+{{--                            <input class="Date text2" style="width: 150px" type="date" ></span>--}}
+{{--                        <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>--}}
                         <br>
                         <label class="lab" style="font-size: 20px; width: 100px">Client:</label>
-                        <input class="text2" style="width: 400px" type="text">
-                        <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+                        <input id="c" class="text2" style="width: 400px" type="text">
+                        <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="getKey('client')">Search</a></span>
                         <label class="lab" style="font-size: 20px; width: 120px; margin-left: 20px">Work Order:</label>
-                        <input class="text2" style="width: 345px" type="text"> <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+                        <input id="work" class="text2" style="width: 345px" type="text"> <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="getKey('work')">Search</a></span>
                     </div>
                 </form>
                 <br>
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1190px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Name</th>
+                            <th>Work Order</th>
+                            <th>Invoice</th>
+                            <th>Invoice Type</th>
+                            <th>Address</th>
+                            <th>Req No</th>
+                            <th>Currency</th>
+                            <th>Enquiry </th>
+                            <th>Date</th>
+                            <th>Delivery Date</th>
+                            <th>Transportation</th>
+                            <th>VatNumber</th>
+                            <th>VatType</th>
+                            <th>Vat</th>
+                            <th>TaxType</th>
+                            <th>Tax</th>
+                            <th>VatClient</th>
                         </tr>
                     </table>
                 </div>
@@ -231,11 +242,126 @@
             }
 
         });
-        function get_action3(form) {
-        }
         function get_action2(form) {
             form.action = "{{route('insertInvoiceN')}}";
+        };
+        function getKey( key){
+            showTable('table')
+            var searchKey;
+            if (key === "invoice"){
+                searchKey = $("#inv").val();
+                console.log(searchKey);
+            } else if (key === "client"){
+                searchKey = $("#c").val();
+            } else if (key === "work"){
+                searchKey = $("#work").val();
+            }
+            if (searchKey === ""){
+                searchKey = "empty"
+            }
+            $.ajax({
+                type: "GET",
+                url: "{{route('searchIn')}}",
+                data: {quote: searchKey, searchType:key},
+                success: function(res) {
+                    if (res) {
+                        DeleteRows();
+                        $.each(res, function(key,value) {
+                            $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
+                                '<td>' + value.Name_C + '</td>'+
+                                '<td>' + value.ID_WO + '</td>'+
+                                '<td>' + value.ID_IN + '</td>'+
+                                // '<td>' + value.ID_IN + '</td>'+
+                                '<td>' + value.INType + '</td>'+
+                                '<td>' + value.Address + '</td>'+
+                                '<td>' + value.REQ_NO + '</td>'+
+                                '<td>' + value.Currency_IN + '</td>'+
+                                '<td>' + value.Enquiry + '</td>'+
+                                '<td>' + value.Date_IN1 + '</td>'+
+                                '<td>' + value.Delivery_Time + '</td>'+
+                                '<td>' + value.Transportation + '</td>'+
+                                '<td>' + value.VatNumber + '</td>'+
+                                '<td>' + value.VatType + '</td>'+
+                                '<td>' + value.Vat + '</td>'+
+                                '<td>' + value.TaxType + '</td>'+
+                                '<td>' + value.Tax + '</td>'+
+                                '<td>' + value.VatClient + '</td>'+
+                                '</tr>');
+                        });
+                    } else {
+                        DeleteRows();
+                    }
+                }
+            });
         }
+        var r = "";
+        function show() {
+            // document.getElementById('b11').disabled = false;
+            var rowId =
+                event.target.parentNode.id;
+            var data = document.getElementById(rowId).querySelectorAll("td");
+            document.getElementById('clientname').value = check(data[0].innerHTML);
+            var x = check(data[1].innerHTML)
+            $("#work").append('<option>' + x + '</option>');
+            document.getElementById('work').value = check(data[1].innerHTML);
+            document.getElementById('invoice').value = check(data[2].innerHTML);
+            document.getElementById('address').value = check(data[4].innerHTML);
+            document.getElementById('box1').value = check(data[5].innerHTML);
+            document.getElementById('box2').value = check(data[6].innerHTML);
+            document.getElementById('box4').value = check(data[8].innerHTML);
+            document.getElementById('box5').value = check(data[9].innerHTML);
+            document.getElementById('box6').value = check(data[10].innerHTML);
+            r = rowId;
+        }
+        function DeleteRows() {
+            var rowCount = table.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
+        }
+        $('#editIn').click(function(e) {
+            e.preventDefault();
+            var _token = $("input[name='_token']").val();
+            var name = $("#clientname").val();
+            var work = $("#work").val();
+            var invoice = $("#invoice").val();
+            var address = $("#address").val();
+            var reqno = $("#box1").val();
+            var currency = $("#currency").val();
+            var vat = $("#box8").val();
+            var date = $("#box4").val();
+            var delivery = $("#box5").val();
+            var trans = $("#box6").val();
+            var tax = $("#box10").val();
+            if (r === ""){
+                alert("Choose an Invoice to edit");
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('editInvoiceN')}}",
+                    data: {_token:_token,
+                        work:work,
+                        invoice:invoice,
+                        address:address,
+                        reqno:reqno,
+                        name: name,
+                        vat: vat,
+                        trans: trans,
+                        currency: currency,
+                        date: date,
+                        delivery: delivery,
+                        tax: tax,
+                        id:r
+                    },
+                    success: function() {
+                        location.reload()
+                    }
+                });
+            }
+        });
+
+
     </script>
 @stop
 

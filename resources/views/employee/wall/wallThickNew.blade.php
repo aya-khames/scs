@@ -37,13 +37,14 @@
                                 <option value="" disabled selected></option>
                             </select>
                         </a>
+                        <input name="id" readonly id="id" class="text2" style="display: none" type="text">
                         <label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Report No.</label>
                         <input name="repno" disabled readonly id="reportNo" class="text2" style="width: 400px" type="text">
                         <label class="lab" style="font-size: 20px; width: 130px">Report Date:</label>
                         <input name="repdate" disabled id="date1" class="Date text2" style="width: 190px" type="date">
                         <input disabled id="date2" readonly class="Date text2" style="width: 195px" type="text">
                         <label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">ID No.</label>
-                        <input name="idno" disabled id="id" class="text2" style="width: 400px" type="text">
+                        <input name="idno" disabled id="ID" class="text2" style="width: 400px" type="text">
                         <label class="lab" style="font-size: 20px; width: 130px">Material:</label>
                         <input name="material" disabled id="material" class="text2" style="width: 400px" type="text">
                         <label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Details 1:</label>
@@ -88,10 +89,10 @@
                 </form>
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px">
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
-                        <label class="lab" style="font-size: 20px; width: 100px">Report No.</label> <input class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a
-                                style="cursor: pointer" onclick="showTable('table')">Search</a></span>
-                        <label class="lab" style="font-size: 20px; width: 60px; margin-left: 20px">Date:</label> <input class="Date text2" style="width: 190px" type="date" ><span><label class="lab" style="font-size: 20px; width: auto; margin-left: 5px">To:</label> <input class="Date text2" style="width: 190px" type="date" ></span> <span class="sp"><a
-                                style="cursor: pointer" onclick="showTable('table')">Search</a>
+                        <label class="lab" style="font-size: 20px; width: 100px">Report No.</label> <input id="rep" class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a
+                                style="cursor: pointer" onclick="getKey()">Search</a></span>
+{{--                        <label class="lab" style="font-size: 20px; width: 60px; margin-left: 20px">Date:</label> <input class="Date text2" style="width: 190px" type="date" ><span><label class="lab" style="font-size: 20px; width: auto; margin-left: 5px">To:</label> <input class="Date text2" style="width: 190px" type="date" ></span> <span class="sp"><a--}}
+{{--                                style="cursor: pointer" onclick="showTable('table')">Search</a>--}}
                     </span>
                     </div>
                 </form>
@@ -99,12 +100,18 @@
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1250px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Work Order</th>
+                            <th>Report NO</th>
+                            <th>Date</th>
+                            <th>ID_No</th>
+                            <th>Material</th>
+                            <th>Details1</th>
+                            <th>Details2</th>
+                            <th>Report NO</th>
+                            <th>Name Inspected</th>
+                            <th>Name Approved</th>
                         </tr>
                     </table>
                 </div>
@@ -175,7 +182,7 @@
             }
             document.getElementById('date1').disabled = false;
             document.getElementById('date2').disabled = false;
-            document.getElementById('id').disabled = false;
+            document.getElementById('ID').disabled = false;
             document.getElementById('material').disabled = false;
             document.getElementById('de1').disabled = false;
             document.getElementById('de2').disabled = false;
@@ -183,11 +190,76 @@
             document.getElementById('nameA').disabled = false;
 
         });
+        var r = "";
         function get_action1(form) {
-            {{--form.action = "{{route('editComp')}}";--}}
+            if (r === ""){
+                alert("Select to edit");
+            }
+            form.action = "{{route('editWall')}}";
         }
         function get_action2(form) {
             form.action = "{{route('insertWallN')}}";
+        }
+        function getKey(){
+            showTable('table')
+            var searchKey = $("#rep").val();
+            if (searchKey === ""){
+                searchKey = "empty"
+            }
+            $.ajax({
+                type: "GET",
+                url: "{{route('searchWall')}}",
+                data: {quote: searchKey},
+                success: function(res) {
+                    if (res) {
+                        DeleteRows();
+                        $.each(res, function(key,value) {
+                            $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
+                                '<td>' + value.Name_C + '</td>'+
+                                '<td>' + value.Location + '</td>'+
+                                '<td>' + value.ID_WO + '</td>'+
+                                '<td>' + value.Report_NO + '</td>'+
+                                '<td>' + value.Date_Wall + '</td>'+
+                                '<td>' + value.ID_No + '</td>'+
+                                '<td>' + value.Material + '</td>'+
+                                '<td>' + value.Details1 + '</td>'+
+                                '<td>' + value.Details2 + '</td>'+
+                                '<td>' + value.Name_Inspected + '</td>'+
+                                '<td>' + value.Name_Approved + '</td>'+
+                                '</tr>');
+                        });
+                    } else {
+                        DeleteRows();
+                    }
+                }
+            });
+
+        };
+        function show() {
+            var rowId =
+                event.target.parentNode.id;
+            var data = document.getElementById(rowId).querySelectorAll("td");
+            document.getElementById('clientname').value = check(data[0].innerHTML);
+            var x = check(data[1].innerHTML)
+            $("#work").append('<option>' + x + '</option>');
+            document.getElementById('work').value = check(data[1].innerHTML);
+            document.getElementById('loc').value = check(data[2].innerHTML);
+            document.getElementById('reportNo').value = check(data[3].innerHTML);
+            document.getElementById('date2').value = check(data[4].innerHTML);
+            document.getElementById('ID').value = check(data[5].innerHTML);
+            document.getElementById('material').value = check(data[6].innerHTML);
+            document.getElementById('de1').value = check(data[7].innerHTML);
+            document.getElementById('nameI').value = check(data[8].innerHTML);
+            document.getElementById('nameA').value = check(data[9].innerHTML);
+            document.getElementById('de2').value = check(data[10].innerHTML);
+            document.getElementById('id').value = r;
+            r = rowId;
+        }
+        function DeleteRows() {
+            var rowCount = table.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
         }
     </script>
 @stop

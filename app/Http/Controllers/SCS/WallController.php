@@ -27,5 +27,33 @@ class WallController extends Controller{
         $comp->save();
         return redirect()->back();
     }
+    public function searchWall(Request $request){
+        if ($request->quote === "empty") {
+            $c = Wall::all();
+        } else {
+            $c = Wall::where('Report_NO', $request->quote)->get();
+        }
+        return response()->json($c);
+    }
+    public function editWall(Request $request){
+        if ($request->id !== ""){
+            $comp = Wall::where('_id', $request->id)->first();
+            if ($comp !== null){
+                $comp->Name_C = $request->client;
+                $comp->ID_WO = $request->work;
+                $comp->Location = $request->location;
+                $comp->Report_NO = $request->repno;
+                $comp->Date_Wall = $request->repdate;
+                $comp->ID_No = $request->idno;
+                $comp->Material = $request->material;
+                $comp->Details1 = $request->det1;
+                $comp->Details2 = $request->det2;
+                $comp->Name_Inspected = $request->nameInspect;
+                $comp->Name_Approved = $request->nameApp;
+                $comp->save();
+            }
+        }
+        return redirect()->back();
+    }
 
 }

@@ -5,12 +5,9 @@ namespace App\Http\Controllers\SCS;
 use App\Models\Client;
 use App\Models\Invoice;
 use App\Models\Invoiceitem;
-use App\Models\Quotation;
 use App\Models\Workorder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
-
 class InvoiceController extends Controller
 {
     public function index(){
@@ -52,12 +49,40 @@ class InvoiceController extends Controller
     }
     public function editInvoice(Request $request)
     {
-
+        $quot = Invoice::where('_id',$request->id)->first();
+        if ($quot !== null) {
+            $quot->ID_WO = $request->work;
+            $quot->Name_C = $request->name;
+            $quot->ID_IN = $request->invoice;
+            $quot->REQ_NO = $request->reqno;
+            $quot->Currency_IN = $request->currency;
+            $quot->Date_IN1 = $request->date;
+            $quot->Transportation_QUO = $request->transportation;
+            $quot->Delivery_Time = $request->delivery;
+            $quot->save();
+        }
+        return redirect()->back();
     }
     public function deleteInvoice(Request $request)
     {
 
     }
+    public function searchIn(Request $request)
+    {
+        if ($request->quote === "empty") {
+            $c = Invoice::all();
+        } else{
+            if ($request->searchType === "invoice") {
+                $c = Invoice::where('ID_IN', $request->quote)->get();
+            } else if ($request->searchType === "client") {
+                $c = Invoice::where('Name_C', $request->quote)->get();
+            } else {
+                $c = Invoice::where('ID_WO', $request->quote)->get();
+            }
+        }
+        return response()->json($c);
+    }
+
     public function findAdd(Request $request)
     {
         $add = Client::where('Name_C', $request->client)->first();
