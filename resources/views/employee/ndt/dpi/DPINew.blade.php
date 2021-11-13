@@ -34,6 +34,7 @@
 {{--                                    <option>111</option>--}}
                                 </select>
                             </a>
+                            <input name="id" readonly id="id" class="text2" style="display: none" type="text">
                             <label class="lab" style="font-size: 20px; width: 130px">CERT No.</label>
                             <input name="cert" disabled readonly id="certNo" class="text2" style="width: 400px" type="text">
                             <label class="lab" style="font-size: 20px; width: 140px; margin-left: 20px">Requisition No.</label>
@@ -95,14 +96,14 @@
                     <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65)">
                         <div style="padding: 20px; border-radius: 5px">
                             <label class="lab" style="font-size: 18px; width: 90px">CERT No:</label>
-                            <input class="text2" style="width: 300px" type="text">
-                            <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+                            <input id="certificate" class="text2" style="width: 300px" type="text">
+                            <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="getKey()">Search</a></span>
                             <br>
-                            <label class="lab" style="font-size: 20px; width: 90px">Date:</label>
-                            <input class="Date text2" style="width: 120px" type="date">
-                            <label class="lab" style="font-size: 20px; width: auto; margin-left: 8px">To:</label>
-                            <input class="Date text2" style="width: 125px" type="date" >
-                            <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+{{--                            <label class="lab" style="font-size: 20px; width: 90px">Date:</label>--}}
+{{--                            <input class="Date text2" style="width: 120px" type="date">--}}
+{{--                            <label class="lab" style="font-size: 20px; width: auto; margin-left: 8px">To:</label>--}}
+{{--                            <input class="Date text2" style="width: 125px" type="date" >--}}
+{{--                            <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>--}}
                         </div>
                     </div>
                 </form>
@@ -110,12 +111,21 @@
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1280px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1280px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Name_C</th>
+                            <th>ID_WO</th>
+                            <th>CERT_NO</th>
+                            <th>REQ_NO</th>
+                            <th>DATE_C1</th>
+                            <th>DATE_INSP1</th>
+                            <th>LOCATION_C</th>
+                            <th>Description_C</th>
+                            <th>TEST_SPEC</th>
+                            <th>SURFACE_CON</th>
+                            <th>ACC_STAN</th>
+                            <th>MATERIAL_C</th>
+                            <th>TEST_PN</th>
+                            <th>DYE_PEN</th>
+                            <th>INSPECTOR_C</th>
                         </tr>
                     </table>
                 </div>
@@ -155,7 +165,6 @@
                 $("#work").empty();
             }
         });
-
         $('#work').change(function () {
             document.getElementById('work').disabled = false;
             var work = $(this).val();
@@ -205,8 +214,82 @@
         function get_action1(form) {
             form.action = "{{route('insertDPINew')}}";
         }
+        var r = "";
         function get_action2(form) {
+            if (r == ""){
+                alert("choose an id to edit");
+            }
+            form.action = "{{route('editDPI')}}";
+        }
+        function getKey(){
+            showTable('table')
+            var searchKey = $("#certificate").val();
+            if (searchKey === ""){
+                searchKey = "empty"
+            }
+            $.ajax({
+                type: "GET",
+                url: "{{route('searchDPI')}}",
+                data: {quote: searchKey},
+                success: function(res) {
+                    if (res) {
+                        DeleteRows();
+                        $.each(res, function(key,value) {
+                            console.log(value.CERT_NO);
+                            $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
+                                '<td>' + value.Name_C + '</td>'+
+                                '<td>' + value.ID_WO + '</td>'+
+                                '<td>' + value.CERT_NO + '</td>'+
+                                '<td>' + value.REQ_NO + '</td>'+
+                                '<td>' + value.DATE_C1 + '</td>'+
+                                '<td>' + value.DATE_INSP1 + '</td>'+
+                                '<td>' + value.LOCATION_C + '</td>'+
+                                '<td>' + value.Description_C + '</td>'+
+                                '<td>' + value.TEST_SPEC + '</td>'+
+                                '<td>' + value.SURFACE_CON + '</td>'+
+                                '<td>' + value.ACC_STAN + '</td>'+
+                                '<td>' + value.MATERIAL_C + '</td>'+
+                                '<td>' + value.TEST_PN + '</td>'+
+                                '<td>' + value.DYE_PEN + '</td>'+
+                                '<td>' + value.INSPECTOR_C + '</td>'+
+                                '</tr>');
+                        });
+                    } else {
+                        DeleteRows();
+                    }
+                }
+            });
 
+        }
+        function show() {
+            var rowId =
+                event.target.parentNode.id;
+            var data = document.getElementById(rowId).querySelectorAll("td");
+            document.getElementById('clientname').value = check(data[0].innerHTML);
+            var x = check(data[1].innerHTML)
+            $("#work").append('<option>' + x + '</option>');
+            document.getElementById('work').value = check(data[1].innerHTML);
+            document.getElementById('certNo').value = check(data[2].innerHTML);
+            document.getElementById('reqNo').value = check(data[3].innerHTML);
+            document.getElementById('date2').value = check(data[4].innerHTML);
+            document.getElementById('date4').value = check(data[5].innerHTML);
+            document.getElementById('location').value = check(data[6].innerHTML);
+            document.getElementById('disc').value = check(data[7].innerHTML);
+            document.getElementById('ts').value = check(data[8].innerHTML);
+            document.getElementById('sc').value = check(data[9].innerHTML);
+            document.getElementById('as').value = check(data[10].innerHTML);
+            document.getElementById('material').value = check(data[11].innerHTML);
+            document.getElementById('tpn').value = check(data[12].innerHTML);
+            document.getElementById('dp').value = check(data[13].innerHTML);
+            document.getElementById('ins').value = check(data[14].innerHTML);
+            r = rowId;
+            document.getElementById('id').value = r;
+        }
+        function DeleteRows() {
+            var rowCount = table.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
         }
     </script>
 @stop
