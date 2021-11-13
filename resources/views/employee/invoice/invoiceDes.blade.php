@@ -2,7 +2,7 @@
 @section('content_1')
 
     <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
-    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px;
+    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 50px;
     margin-left: 400px; z-index: 20; height: 800px; width: 1270px;
     background-color: rgba(240,248,248,0.57)">
         <fieldset>
@@ -71,13 +71,10 @@
         $('#check').click(function() {
             console.log(this.getAttribute("value"));
             if(this.getAttribute("value") === "0"){
-
-                document.getElementById('check1').disabled = false;
-                document.getElementById('check2').disabled = false;
+                document.getElementById('ttlprice').readOnly = false;
                 this.setAttribute("value", "1");
             }else {
-                document.getElementById('check1').disabled = true;
-                document.getElementById('check2').disabled = true;
+                document.getElementById('ttlprice').readOnly = true;
                 this.setAttribute("value", "0");
             }
         });
@@ -125,7 +122,7 @@
             });
         }
         function show() {
-
+            enable();
             var rowId =
                 event.target.parentNode.id;
             var data = document.getElementById(rowId).querySelectorAll("td");
@@ -146,5 +143,15 @@
                 table.deleteRow(i);
             }
         }
+
+        function enable() {
+            document.getElementById('work').disabled = false;
+            document.getElementById('client').disabled = false;
+            document.getElementById('description').disabled = false;
+            document.getElementById('check').disabled = false;
+            document.getElementById('check1').disabled = false;
+            document.getElementById('check2').disabled = false;
+            document.getElementById('ttlprice').disabled = false;
+        };
     </script>
 @stop

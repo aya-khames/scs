@@ -2,7 +2,7 @@
 @section('content_1')
 
     <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
-    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px;
+    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 50px;
     margin-left: 400px; z-index: 20; height: 800px; width: 1270px;
     background-color: rgba(240,248,248,0.57)">
         <fieldset>
@@ -25,7 +25,7 @@
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 20px; width: 130px">Client:</label>
                         <a style="padding: unset">
-                            <select id="clientname" name="client" class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select id="clientname" name="client" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected>Client</option>
                                 @foreach($clients as $client)
                                     <option>{{$client->Name_C}}</option>
@@ -35,7 +35,7 @@
                         <span>
                         <label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Work Order:</label>
                         <a style="padding: unset">
-                            <select id="work" name="wid" disabled class="miniDrop2" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select id="work" name="wid" disabled class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected>Work Order</option>
                             </select>
                         </a>
@@ -205,6 +205,7 @@
 
         }
         function show() {
+            enable();
             var rowId =
                 event.target.parentNode.id;
             var data = document.getElementById(rowId).querySelectorAll("td");
@@ -225,5 +226,13 @@
                 table.deleteRow(i);
             }
         }
+        function enable() {
+            document.getElementById('work').disabled = false;
+            document.getElementById('dnote').disabled = false;
+            document.getElementById('date').disabled = false;
+            document.getElementById('date2').disabled = false;
+            document.getElementById('po').disabled = false;
+            document.getElementById('req').disabled = false;
+        };
     </script>
 @stop
