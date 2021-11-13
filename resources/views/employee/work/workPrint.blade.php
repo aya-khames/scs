@@ -2,7 +2,7 @@
 @section('content_1')
 
     <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
-    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px;
+    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 50px;
     margin-left: 400px; z-index: 20; height: 800px; width: 1330px;
     background-color: rgba(240,248,248,0.57)">
         <fieldset>

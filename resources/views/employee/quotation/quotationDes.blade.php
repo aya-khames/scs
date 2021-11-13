@@ -24,24 +24,24 @@
                     @csrf
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 20px; width: 130px">Quotation:</label> <input id="quote" name="quotation" class="text2" style="width: 400px" type="text">
-                        <span><label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input id="client" readonly name="client" class="text2" style="width: 400px" type="text"></span>
+                        <span><label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input id="client" disabled readonly name="client" class="text2" style="width: 400px" type="text"></span>
                         <br>
                         <span class="sp"><a style="margin-left: 150px; cursor: pointer" onclick="getKey('quote')">Search</a>
-                        <a onclick="getKey('quoteitem')" style="margin-left: 50px">Search Edit</a>
-                        <input style="margin-left: 330px; height: 17px; width: 17px" id="check" value="0" type="checkbox"></span>
+                        <a onclick="getKey('quoteitem')" id="searchEdit" style="margin-left: 50px">Search Edit</a>
+                        <input disabled style="margin-left: 330px; height: 17px; width: 17px" id="check" value="0" type="checkbox"></span>
                         <br>
                         <input name="id" readonly id="id" class="text2" style="display: none" type="text">
                         <label class="lab" style="font-size: 20px; width: 130px">Description:</label>
-                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 430px">Unit Price:</label><input id="unit" disabled id="check1" name="unitPrice" class="text2" style="width: 70px; margin-top: 10px" type="number" value="0">
+                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 430px">Unit Price:</label><input id="unit" disabled name="unitPrice" class="text2" style="width: 70px; margin-top: 10px" type="number" value="0">
                         <label class="lab" style="font-size: 20px; width: 48px; margin-left: 5px">QTY:</label><input disabled id="check2" name="qty" class="text2" style="width: 70px" type="number" value="0">
                         {{-- it'll appear automatically--}}
-                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 5px">Total Price:</label><input id="ttl" readonly name="ttlPrice" class="text2" style="width: 70px" type="number" value="0">
+                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 5px">Total Price:</label><input id="ttl" disabled readonly name="ttlPrice" class="text2" style="width: 70px" type="number" value="0">
                         <br>
-                        <textarea id="description" name="description" class="text2" style="width: 400px;margin-left: 145px; height: 150px; resize: none"></textarea>
+                        <textarea id="description" disabled name="description" class="text2" style="width: 400px;margin-left: 145px; height: 150px; resize: none"></textarea>
                         <br>
                         <span><label class="lab" style="font-size: 20px; width: 120px; margin-left: 10px">Type:</label>
                         <a style="padding: unset; display: inline-block">
-                            <select name="type" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <select disabled id="type" name="type" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <option value="" disabled selected>Type</option>
                                 <option>Inspection</option>
                                 <option>Supply</option>
@@ -92,13 +92,10 @@
         $('#check').click(function() {
             console.log(this.getAttribute("value"));
             if(this.getAttribute("value") === "0"){
-
-                   document.getElementById('check1').disabled = false;
-                   document.getElementById('check2').disabled = false;
+                   document.getElementById('ttl').readOnly = false;
                   this.setAttribute("value", "1");
               }else {
-                  document.getElementById('check1').disabled = true;
-                  document.getElementById('check2').disabled = true;
+                  document.getElementById('ttl').readOnly = true;
                   this.setAttribute("value", "0");
               }
         });
@@ -160,6 +157,14 @@
             }
         }
         function show(key) {
+            document.getElementById('check').disabled = false;
+            document.getElementById('searchEdit').style.cursor = "pointer";
+            document.getElementById('client').disabled = false;
+            document.getElementById('description').disabled = false;
+            document.getElementById('type').disabled = false;
+            document.getElementById('ttl').disabled = false;
+            document.getElementById('unit').disabled = false;
+            document.getElementById('check2').disabled = false;
             var rowId =
                 event.target.parentNode.id;
             var data = document.getElementById(rowId).querySelectorAll("td");
@@ -174,9 +179,6 @@
             }
             document.getElementById('quote').value = check(data[0].innerHTML);
             document.getElementById('client').value = check(data[1].innerHTML);
-
-
-
 
             r = rowId;
         }
