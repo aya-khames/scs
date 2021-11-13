@@ -157,7 +157,6 @@
 
             document.getElementById('b4').disabled = false;
             document.getElementById('b5').disabled = false;
-
             document.getElementById('b7').disabled = false;
             document.getElementById('b8').disabled = false;
             document.getElementById('b9').disabled = false;
@@ -209,6 +208,17 @@
         }
         var r = "";
         function show() {
+            document.getElementById('clientname').disabled = false;
+            document.getElementById('quotation').disabled = false;
+            document.getElementById('contact').disabled = false;
+            document.getElementById('b2').disabled = false;
+            document.getElementById('b4').disabled = false;
+            document.getElementById('b5').disabled = false;
+            document.getElementById('b6').disabled = false;
+            document.getElementById('b7').disabled = false;
+            document.getElementById('b8').disabled = false;
+            document.getElementById('b9').disabled = false;
+            document.getElementById('b10').disabled = false;
             document.getElementById('b11').disabled = false;
             var rowId =
                 event.target.parentNode.id;
