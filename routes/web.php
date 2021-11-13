@@ -233,6 +233,8 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::post('/del-inv-new', 'SCS\InvoiceController@deleteInvoice')->name('deleteInvoiceN');
             Route::get('/findAdd', 'SCS\InvoiceController@findAdd')->name('findAdd');
             Route::get('/generateInvoice', 'SCS\InvoiceController@generateInvoice')->name('generateInvoice');
+            Route::post('/editIND', 'SCS\InvoiceController@editIND')->name('editIND');
+            Route::get('/searchIND', 'SCS\InvoiceController@searchIND')->name('searchIND');
 
             Route::get('/invd', function () {
                 return view('employee.invoice.invoiceDes');

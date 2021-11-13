@@ -43,9 +43,27 @@ class InvoiceController extends Controller
         $quot->Price_IN = $request->price;
         $quot->QTY = $request->qty;
         $quot->Total_Price = $request->ttlPrice;
-//        $quot->Type_IN = $request->tax;
         $quot->save();
         return redirect()->back();
+    }
+    public function editIND(Request $request){
+        $quot = Invoiceitem::where('_id', $request->id)->first();
+        if ($quot !== null){
+            $quot->Description = $request->description;
+            $quot->Price_IN = $request->price;
+            $quot->QTY = $request->qty;
+            $quot->Total_Price = $request->ttlPrice;
+            $quot->save();
+        }
+        return redirect()->back();
+    }
+    public function searchIND(Request $request){
+        if ($request->quote === "empty"){
+            $c = Invoiceitem::all();
+        } else{
+            $c = Invoiceitem::where('ID_IN', $request->quote)->get();
+        }
+        return response()->json($c);
     }
     public function editInvoice(Request $request)
     {
@@ -65,7 +83,11 @@ class InvoiceController extends Controller
     }
     public function deleteInvoice(Request $request)
     {
-
+        $quot = Invoice::where('_id',$request->id)->first();
+        if ($quot !== null) {
+            $quot->delete();
+        }
+        return redirect()->back();
     }
     public function searchIn(Request $request)
     {
