@@ -126,6 +126,13 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::get('/searchComp', 'SCS\CompressorController@searchComp')->name('searchComp');
             Route::post('/editComp', 'SCS\CompressorController@editComp')->name('editComp');
 
+            Route::post('/insertCD', 'SCS\CompressorController@insertCD')->name('insertCD');
+            Route::post('/editCD', 'SCS\CompressorController@editCD')->name('editCD');
+            Route::post('/deleteCD', 'SCS\CompressorController@deleteCD')->name('deleteCD');
+            Route::get('/searchCD', 'SCS\CompressorController@searchCD')->name('searchCD');
+
+
+
             Route::get('/compd', function () {
                 return view('employee.compressor.compDes');
             });
