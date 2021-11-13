@@ -149,17 +149,37 @@ class WorkController extends Controller {
         return redirect()->back();
     }
     public function searchWD(Request $request){
-        if ($request->quote === "empty" && $request->searchType === "work") {
-            $c = Workorder::all();
-        } else if($request->quote === "empty" && $request->searchType === "quote") {
-            $c = Woitem::all();
-        }else{
-            if ($request->searchType === "work") {
-                $c = Woitem::where('ID_WO', $request->quote)->get();
-            } else if($request->searchType === "quote"){
-                $c = Woitem::where('ID_QUO', $request->quote)->get();
+        $t = array();
+        if ($request->searchType === "work"){
+            if ($request->quote === "empty"){
+                $c = Workorder::all();
+            } else{
+                $c = Workorder::where('ID_WO', $request->quote)->get();
             }
+            $t = $c;
+        } else if ($request->searchType === "quote"){
+            if ($request->quote === "empty"){
+                $c = Workorder::all();
+            } else{
+                $c = Workorder::where('Name_C', $request->quote)->get();
+                foreach ($c as $cs){
+                    if ($cs->Case_WO === "Open"){
+                        $tt = array();
+                        array_push($tt, $cs);
+                        array_push($tt, Woitem::where('ID_WO', $cs->ID_WO)->first());
+                        array_push($t, $tt);
+                    }
+                }
+            }
+        } else{
+            if ($request->quote === "empty"){
+                $c = Woitem::all();
+            } else{
+                $c = Woitem::where('ID_WO', $request->quote)->get();
+            }
+            $t = $c;
         }
-        return response()->json($c);
+
+        return response()->json($t);
     }
 }
