@@ -65,6 +65,12 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::post('/insertWallN', 'SCS\WallController@insertWallN')->name('insertWallN');
             Route::post('/editWall', 'SCS\WallController@editWall')->name('editWall');
             Route::get('/searchWall', 'SCS\WallController@searchWall')->name('searchWall');
+            Route::post('/insertWallD', 'SCS\WallController@insertWallD')->name('insertWallD');
+            Route::post('/editWallD', 'SCS\WallController@editWallD')->name('editWallD');
+            Route::post('/deleteWallD', 'SCS\WallController@deleteWallD')->name('deleteWallD');
+            Route::get('/searchWallD', 'SCS\WallController@searchWallD')->name('searchWallD');
+
+
 
 
             Route::get('/walld', function () {

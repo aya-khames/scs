@@ -113,7 +113,7 @@
                 console.log(key);
 
             } else{
-                $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
+                $("#table").append('<tr onclick="show(' + x + ')" id="' + value._id + '">'+
                     '<td>' + value.ID_DN + '</td>'+
                     '<td>' + value.Name_C + '</td>'+
                     '<td>' + value.ID_WO + '</td>'+
