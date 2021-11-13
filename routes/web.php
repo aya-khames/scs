@@ -95,6 +95,12 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::post('/insertTVMNew', 'SCS\TestmpiController@insertTVMNew')->name('insertTVMNew');
             Route::get('/searchTM', 'SCS\TestmpiController@searchTM')->name('searchTM');
             Route::post('/editTM', 'SCS\TestmpiController@editTM')->name('editTM');
+            Route::post('/insertTMD', 'SCS\TestmpiController@insertTMD')->name('insertTMD');
+            Route::get('/searchTMD', 'SCS\TestmpiController@searchTMD')->name('searchTMD');
+            Route::post('/editTMD', 'SCS\TestmpiController@editTMD')->name('editTMD');
+            Route::post('/deleteTMD', 'SCS\TestmpiController@deleteTMD')->name('deleteTMD');
+
+
 
             Route::get('/tmvmd', function () {
                 return view('employee.test.testmpi.TMVMDes');

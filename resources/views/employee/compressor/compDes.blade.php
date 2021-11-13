@@ -149,7 +149,5 @@
                 table.deleteRow(i);
             }
         }
-
     </script>
-
 @stop
