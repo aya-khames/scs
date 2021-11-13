@@ -65,6 +65,12 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::post('/insertWallN', 'SCS\WallController@insertWallN')->name('insertWallN');
             Route::post('/editWall', 'SCS\WallController@editWall')->name('editWall');
             Route::get('/searchWall', 'SCS\WallController@searchWall')->name('searchWall');
+            Route::post('/insertWallD', 'SCS\WallController@insertWallD')->name('insertWallD');
+            Route::post('/editWallD', 'SCS\WallController@editWallD')->name('editWallD');
+            Route::post('/deleteWallD', 'SCS\WallController@deleteWallD')->name('deleteWallD');
+            Route::get('/searchWallD', 'SCS\WallController@searchWallD')->name('searchWallD');
+
+
 
 
             Route::get('/walld', function () {
@@ -163,6 +169,10 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::get('/dnoten', 'SCS\DeliveryController@showDNote');
             Route::get('/searchDN', 'SCS\DeliveryController@searchDN')->name('searchDN');
             Route::post('/editDN', 'SCS\DeliveryController@editDN')->name('editDN');
+            Route::post('/deleteDDes', 'SCS\DeliveryController@deleteDDes')->name('deleteDDes');
+            Route::post('/insertDDes', 'SCS\DeliveryController@insertDDes')->name('insertDDes');
+            Route::get('/searchDD', 'SCS\DeliveryController@searchDD')->name('searchDD');
+
 
             Route::get('/dnoted', function () {
                 return view('employee.delivery.dNoteDes');
@@ -233,6 +243,8 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::post('/del-inv-new', 'SCS\InvoiceController@deleteInvoice')->name('deleteInvoiceN');
             Route::get('/findAdd', 'SCS\InvoiceController@findAdd')->name('findAdd');
             Route::get('/generateInvoice', 'SCS\InvoiceController@generateInvoice')->name('generateInvoice');
+            Route::post('/editIND', 'SCS\InvoiceController@editIND')->name('editIND');
+            Route::get('/searchIND', 'SCS\InvoiceController@searchIND')->name('searchIND');
 
             Route::get('/invd', function () {
                 return view('employee.invoice.invoiceDes');

@@ -245,6 +245,12 @@
         function get_action2(form) {
             form.action = "{{route('insertInvoiceN')}}";
         };
+        function get_action3(form) {
+            if (r === ""){
+                alert("choose an invoice to delete")
+            }
+            form.action = "{{route('deleteInvoiceN')}}";
+        };
         function getKey( key){
             showTable('table')
             var searchKey;

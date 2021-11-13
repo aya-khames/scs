@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SCS;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Deliverynote;
+use App\Models\Deliverynoteitem;
 use App\Models\Workorder;
 use Illuminate\Http\Request;
 
@@ -80,10 +81,11 @@ class DeliveryController extends Controller
         }
         return response()->json($c);
     }
-    public function editDN(Request $request){
-        if ($request->id !== ""){
+    public function editDN(Request $request)
+    {
+        if ($request->id !== "") {
             $comp = Deliverynote::where('_id', $request->id)->first();
-            if ($comp !== null){
+            if ($comp !== null) {
                 $comp->Name_C = $request->client;
                 $comp->ID_WO = $request->wid;
                 $comp->ID_DN = $request->dnote;
@@ -96,6 +98,49 @@ class DeliveryController extends Controller
         }
         return redirect()->back();
     }
+    ###########desc##########################
+    public function searchDD(Request $request)
+    {
+        if ($request->quote === "empty" && $request->searchType === "delivery") {
+            $c = Deliverynote::all();
+        } else  if ($request->quote === "empty" && $request->searchType === "editdel") {
+            $c = Deliverynoteitem::all();
+        }
+        else {
+            if ($request->searchType === "delivery"){
+                $c = Deliverynote::where('ID_DN', $request->quote)->get();
+            } else if ($request->searchType === "editdel") {
+                $c = Deliverynoteitem::where('ID_WO', $request->quote)->get();
+            }
+        }
+        return response()->json($c);
+    }
+    public function deleteDDes(Request $request)
+    {
+        $c = Deliverynoteitem::where('_id', $request->id);
+        if ($c !== null){
+            $c->delete();
+        }
+        return redirect()->back();
+    }
+    public function insertDDes(Request $request)
+    {
+        $t = Deliverynoteitem::where('_id', $request->id);
+        if ($t === null){
+            $c = new Deliverynoteitem();
+            $c->ID_DN = $request->delivery;
+            $c->Name_C = $request->work;
+            $c->ID_WO = $request->client;
+            $c->Description = $request->description;
+            $c->QTY = $request->qty;
+            $c->ID_NUM = $request->idno;
+        }
+    return redirect()->back();
+    }
+
+
+
+
 
 
 

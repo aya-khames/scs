@@ -27,19 +27,21 @@
                     @csrf
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 20px; width: 130px">Invoice:</label> <input id="invoice" name="invoice" class="text2" style="width: 400px" type="text">
-                        <span class="sp"><a style="margin-left: 10px; cursor: pointer" onclick="showTable('table')">Search</a></span>
+                        <span class="sp"><a style="margin-left: 10px; cursor: pointer" onclick="getKey()">Search</a></span>
                         <br>
                         <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input id="work" readonly name="work" disabled class="text2" style="width: 400px" type="text">
                         <span><label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input id="client" readonly name="client" disabled class="text2" style="width: 400px" type="text"></span>
                         <br>
+                        <input name="id" readonly id="id" class="text2" style="display: none" type="text">
+
                         <input style="margin-left: 675px; height: 17px; width: 17px" disabled id="check" value="0" type="checkbox">
                         <br>
                         <label class="lab" style="font-size: 20px; width: 130px">Description:</label>
                         <label class="lab" style="font-size: 20px; width: 100px; margin-left: 430px">Unit Price:</label><input name="price" disabled id="check1" class="text2" style="width: 70px; margin-top: 10px" type="text">
                         <label class="lab" style="font-size: 20px; width: 48px; margin-left: 5px">QTY:</label><input disabled name="qty" id="check2" class="text2" style="width: 70px" type="text">
-                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 5px">Total Price:</label><input name="ttlPrice" disabled readonly class="text2" style="width: 70px" type="text">
+                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 5px">Total Price:</label><input id="ttlprice" name="ttlPrice" disabled readonly class="text2" style="width: 70px" type="text">
                         <br>
-                        <textarea name="description" disabled class="text2" style="width: 400px;margin-left: 145px; height: 150px; resize: none"></textarea>
+                        <textarea id="description" name="description" disabled class="text2" style="width: 400px;margin-left: 145px; height: 150px; resize: none"></textarea>
                         <br>
                         <div style="margin-left: 900px; display: inline-block">
                             <button class="bttn" >Print</button>
@@ -79,8 +81,70 @@
                 this.setAttribute("value", "0");
             }
         });
+        var r = "";
         function get_action2(form) {
-//             form.action = "{{route('insertInvoiceN')}}";
+            if (r === ""){
+                alert("choose an invoice to edit")
+            }
+            form.action = "{{route('editIND')}}";
+        };
+
+        function getKey(){
+            showTable('table');
+            var searchKey;
+            searchKey = $("#invoice").val();
+            if (searchKey === ""){
+                searchKey = "empty"
+            }
+            console.log(searchKey);
+            $.ajax({
+                type: "GET",
+                url: "{{route('searchIND')}}",
+                data: { quote: searchKey},
+                success: function(res) {
+                    if (res) {
+                        console.log(res);
+
+                        DeleteRows();
+                        $.each(res, function(key,value) {
+                            $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
+                                '<td>' + value.ID_IN + '</td>'+
+                                '<td>' + value.ID_WO + '</td>'+
+                                '<td>' + value.Name_C + '</td>'+
+                                '<td>' + value.Description + '</td>'+
+                                '<td>' + value.Price_IN + '</td>'+
+                                '<td>' + value.QTY + '</td>'+
+                                '<td>' + value.Total_Price + '</td>'+
+                                '<td>' + value.Type_IN + '</td>'+
+                                '</tr>');
+                        });
+                    } else {
+                        DeleteRows();
+                    }
+                }
+            });
+        }
+        function show() {
+
+            var rowId =
+                event.target.parentNode.id;
+            var data = document.getElementById(rowId).querySelectorAll("td");
+            document.getElementById('invoice').value = check(data[0].innerHTML);
+            document.getElementById('work').value = check(data[1].innerHTML);
+            document.getElementById('client').value = check(data[2].innerHTML);
+            document.getElementById('description').value = check(data[3].innerHTML);
+            document.getElementById('check1').value = check(data[4].innerHTML);
+            document.getElementById('check2').value = check(data[5].innerHTML);
+            document.getElementById('ttlprice').value = check(data[6].innerHTML);
+
+            r = rowId;
+            document.getElementById('id').value = r;
+        }
+        function DeleteRows() {
+            var rowCount = table.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
         }
     </script>
 @stop

@@ -252,8 +252,8 @@
             document.getElementById('nameI').value = check(data[8].innerHTML);
             document.getElementById('nameA').value = check(data[9].innerHTML);
             document.getElementById('de2').value = check(data[10].innerHTML);
-            document.getElementById('id').value = r;
             r = rowId;
+            document.getElementById('id').value = r;
         }
         function DeleteRows() {
             var rowCount = table.rows.length;
