@@ -29,8 +29,8 @@
                         <label class="lab" style="font-size: 20px; width: 130px">Invoice:</label> <input name="invoice" class="text2" style="width: 400px" type="text">
                         <span class="sp"><a style="margin-left: 10px; cursor: pointer" onclick="showTable('table')">Search</a></span>
                         <br>
-                        <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input name="work" disabled class="text2" style="width: 400px" type="text">
-                        <span><label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input name="client" disabled class="text2" style="width: 400px" type="text"></span>
+                        <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input id="work" readonly name="work" disabled class="text2" style="width: 400px" type="text">
+                        <span><label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input id="client" readonly name="client" disabled class="text2" style="width: 400px" type="text"></span>
                         <br>
                         <input style="margin-left: 675px; height: 17px; width: 17px" disabled id="check" value="0" type="checkbox">
                         <br>
@@ -80,7 +80,7 @@
             }
         });
         function get_action2(form) {
-            {{--form.action = "{{route('insertInvoiceN')}}";--}}
+//             form.action = "{{route('insertInvoiceN')}}";
         }
     </script>
 @stop

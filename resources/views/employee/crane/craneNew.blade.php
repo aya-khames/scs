@@ -65,6 +65,8 @@
                             <a style="padding: unset">
                                 <select style="width: 140px" disabled id="certType" class="miniDrop2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <option value="" disabled selected></option>
+                                    <option>TEST</option>
+                                    <option>VISUAL</option>
                                 </select>
                             </a>
                             <br>

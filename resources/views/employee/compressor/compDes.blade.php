@@ -27,12 +27,12 @@
                         <a class="sp" style="margin-left: 20px; text-decoration: none">Search Edit</a>
                         <br>
                         <label class="lab" style="font-size: 20px; width: 140px">Work Order:</label>
-                        <input disabled id="work" class="text2" style="width: 400px; margin-right: 20px" type="text">
+                        <input readonly disabled id="work" class="text2" style="width: 400px; margin-right: 20px" type="text">
                         <label class="lab" style="font-size: 20px; width: 70px; margin-left: 20px">Client:</label>
-                        <input disabled id="client" class="text2" style="width: 400px" type="text">
+                        <input readonly disabled id="client" class="text2" style="width: 400px" type="text">
                         <br>
                         <label class="lab" style="font-size: 20px; width: 140px">ID Number:</label>
-                        <input disabled id="id" class="text2" style="width: 400px; margin-right: 20px" type="text">
+                        <input disabled id="idNumber" class="text2" style="width: 400px; margin-right: 20px" type="text">
                         <label class="lab" style="font-size: 20px; width: 70px; margin-left: 20px">QTY:</label>
                         <input disabled id="qty" class="text2" style="width: 400px" type="text">
                         <br>
@@ -41,7 +41,7 @@
                         <br>
                         <label class="lab" style="font-size: 20px; width: 130px">Description:</label>
                         <br>
-                        <textarea disabled id="disc" class="text2" style="width: 400px;margin-left: 145px; height: 150px; scroll-behavior: smooth; resize: none"></textarea>
+                        <textarea disabled id="description" class="text2" style="width: 400px;margin-left: 145px; height: 150px; scroll-behavior: smooth; resize: none"></textarea>
                         <div style="margin-left: 120px; display: inline-block">
                             <button disabled class="bttn">Print</button>
                             <button class="bttn">Delete</button>

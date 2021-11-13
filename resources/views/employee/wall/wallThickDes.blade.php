@@ -26,9 +26,9 @@
                         <a class="sp" style="margin-left: 20px; text-decoration: none">Search Edit</a>
                         <br>
                         <label class="lab" style="font-size: 20px; width: 140px">Client:</label>
-                        <input disabled id="client" class="text2" style="width: 400px" type="text">
+                        <input readonly disabled id="client" class="text2" style="width: 400px" type="text">
                         <label class="lab" style="font-size: 20px; width: 170px; margin-left: 20px">Work Order:</label>
-                        <input disabled id="work" class="text2" style="width: 400px" type="text">
+                        <input readonly disabled id="work" class="text2" style="width: 400px" type="text">
                         <br>
 
                         <br>

@@ -23,12 +23,12 @@
                         <input class="text2" style="width: 400px" type="text">
                         <a class="sp" style="margin-left: 20px; cursor: pointer" onclick="showTable('table')">Search</a>
                         <label class="lab" style="font-size: 20px; width: 120px; margin-left: 20px">Work Order:</label>
-                        <input disabled id="work" class="text2" style="width: 400px" type="text">
+                        <input readonly disabled id="work" class="text2" style="width: 400px" type="text">
                         <br>
                         <label class="lab" style="font-size: 20px; width: 110px">Client:</label>
-                        <input disabled id="client" class="text2" style="width: 400px" type="text">
+                        <input readonly disabled id="client" class="text2" style="width: 400px" type="text">
                         <label class="lab" style="font-size: 20px; width: 120px; margin-left: 100px">Crane Type:</label>
-                        <input disabled id="craneT" class="text2" style="width: 400px" type="text">
+                        <input readonly disabled id="craneT" class="text2" style="width: 400px" type="text">
                         <br>
                         <label class="lab" style="font-size: 20px; width: 110px">CERT End:</label>
                         <input disabled id="certEnd" class="text2" style="width: 400px" type="text">
@@ -50,66 +50,6 @@
                             <th>Contact</th>
                             <th>Country</th>
                         </tr>
-
-
-
-
-
-                        <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                        </tr>
-                        <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                        </tr>
-                        <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                        </tr>
-                        <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                        </tr>
-                        <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                        </tr>
-                        <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                        </tr>
-                        <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
                         </tr>
                     </table>
                 </div>

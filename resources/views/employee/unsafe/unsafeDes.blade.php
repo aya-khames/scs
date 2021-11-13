@@ -29,8 +29,8 @@
                     </span>
                         <a class="sp" style="margin-left: 20px; text-decoration: none">Search Edit</a>
                         <br>
-                        <label class="lab" style="font-size: 20px; width: 165px">Work order:</label> <input name="work" disabled id="work" class="text2" style="margin-left:0; width: 400px" type="text">
-                        <label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input name="client" disabled id="client" class="text2" style="width: 400px" type="text">
+                        <label class="lab" style="font-size: 20px; width: 165px">Work order:</label> <input readonly name="work" disabled id="work" class="text2" style="margin-left:0; width: 400px" type="text">
+                        <label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input name="client" readonly disabled id="client" class="text2" style="width: 400px" type="text">
                         <br>
                         <label class="lab" style="font-size: 20px; width: 165px">Safe working load:</label>
                         <input name="safewl" disabled id="safe" class="text2" style="width: 400px; margin-left: 0" type="text">

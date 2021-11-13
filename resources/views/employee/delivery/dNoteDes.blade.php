@@ -28,14 +28,14 @@
                     </span>
                         <a class="sp" style="margin-left: 20px; text-decoration: none">Search Edit</a>
                         <br>
-                        <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input disabled class="text2" style="width: 400px" type="text">
-                        <span> <a class="sp" style="margin-left: 10px; text-decoration: none">Search</a> <label class="lab" style="font-size: 20px; width: 60px; margin-left: 20px">Client:</label> <input disabled class="text2" style="width: 400px" type="text"></span>
+                        <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input readonly id="work" disabled class="text2" style="width: 400px" type="text">
+                        <span> <a class="sp" style="margin-left: 10px; text-decoration: none">Search</a> <label class="lab" style="font-size: 20px; width: 60px; margin-left: 20px">Client:</label> <input readonly id="client" disabled class="text2" style="width: 400px" type="text"></span>
                         <br>
                         <label class="lab" style="font-size: 20px; width: 130px">Description:</label>
-                        <label class="lab" style="font-size: 20px; width: 60px; margin-left: 510px">QTY:</label><input disabled class="text2" style="width: 135px; margin-top: 10px" type="text">
-                        <label class="lab" style="font-size: 20px; width: 110px; margin-left: 5px">ID Number:</label><input disabled class="text2" style="width: 135px" type="number">
+                        <label class="lab" style="font-size: 20px; width: 60px; margin-left: 510px">QTY:</label><input readonly id="qty" disabled class="text2" style="width: 135px; margin-top: 10px" type="text">
+                        <label class="lab" style="font-size: 20px; width: 110px; margin-left: 5px">ID Number:</label><input readonly id="idNumber" disabled class="text2" style="width: 135px" type="number">
                         <br>
-                        <textarea disabled class="text2" style="width: 400px;margin-left: 145px; height: 150px; scroll-behavior: smooth; resize: none"></textarea>
+                        <textarea readonly id="description" disabled class="text2" style="width: 400px;margin-left: 145px; height: 150px; scroll-behavior: smooth; resize: none"></textarea>
                         <span>
                         <div style="margin-left: 120px; display: inline-block">
                             <button class="bttn">Print</button><button class="bttn">Delete</button><button class="bttn">Insert</button>
