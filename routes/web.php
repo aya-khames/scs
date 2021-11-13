@@ -36,7 +36,13 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::post('/insertUS', 'SCS\UnsafeController@insertUS')->name('insertUS');
             Route::post('/editUS', 'SCS\UnsafeController@editUS')->name('editUS');
 
+
             Route::post('/insertUSD', 'SCS\UnsafeController@insertUSD')->name('insertUSD');
+            Route::post('/editUSD', 'SCS\UnsafeController@editUSD')->name('editUSD');
+            Route::post('/deleteUSD', 'SCS\UnsafeController@deleteUSD')->name('deleteUSD');
+            Route::get('/searchUSD', 'SCS\UnsafeController@searchUSD')->name('searchUSD');
+
+
             Route::get('/unsafed', function () {
                 return view('employee.unsafe.unsafeDes');
             });

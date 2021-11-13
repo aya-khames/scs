@@ -61,18 +61,6 @@ class UnsafeController extends Controller{
         $unsafe->save();
         return redirect()->back();
     }
-    public function insertUSD(Request $request){
-        $unsafe = new Unsafeitem();
-        $unsafe->Name_C = $request->client;
-        $unsafe->ID_WO = $request->work;
-        $unsafe->Report_num = $request->report;
-        $unsafe->Description = $request->description;
-        $unsafe->Safe_WL = $request->safewl;
-        $unsafe->Date_of_MK = $request->datem;
-        $unsafe->Date_of_LTE = $request->datele;
-        $unsafe->save();
-        return redirect()->back();
-    }
     public function editUS(Request $request){
             $unsafe = Unsafe::where('Report_num', $request->report);
             if ($unsafe !== null){
@@ -101,6 +89,55 @@ class UnsafeController extends Controller{
 
             return redirect()->back();
         }
+        #######################################Des#####################
+    public function insertUSD(Request $request){
+        $unsafe = new Unsafeitem();
+        $unsafe->Name_C = $request->client;
+        $unsafe->ID_WO = $request->work;
+        $unsafe->Report_num = $request->report;
+        $unsafe->Description = $request->description;
+        $unsafe->Safe_WL = $request->safewl;
+        $unsafe->Date_of_MK = $request->datem;
+        $unsafe->Date_of_LTE = $request->datele;
+        $unsafe->save();
+        return redirect()->back();
+    }
+    public function editUSD(Request $request){
+        $unsafe = Unsafeitem::where('_id', $request->id)->first();
+        if ($unsafe !== null){
+            $unsafe->Description = $request->description;
+            $unsafe->Safe_WL = $request->safewl;
+            $unsafe->Date_of_MK = $request->datem;
+            $unsafe->Date_of_LTE = $request->datele;
+            $unsafe->save();
+        }
+        return redirect()->back();
+    }
+    public function deleteUSD(Request $request){
+        $unsafe = Unsafeitem::where('_id', $request->id);
+        if ($unsafe !== null){
+            $unsafe->delete();
+        }
+        return redirect()->back();
+    }
+    public function searchUSD(Request $request){
+        if ($request->searchType === "search"){
+            if ($request->quote === "empty"){
+                $c = Unsafe::all();
+            } else{
+                $c = Unsafe::where('Report_num', $request->quote)->get();
+            }
+        } else{
+            if ($request->quote === "empty"){
+                $c = Unsafeitem::all();
+            } else{
+                $c = Unsafeitem::where('Report_num', $request->quote)->get();
+            }
+        }
+        return response()->json($c);
+    }
+
+
 
 
 }
