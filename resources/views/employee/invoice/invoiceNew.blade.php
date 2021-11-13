@@ -2,7 +2,7 @@
 @section('content_1')
 
     <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
-    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px;
+    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 50px;
     margin-left: 400px; z-index: 20; height: 800px; width: 1270px;
     background-color: rgba(240,248,248,0.57)">
         <fieldset>
@@ -198,10 +198,7 @@
             document.getElementById('box6').disabled = false;
             document.getElementById('box7').disabled = false;
             document.getElementById('box8').disabled = false;
-            //document.getElementById('box9').disabled = false;
             document.getElementById('box10').disabled = false;
-            //document.getElementById('box11').disabled = false;
-            //document.getElementById('box12').disabled = false;
 
             var work = $(this).val();
             if (work) {
@@ -302,7 +299,18 @@
         }
         var r = "";
         function show() {
-            // document.getElementById('b11').disabled = false;
+            document.getElementById('address').disabled = false;
+            document.getElementById('work').disabled = false;
+            document.getElementById('invoice').disabled = false;
+            document.getElementById('box1').disabled = false;
+            document.getElementById('box2').disabled = false;
+            document.getElementById('box3').disabled = false;
+            document.getElementById('box4').disabled = false;
+            document.getElementById('box5').disabled = false;
+            document.getElementById('box6').disabled = false;
+            document.getElementById('box7').disabled = false;
+            document.getElementById('box8').disabled = false;
+            document.getElementById('box10').disabled = false;
             var rowId =
                 event.target.parentNode.id;
             var data = document.getElementById(rowId).querySelectorAll("td");
