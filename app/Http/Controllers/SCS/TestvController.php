@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cetificate;
 use App\Models\Client;
 use App\Models\Testvisual;
+use App\Models\Testvisualitem;
 use Illuminate\Http\Request;
 
 
@@ -97,6 +98,58 @@ class TestvController extends Controller{
                 $cer->Report_Type = "Test Visual";
                 $cer->save();
             }
+        }
+        return redirect()->back();
+    }
+    ################desc######################
+    public function searchTVD(Request $request){
+        if ($request->searchType === "search"){
+            if ($request->quote === "empty"){
+                $c = Testvisual::all();
+            } else{
+                $c = Testvisual::where('Report_num', $request->quote)->get();
+            }
+        } else{
+            if ($request->quote === "empty"){
+                $c = Testvisualitem::all();
+            } else{
+                $c = Testvisualitem::where('Report_num', $request->quote)->get();
+            }
+        }
+        return response()->json($c);
+    }
+    public function insertTVD(Request $request){
+        $t = Testvisualitem::where('_id', $request->id)->first();
+        if ( $t === null){
+            $t = new Testvisualitem();
+            $t->Name_C = $request->client;
+            $t->ID_WO = $request->work;
+            $t->Report_num = $request->repNo;
+            $t->ID_NUM = $request->idNumber;
+            $t->QTY = $request->qty;
+            $t->Description = $request->description;
+            $t->Safe_WL = $request->safe;
+            $t->Proof_load = $request->pl;
+            $t->save();
+        }
+        return redirect()->back();
+    }
+    public function editTVD(Request $request){
+        $t = Testvisualitem::where('_id', $request->id)->first();
+        if ( $t !== null){
+            $t->ID_NUM = $request->idNumber;
+            $t->QTY = $request->qty;
+            $t->Description = $request->description;
+            $t->Safe_WL = $request->safe;
+            $t->Proof_load = $request->pl;
+            $t->save();
+        }
+        return redirect()->back();
+    }
+    public function deleteTVD(Request $request){
+        $t = Testvisualitem::where('_id', $request->id)->first();
+        if ($t !== null){
+            $t->delete();
         }
         return redirect()->back();
     }

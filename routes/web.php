@@ -83,7 +83,10 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::post('/insertTVNew', 'SCS\TestvController@insertTVNew')->name('insertTVNew');
             Route::get('/searchTV', 'SCS\TestvController@searchTV')->name('searchTV');
             Route::post('/editTV', 'SCS\TestvController@editTV')->name('editTV');
-
+            Route::post('/insertTVD', 'SCS\TestvController@insertTVD')->name('insertTVD');
+            Route::get('/searchTVD', 'SCS\TestvController@searchTVD')->name('searchTVD');
+            Route::post('/editTVD', 'SCS\TestvController@editTVD')->name('editTVD');
+            Route::post('/deleteTVD', 'SCS\TestvController@deleteTVD')->name('deleteTVD');
 
             Route::get('/tvd', function () {
                 return view('employee.test.testvisual.TVDes');
