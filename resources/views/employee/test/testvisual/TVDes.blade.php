@@ -19,30 +19,30 @@
             <div style="margin: 5px; height: 600px; overflow-y: auto; width: 1280px">
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px">
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
-                        <label class="lab" style="font-size: 20px; width: 140px">Report No.</label> <input class="text2" style="width: 400px; margin-right: 20px" type="text">
+                        <label class="lab" style="font-size: 20px; width: 140px">Report No.</label> <input id="repNo" name="repNo" class="text2" style="width: 400px; margin-right: 20px" type="text">
                         <span class="sp">
-                        <a style="margin-left: 10px; cursor: pointer" onclick="showTable('table')">Search</a>
+                        <a style="margin-left: 10px; cursor: pointer" onclick="getKey('search')">Search</a>
                     </span>
-                        <a class="sp" style="margin-left: 20px; text-decoration: none">Search Edit</a>
+                        <a onclick="getKey('searchedit')" class="sp" style="margin-left: 20px; text-decoration: none">Search Edit</a>
                         <br>
-                        <label class="lab" style="font-size: 20px; width: 140px">Work Order:</label> <input readonly disabled id="work" class="text2" style="width: 400px; margin-right: 20px" type="text">
-                        <label class="lab" style="font-size: 20px; width: 70px; margin-left: 20px">Client:</label> <input readonly disabled id="client" class="text2" style="width: 400px" type="text">
+                        <label class="lab" style="font-size: 20px; width: 140px">Work Order:</label> <input name="work" readonly disabled id="work" class="text2" style="width: 400px; margin-right: 20px" type="text">
+                        <label class="lab" style="font-size: 20px; width: 70px; margin-left: 20px">Client:</label> <input name="client" readonly disabled id="client" class="text2" style="width: 400px" type="text">
                         <br>
-                        <label class="lab" style="font-size: 20px; width: 140px">Proof load:</label> <input disabled id="pl" class="text2" style="width: 400px; margin-right: 20px" type="text">
-                        <label class="lab" style="font-size: 20px; width: 70px; margin-left: 20px">QTY:</label> <input disabled id="qty" class="text2" style="width: 400px" type="text">
+                        <label class="lab" style="font-size: 20px; width: 140px">Proof load:</label> <input name="pl" disabled id="pl" class="text2" style="width: 400px; margin-right: 20px" type="text">
+                        <label class="lab" style="font-size: 20px; width: 70px; margin-left: 20px">QTY:</label> <input name="qty" disabled id="qty" class="text2" style="width: 400px" type="text">
                         <br>
-                        <label class="lab" style="font-size: 17px; width: 140px">Safe working load:</label> <input disabled id="safe" class="text2" style="width: 400px; margin-right: 20px" type="text">
-                        <label class="lab" style="font-size: 20px; width: 70px; margin-left: 20px">ID No.</label> <input disabled id="idNumber" class="text2" style="width: 400px" type="number">
+                        <label class="lab" style="font-size: 17px; width: 140px">Safe working load:</label> <input name="safe" disabled id="safe" class="text2" style="width: 400px; margin-right: 20px" type="text">
+                        <label class="lab" style="font-size: 20px; width: 70px; margin-left: 20px">ID No.</label> <input name="idNumber" disabled id="idNumber" class="text2" style="width: 400px" type="number">
                         <br>
                         <label class="lab" style="font-size: 20px; width: 130px">Description:</label>
                         <br>
-                        <textarea disabled id="description" class="text2" style="width: 400px;margin-left: 145px; height: 150px; scroll-behavior: smooth; resize: none"></textarea>
+                        <textarea name="description" disabled id="description" class="text2" style="width: 400px;margin-left: 145px; height: 150px; scroll-behavior: smooth; resize: none"></textarea>
                         <span>
                         <div style="margin-left: 120px; display: inline-block">
                             <button disabled class="bttn">Print</button>
-                            <button class="bttn">Delete</button>
-                            <button class="bttn">Edit</button>
-                            <button class="bttn">Insert</button>
+                            <button class="bttn" type="submit" onclick="deleteTM(this.form)">Delete</button>
+                            <button class="bttn" type="submit" onclick="deleteTM(this.form)">Edit</button>
+                            <button class="bttn" type="submit" onclick="deleteTM(this.form)">Insert</button>
                         </div>
                     </span>
                     </div>

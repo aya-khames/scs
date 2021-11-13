@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cetificate;
 use App\Models\Client;
 use App\Models\Testvisualmpi;
+use App\Models\Testvisualmpiitem;
 use Illuminate\Http\Request;
 
 class TestmpiController extends Controller{
@@ -111,6 +112,58 @@ class TestmpiController extends Controller{
                 $cer->Report_Type = "Test Visual/MPI";
                 $cer->save();
             }
+        }
+        return redirect()->back();
+    }
+    ##############################desc################
+    public function searchTMD(Request $request){
+        if ($request->searchType === "search"){
+            if ($request->quote === "empty"){
+                $c = Testvisualmpi::all();
+            } else{
+                $c = Testvisualmpi::where('Report_num', $request->quote)->get();
+            }
+        } else{
+            if ($request->quote === "empty"){
+                $c = Testvisualmpiitem::all();
+            } else{
+                $c = Testvisualmpiitem::where('Report_num', $request->quote)->get();
+            }
+        }
+        return response()->json($c);
+    }
+    public function insertTMD(Request $request){
+        $t = Testvisualmpiitem::where('_id', $request->id)->first();
+        if ( $t === null){
+            $t = new Testvisualmpiitem();
+            $t->Name_C = $request->client;
+            $t->ID_WO = $request->work;
+            $t->Report_num = $request->repNo;
+            $t->ID_NUM = $request->idNumber;
+            $t->QTY = $request->qty;
+            $t->Description = $request->description;
+            $t->Safe_WL = $request->safe;
+            $t->Proof_load = $request->pl;
+            $t->save();
+        }
+        return redirect()->back();
+    }
+    public function editTMD(Request $request){
+        $t = Testvisualmpiitem::where('_id', $request->id)->first();
+        if ( $t !== null){
+            $t->ID_NUM = $request->idNumber;
+            $t->QTY = $request->qty;
+            $t->Description = $request->description;
+            $t->Safe_WL = $request->safe;
+            $t->Proof_load = $request->pl;
+            $t->save();
+        }
+        return redirect()->back();
+    }
+    public function deleteTMD(Request $request){
+        $t = Testvisualmpiitem::where('_id', $request->id)->first();
+        if ($t !== null){
+            $t->delete();
         }
         return redirect()->back();
     }
