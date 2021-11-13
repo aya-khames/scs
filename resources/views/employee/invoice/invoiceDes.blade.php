@@ -26,7 +26,7 @@
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px" method="POST">
                     @csrf
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
-                        <label class="lab" style="font-size: 20px; width: 130px">Invoice:</label> <input name="invoice" class="text2" style="width: 400px" type="text">
+                        <label class="lab" style="font-size: 20px; width: 130px">Invoice:</label> <input id="invoice" name="invoice" class="text2" style="width: 400px" type="text">
                         <span class="sp"><a style="margin-left: 10px; cursor: pointer" onclick="showTable('table')">Search</a></span>
                         <br>
                         <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input id="work" readonly name="work" disabled class="text2" style="width: 400px" type="text">

@@ -229,8 +229,8 @@
             document.getElementById('dateOn').value = check(data[3].innerHTML);
             document.getElementById('hireoff').value = check(data[4].innerHTML);
             document.getElementById('dateOff').value = check(data[4].innerHTML);
-            document.getElementById('id').value = r;
             r = rowId;
+            document.getElementById('id').value = r;
         }
         function DeleteRows() {
             var rowCount = table.rows.length;

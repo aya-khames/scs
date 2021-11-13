@@ -166,17 +166,46 @@ class QuoteController extends Controller{
         $quot->save();
         return redirect('quoted');
     }
-    public function searchQuote(Request $request){
-
-       /* $clients =Client::where('Name_C',$request->name)->first();
-        return view('page',['clients'=>$clients]);*/
+    public function searchQD(Request $request)
+    {
+        if ($request->quote === "empty" && $request->searchType === "quote") {
+            $c = Quotation::all();
+        } else if($request->quote === "empty" && $request->searchType === "quoteitem") {
+            $c = Qitem::all();
+        }else{
+            if ($request->searchType === "quote") {
+                $c = Quotation::where('ID_QUO', $request->quote)->get();
+            } else if($request->searchType === "quoteitem"){
+                $c = Qitem::where('Name_C', $request->quote)->get();
+            }
+        }
+        return response()->json($c);
     }
-    ##################des###################333
     public function deleteQD(Request $request){
+        if ($request->id !== ""){
+            $quot = Qitem::where('_id', $request->id)->first();
+            if ($quot !== null){
+                $quot->delete();
+            }
 
+        }
+        return redirect()->back();
     }
     public function editQD(Request $request){
+        if ($request->id !== ""){
+            $quot = Qitem::where('_id', $request->id)->first();
+//            $quot->Name_C = $request->client;
+            if ($quot !== null){
+                $quot->Description = $request->description;
+                $quot->Price_QUO = $request->unitPrice;
+                $quot->QTY = $request->qty;
+                $quot->Type_QUO = $request->type;
+                $quot->Total_Price = $request->ttlPrice;
+                $quot->save();
+            }
 
+        }
+        return redirect()->back();
     }
 
 

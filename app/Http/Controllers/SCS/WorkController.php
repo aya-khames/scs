@@ -130,11 +130,36 @@ class WorkController extends Controller {
         }
         return redirect()->back();
     }
-    public function editWD(){
-        return view('employee.workDes');
+    ####################DES###################
+    public function editWD(Request $request){
+        $w = Woitem::where('_id', $request->id)->first();
+        if ($w !== null){
+//            $w->Name_C = $request->client;
+//            $w->ID_WO = $request->work;
+            $w->ID_NUM = $request->idN;
+            $w->Description = $request->description;
+        }
+        return redirect()->back();
     }
-    public function deleteWD(){
-        return view('employee.workDes');
+    public function deleteWD(Request $request){
+        $w = Woitem::where('_id', $request->id)->first();
+        if ($w !== null){
+            $w->delete();
+        }
+        return redirect()->back();
     }
-
+    public function searchWD(Request $request){
+        if ($request->quote === "empty" && $request->searchType === "work") {
+            $c = Workorder::all();
+        } else if($request->quote === "empty" && $request->searchType === "quote") {
+            $c = Woitem::all();
+        }else{
+            if ($request->searchType === "work") {
+                $c = Woitem::where('ID_WO', $request->quote)->get();
+            } else if($request->searchType === "quote"){
+                $c = Woitem::where('ID_QUO', $request->quote)->get();
+            }
+        }
+        return response()->json($c);
+    }
 }

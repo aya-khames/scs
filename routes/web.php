@@ -138,6 +138,7 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::post('/storeQuote', 'SCS\QuoteController@insertQuote')-> name('insertQuote');
             Route::post('/editQuote', 'SCS\QuoteController@editQuote')-> name('editQuote');
             Route::get('/searchQ', 'SCS\QuoteController@searchQ')-> name('searchQ');
+            Route::get('/searchQD', 'SCS\QuoteController@searchQD')-> name('searchQD');
 
 
 
@@ -212,6 +213,7 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::post('/workdesedit', 'SCS\WorkController@editWD')->name('editWorkDes');
             Route::post('/workdesinsert', 'SCS\WorkController@insertWD')->name('insertWorkDes');
             Route::get('/searchW', 'SCS\WorkController@searchW')->name('searchW');
+            Route::get('/searchWD', 'SCS\WorkController@searchWD')->name('searchWD');
 
 
 

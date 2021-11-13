@@ -23,20 +23,21 @@
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px"method="POST">
                     @csrf
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
-                        <label class="lab" style="font-size: 20px; width: 130px">Quotation:</label> <input name="quotation" class="text2" style="width: 400px" type="text">
-                        <span><label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input readonly name="client" class="text2" style="width: 400px" type="text"></span>
+                        <label class="lab" style="font-size: 20px; width: 130px">Quotation:</label> <input id="quote" name="quotation" class="text2" style="width: 400px" type="text">
+                        <span><label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input id="client" readonly name="client" class="text2" style="width: 400px" type="text"></span>
                         <br>
-                        <span class="sp"><a style="margin-left: 150px; cursor: pointer" onclick="showTable('table')">Search</a>
-                        <a style="margin-left: 50px">Search Edit</a>
+                        <span class="sp"><a style="margin-left: 150px; cursor: pointer" onclick="getKey('quote')">Search</a>
+                        <a onclick="getKey('quoteitem')" style="margin-left: 50px">Search Edit</a>
                         <input style="margin-left: 330px; height: 17px; width: 17px" id="check" value="0" type="checkbox"></span>
                         <br>
+                        <input name="id" readonly id="id" class="text2" style="display: none" type="text">
                         <label class="lab" style="font-size: 20px; width: 130px">Description:</label>
-                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 430px">Unit Price:</label><input disabled id="check1" name="unitPrice" class="text2" style="width: 70px; margin-top: 10px" type="number" value="0">
+                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 430px">Unit Price:</label><input id="unit" disabled id="check1" name="unitPrice" class="text2" style="width: 70px; margin-top: 10px" type="number" value="0">
                         <label class="lab" style="font-size: 20px; width: 48px; margin-left: 5px">QTY:</label><input disabled id="check2" name="qty" class="text2" style="width: 70px" type="number" value="0">
                         {{-- it'll appear automatically--}}
-                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 5px">Total Price:</label><input readonly name="ttlPrice" class="text2" style="width: 70px" type="number" value="0">
+                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 5px">Total Price:</label><input id="ttl" readonly name="ttlPrice" class="text2" style="width: 70px" type="number" value="0">
                         <br>
-                        <textarea name="description" class="text2" style="width: 400px;margin-left: 145px; height: 150px; resize: none"></textarea>
+                        <textarea id="description" name="description" class="text2" style="width: 400px;margin-left: 145px; height: 150px; resize: none"></textarea>
                         <br>
                         <span><label class="lab" style="font-size: 20px; width: 120px; margin-left: 10px">Type:</label>
                         <a style="padding: unset; display: inline-block">
@@ -60,13 +61,9 @@
                 <br>
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1160px">
-                        <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                        <tr id="head" style="color: white; background-color: #0b3756; cursor: default">
+                            <th>Quotation ID</th>
+                            <th>Client</th>
                         </tr>
                     </table>
                 </div>
@@ -77,9 +74,16 @@
 @section('scripts')
     <script>
         function get_action2(form) {
+            if (r === ""){
+                alert("choose a quotation to delete")
+            }
             form.action = "{{route('deleteQuoteDesc')}}";
         };
+        var r = "";
         function get_action3(form) {
+            if (r === ""){
+                alert("choose a quotation to edit")
+            }
             form.action = "{{route('editQuoteDesc')}}";
         };
         function get_action4(form) {
@@ -98,5 +102,90 @@
                   this.setAttribute("value", "0");
               }
         });
+
+        function getKey( key1){
+            showTable('table');
+            var searchKey;
+            var searchKeyRed = "";
+            if (key1 === "quote"){
+                searchKey = $("#quote").val();
+            } else if (key1 === "quoteitem"){
+                searchKey = $("#client").val();
+            }
+            if (searchKey === ""){
+                searchKey = "empty"
+            }
+            $.ajax({
+                type: "GET",
+                url: "{{route('searchQD')}}",
+                data: {quote: searchKey, searchType:key1},
+                success: function(res) {
+                    if (res) {
+                        DeleteRows();
+                        // console.log(res);
+                        $.each(res, function(key,value) {
+                            toAppend(key1, key, value);
+                        });
+                    } else {
+                        DeleteRows();
+                    }
+                }
+            });
+        }
+        function toAppend(key, key1, value){
+            if (key === "quote"){
+                $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
+                    '<td>' + value.ID_QUO + '</td>'+
+                    '<td>' + value.Name_C + '</td>'+
+                    '</tr>');
+            } else{
+                // console.log(key);
+                // console.log(value);
+                // $("#head").append(
+                //     '<th>' + 'Description' + '</th>'+
+                //     '<th>' + 'Unit Price' + '</th>'+
+                //     '<th>' + 'Qty' + '</th>'+
+                //     '<th>' + 'Total Price' + '</th>'+
+                //     '<th>' + 'Type' + '</th>'
+                // );
+                $("#table").append('<tr onclick="show( '+'key'+' )" id="' + value._id + '">'+
+                    '<td>' + value.ID_QUO + '</td>'+
+                    '<td>' + value.Name_C + '</td>'+
+                    '<td>' + value.Description + '</td>'+
+                    '<td>' + value.Price_QUO + '</td>'+
+                    '<td>' + value.QTY + '</td>'+
+                    '<td>' + value.Total_Price + '</td>'+
+                    '<td>' + value.Type_QUO + '</td>'+
+                    '</tr>');
+            }
+        }
+        function show(key) {
+            var rowId =
+                event.target.parentNode.id;
+            var data = document.getElementById(rowId).querySelectorAll("td");
+            if(key === "quote"){
+                document.getElementById('description').value = check(data[2].innerHTML);
+                document.getElementById('unit').value = check(data[3].innerHTML);
+                document.getElementById('check2').value = check(data[4].innerHTML);
+                document.getElementById('ttl').value = check(data[5].innerHTML);
+                r = rowId;
+                document.getElementById('id').value = r;
+
+            }
+            document.getElementById('quote').value = check(data[0].innerHTML);
+            document.getElementById('client').value = check(data[1].innerHTML);
+
+
+
+
+            r = rowId;
+        }
+        function DeleteRows() {
+            var rowCount = table.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
+        }
+
     </script>
 @stop
