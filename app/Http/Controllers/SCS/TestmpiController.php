@@ -54,4 +54,64 @@ class TestmpiController extends Controller{
         $cer->save();
         return redirect()->back();
     }
+
+    public function searchTM(Request $request){
+        if ($request->quote === "empty") {
+            $c = Testvisualmpi::all();
+        } else {
+            if ($request->searchType === "report") {
+                $c = Testvisualmpi::where('Report_num', $request->quote)->get();
+
+            } else if ($request->searchType === "idno") {
+                $c = Testvisualmpi::all();
+            } else if ($request->searchType === "rn") {
+                $c = Testvisualmpi::all();
+            }
+        }
+        return response()->json($c);
+}
+    public function editTM(Request $request){
+        if ($request->id !== ""){
+            $tv = Testvisualmpi::where('_id', $request->id)->first();
+            if ($tv !== null){
+                $tv->Address = $request->address;
+                $tv->ID_WO = $request->work;
+                $tv->Report_num = $request->report;
+                $tv->Date_Report = $request->date;
+                $tv->Date_TE = $request->dateTE;
+                $tv->Date_MK = $request->dateMIK;
+                $tv->Type_TV = $request->extype;
+                $tv->SAFE_OP = $request->issafe;
+                if($request->unit === "Unit"){
+                    $tv->UNIT_TB = $request->testedby;
+                    $tv->UNIT_CN = $request->cerno;
+                    $tv->UNIT_TD = $request->testdate;
+                } else{
+                    $tv->SLING_TB = $request->testedby;
+                    $tv->SLING_CN = $request->cerno;
+                    $tv->SLING_TD = $request->testdate;
+                }
+                $tv->Name_per_mrep = $request->npmr;
+                $tv->Name_per_arep = $request->npar;
+                $tv->Latest_date1 = $request->LNT;
+                $tv->Name_add_emp = $request->nae;
+                $tv->Standard_M = $request->standard;
+                $tv->E_type = $request->eqitype;
+                $tv->C_Media = $request->contmedia;
+                $tv->TPN_M = $request->testproc;
+                $tv->P_Spacing = $request->po;
+                $tv->Indicator_M = $request->indicator;
+                $tv->Inspector_M = $request->inspector;
+                $tv->Qualification_M = $request->qual;
+                $tv->save();
+                $cer =  Cetificate::where('CERT_NO', $request->cert)->first();
+                $cer->Name_C = $request->client;
+                $cer->ID_WO = $request->work;
+                $cer->Report_num = $request->report;
+                $cer->Report_Type = "Test Visual/MPI";
+                $cer->save();
+            }
+        }
+        return redirect()->back();
+    }
 }

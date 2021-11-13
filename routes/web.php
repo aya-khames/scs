@@ -34,6 +34,8 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::get('/unsafen', 'SCS\UnsafeController@showunsafe');
             Route::get('/generateRep', 'SCS\UnsafeController@generateRep')->name('generateRep');
             Route::post('/insertUS', 'SCS\UnsafeController@insertUS')->name('insertUS');
+            Route::post('/editUS', 'SCS\UnsafeController@editUS')->name('editUS');
+
             Route::post('/insertUSD', 'SCS\UnsafeController@insertUSD')->name('insertUSD');
             Route::get('/unsafed', function () {
                 return view('employee.unsafe.unsafeDes');
@@ -47,13 +49,17 @@ Route::group(['middleware' => 'prevent'],function(){
 
             Route::get('/dpin', 'SCS\NdtdpiController@showNewDpi');
             Route::get('/getCert', 'SCS\NdtdpiController@getCert')->name('getCert');
+            Route::get('/searchDPI', 'SCS\NdtdpiController@searchDPI')->name('searchDPI');
+            Route::post('/editDPI', 'SCS\NdtdpiController@editDPI')->name('editDPI');
+
             Route::post('/insertDPINew', 'SCS\NdtdpiController@insertDPINew')->name('insertDPINew');
             Route::get('/dpip', function () {
                 return view('employee.ndt.dpi.DPIPrint');
             });
             Route::get('/mpin', 'SCS\NdtmpiController@showNewMpi');
             Route::post('/insertMPINew', 'SCS\NdtmpiController@insertMPINew')->name('insertMPINew');
-
+            Route::get('/searchMPI', 'SCS\NdtdpiController@searchMPI')->name('searchMPI');
+            Route::post('/editMPI', 'SCS\NdtdpiController@editMPI')->name('editMPI');
 
             Route::get('/walln', 'SCS\WallController@showNewWall');
             Route::post('/insertWallN', 'SCS\WallController@insertWallN')->name('insertWallN');
@@ -69,6 +75,10 @@ Route::group(['middleware' => 'prevent'],function(){
             });
             Route::get('/tvn', 'SCS\TestvController@showTVN');
             Route::post('/insertTVNew', 'SCS\TestvController@insertTVNew')->name('insertTVNew');
+            Route::get('/searchTV', 'SCS\TestvController@searchTV')->name('searchTV');
+            Route::post('/editTV', 'SCS\TestvController@editTV')->name('editTV');
+
+
             Route::get('/tvd', function () {
                 return view('employee.test.testvisual.TVDes');
             });
@@ -77,6 +87,9 @@ Route::group(['middleware' => 'prevent'],function(){
             });
             Route::get('/tmvmn', 'SCS\TestmpiController@showTVM');
             Route::post('/insertTVMNew', 'SCS\TestmpiController@insertTVMNew')->name('insertTVMNew');
+            Route::get('/searchTM', 'SCS\TestmpiController@searchTM')->name('searchTM');
+            Route::post('/editTM', 'SCS\TestmpiController@editTM')->name('editTM');
+
             Route::get('/tmvmd', function () {
                 return view('employee.test.testmpi.TMVMDes');
             });

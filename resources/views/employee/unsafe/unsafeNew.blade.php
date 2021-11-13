@@ -191,8 +191,10 @@
 @section('scripts')
     <script>
         function get_action1(form) {
-            console.log("test")
             form.action = "{{route('insertUS')}}";
+        };
+        function get_action2(form) {
+            form.action = "{{route('editUS')}}";
         };
         $('#client').change(function() {
             var client = $(this).val();

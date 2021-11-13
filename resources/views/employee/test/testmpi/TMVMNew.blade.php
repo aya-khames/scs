@@ -30,6 +30,8 @@
                                     @endforeach
                                 </select>
                             </a>
+                            <input name="id" readonly id="id" class="text2" style="display: none" type="text">
+
                             <label class="lab" style="font-size: 20px; width: 170px; margin-left: 20px">Address:</label>
                             <input name="address" disabled readonly id="address" class="text2" style="width: 400px" type="text">
                             <label class="lab" style="font-size: 20px; width: 160px">Work Order:</label>
@@ -186,20 +188,20 @@
                     <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1270px">
                         <div style="padding: 20px; background-color: rgba(240,248,248,0.05)">
                             <label class="lab" style="font-size: 18px; width: 90px">Report No:</label>
-                            <input class="text2" style="width: 300px" type="text">
-                            <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
-                            <label class="lab" style="font-size: 18px; width: 110px; margin-left: 30px">Report Date:</label>
-                            <input class="Date text2" style="width: 120px" type="date">
-                            <label class="lab" style="font-size: 20px; width: auto; margin-left: 8px">To:</label>
-                            <input class="Date text2" style="width: 125px" type="date" >
-                            <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+                            <input id="repno" class="text2" style="width: 300px" type="text">
+                            <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="getKey('repno')">Search</a></span>
+{{--                            <label class="lab" style="font-size: 18px; width: 110px; margin-left: 30px">Report Date:</label>--}}
+{{--                            <input class="Date text2" style="width: 120px" type="date">--}}
+{{--                            <label class="lab" style="font-size: 20px; width: auto; margin-left: 8px">To:</label>--}}
+{{--                            <input class="Date text2" style="width: 125px" type="date" >--}}
+{{--                            <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>--}}
                             <br>
                             <label class="lab" style="font-size: 20px; width: 90px">ID NO.</label>
-                            <input class="text2" style="width: 300px" type="text">
-                            <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+                            <input id="idno" class="text2" style="width: 300px" type="text">
+                            <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="getKey('idno')">Search</a></span>
                             <label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">R.N TV:</label>
-                            <input class="Date text2" style="width: 300px" type="text">
-                            <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+                            <input id="rn" class="Date text2" style="width: 300px" type="text">
+                            <span class="sp"><a style="cursor: pointer" onclick="getKey('rn')">Search</a></span>
                         </div>
                     </div>
                 </form>
@@ -207,12 +209,42 @@
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1280px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1280px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Name_C</th>
+                            <th>Address</th>
+                            <th>ID_WO</th>
+                            <th>Report_num</th>
+                            <th>Date_Report</th>
+                            <th>Date_Report1</th>
+                            <th>Date_TE</th>
+                            <th>Date_TE1</th>
+
+                            <th>Date_MK</th>
+                            <th>Date_LTE</th>
+                            <th>Date_NTE</th>
+                            <th>Type_TV</th>
+                            <th>SAFE_OP</th>
+                            <th>UNIT_TB</th>
+
+                            <th>UNIT_CN</th>
+                            <th>UNIT_TD</th>
+                            <th>SLING_TB</th>
+                            <th>SLING_CN</th>
+                            <th>SLING_TD</th>
+                            <th>Standard_M</th>
+
+                            <th>E_type</th>
+                            <th>C_Media</th>
+                            <th>TPN_M</th>
+                            <th>P_Spacing</th>
+                            <th>Indicator_M</th>
+                            <th>Inspector_M</th>
+
+                            <th>Qualification_M</th>
+                            <th>Name_per_mrep</th>
+                            <th>Name_per_arep</th>
+                            <th>Latest_date</th>
+                            <th>Latest_date1</th>
+                            <th>Name_add_emp</th>
                         </tr>
                     </table>
                 </div>
@@ -225,9 +257,13 @@
         function get_action1(form) {
             form.action = "{{route('insertTVMNew')}}";
         }
+        var r = "";
         function get_action2(form) {
-
-        }
+            if (r === ""){
+                alert("Select an id to edit");
+            }
+            form.action = "{{route('editTM')}}";
+        };
         $('#clientname').change(function() {
             document.getElementById('address').disabled = false;
             document.getElementById('work').disabled = false;
@@ -323,6 +359,90 @@
             document.getElementById('date7').disabled = false;
             document.getElementById('date8').disabled = false;
         });
+        function getKey(key){
+            showTable('table')
+            var searchKey = "";
+            if (key === "report"){
+                searchKey = $("#repno").val();
+            } else if (key === "idno"){
+                searchKey = $("#idno").val();
+            } else if (key === "rn") {
+                searchKey = $("#rn").val();
+            }
+            if (searchKey === ""){
+                searchKey = "empty"
+            }
+            $.ajax({
+                type: "GET",
+                url: "{{route('searchTM')}}",
+                data: {quote: searchKey,searchType: key},
+                success: function(res) {
+                    if (res) {
+                        DeleteRows();
+                        $.each(res, function(key,value) {
+                            $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
+                                '<td>' + value.Name_C + '</td>'+
+                                '<td>' + value.ID_DN + '</td>'+
+                                '<td>' + value.Hire_ON + '</td>'+
+                                '<td>' + value.Date_ON + '</td>'+
+                                '<td>' + value.Hire_OFF + '</td>'+
+                                '<td>' + value.Date_OFF + '</td>'+
+
+                                '</tr>');
+                        });
+                    } else {
+                        DeleteRows();
+                    }
+                }
+            });
+
+        };
+        function DeleteRows() {
+            var rowCount = table.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
+        }
+        function show() {
+            var rowId =
+                event.target.parentNode.id;
+            var data = document.getElementById(rowId).querySelectorAll("td");
+            document.getElementById('clientname').value = check(data[0].innerHTML);
+            document.getElementById('address').value = check(data[1].innerHTML);
+
+            var x = check(data[2].innerHTML)
+            $("#work").append('<option>' + x + '</option>');
+            document.getElementById('work').value = check(data[2].innerHTML);
+            document.getElementById('reportNo').value = check(data[3].innerHTML);
+            document.getElementById('date2').value = check(data[4].innerHTML);
+            document.getElementById('date4').value = check(data[5].innerHTML);
+            document.getElementById('date6').value = check(data[6].innerHTML);
+            document.getElementById('dropDate').value = check(data[7].innerHTML);
+            document.getElementById('dateTxt').value = check(data[8].innerHTML);
+            document.getElementById('box1').value = check(data[9].innerHTML);
+            document.getElementById('box2').value = check(data[10].innerHTML);
+            document.getElementById('box3').value = check(data[11].innerHTML);
+            document.getElementById('box4').value = check(data[12].innerHTML);
+            document.getElementById('choose').value = check(data[13].innerHTML);
+            document.getElementById('tb').value = check(data[14].innerHTML);
+            document.getElementById('certNo').value = check(data[15].innerHTML);
+            document.getElementById('date8').value = check(data[16].innerHTML);
+
+            document.getElementById('s').value = check(data[17].innerHTML);
+            document.getElementById('et').value = check(data[18].innerHTML);
+            document.getElementById('cm').value = check(data[19].innerHTML);
+            document.getElementById('tpn').value = check(data[20].innerHTML);
+            document.getElementById('ps').value = check(data[21].innerHTML);
+            document.getElementById('ind').value = check(data[22].innerHTML);
+            document.getElementById('ins').value = check(data[23].innerHTML);
+            document.getElementById('qualification').value = check(data[24].innerHTML);
+
+            document.getElementById('drop1').value = check(data[25].innerHTML);
+            document.getElementById('drop2').value = check(data[26].innerHTML);
+            document.getElementById('drop3').value = check(data[27].innerHTML);
+            r = rowId;
+            document.getElementById('id').value = r;
+        }
 
     </script>
 @stop
