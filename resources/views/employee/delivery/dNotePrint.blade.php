@@ -67,7 +67,7 @@
         }
         // $.ajax({
         //     type: "GET",
-        //     url: "{{route('searchDD')}}",
+        {{--     url: "{{route('searchDD')}}",--}}
         //     data: {quote: searchKey, searchType:k},
         //     success: function(res) {
         //         DeleteRows();

@@ -150,15 +150,15 @@
                 event.target.parentNode.id;
             var data = document.getElementById(rowId).querySelectorAll("td");
             if(k !== "delivery") {
-                document.getElementById('description').value = check(data[3].innerHTML);
-                document.getElementById('qty').value = check(data[4].innerHTML);
-                document.getElementById('idNumber').value = check(data[5].innerHTML);
+                document.getElementById('idNumber').value = check(data[3].innerHTML);
+                document.getElementById('description').value = check(data[4].innerHTML);
+                document.getElementById('qty').value = check(data[5].innerHTML);
                 r = rowId;
                 document.getElementById('id').value = r;
             }
             document.getElementById('delivery').value = check(data[0].innerHTML);
-            document.getElementById('work').value = check(data[1].innerHTML);
-            document.getElementById('client').value = check(data[2].innerHTML);
+            document.getElementById('client').value = check(data[1].innerHTML);
+            document.getElementById('work').value = check(data[2].innerHTML);
 
             r = rowId;
         };

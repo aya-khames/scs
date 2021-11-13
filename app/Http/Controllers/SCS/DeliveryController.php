@@ -110,7 +110,7 @@ class DeliveryController extends Controller
             if ($request->searchType === "delivery"){
                 $c = Deliverynote::where('ID_DN', $request->quote)->get();
             } else if ($request->searchType === "editdel") {
-                $c = Deliverynoteitem::where('ID_WO', $request->quote)->get();
+                $c = Deliverynoteitem::where('ID_DN', $request->quote)->get();
             }
         }
         return response()->json($c);
