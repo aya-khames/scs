@@ -2,7 +2,7 @@
 @section('content_1')
 
     <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
-    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px;
+    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 50px;
     margin-left: 400px; z-index: 20; height: 800px; width: 1240px;
     background-color: rgba(240,248,248,0.57)">
         <fieldset>
@@ -22,7 +22,7 @@
             <div style="height: 635px; width: 1230px; overflow-y: auto">
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1180px">
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
-                        <label class="lab" style="font-size: 20px; width: 130px">Quotation:</label> <input readonly class="text2" style="width: 350px" type="text">
+                        <label class="lab" style="font-size: 20px; width: 130px">Quotation:</label> <input class="text2" style="width: 350px" type="text">
                         <span>
                             <a class="sp" style="margin-left: 20px; cursor: pointer" onclick="showTable('table')">Search</a>
                             <label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label>
@@ -42,15 +42,11 @@
                     <br>
                 </form>
                 <br>
-                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1180px; max-height: 400px; overflow-y: auto">
-                    <table id="table" style="display: none; width: 1180px">
+                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 700px; max-height: 400px; overflow-y: auto">
+                    <table id="table" style="display: none; width: 700px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Quotation ID</th>
+                            <th>Client</th>
                         </tr>
                     </table>
                 </div>

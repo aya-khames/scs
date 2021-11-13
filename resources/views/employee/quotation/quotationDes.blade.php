@@ -2,7 +2,7 @@
 @section('content_1')
 
     <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
-    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px;
+    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 50px;
     margin-left: 400px; z-index: 20; height: 800px; width: 1240px;
     background-color: rgba(240,248,248,0.57)">
         <fieldset>
@@ -27,7 +27,7 @@
                         <span><label class="lab" style="font-size: 20px; width: 90px; margin-left: 20px">Client:</label> <input id="client" disabled readonly name="client" class="text2" style="width: 400px" type="text"></span>
                         <br>
                         <span class="sp"><a style="margin-left: 150px; cursor: pointer" onclick="getKey('quote')">Search</a>
-                        <a onclick="getKey('quoteitem')" id="searchEdit" style="margin-left: 50px">Search Edit</a>
+                        <a onclick="getKey('quoteitem')" id="searchEdit" style="margin-left: 50px; cursor: default">Search Edit</a>
                         <input disabled style="margin-left: 330px; height: 17px; width: 17px" id="check" value="0" type="checkbox"></span>
                         <br>
                         <input name="id" readonly id="id" class="text2" style="display: none" type="text">
@@ -59,11 +59,24 @@
                     </div>
                 </form>
                 <br>
-                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px; max-height: 400px; overflow-y: auto">
-                    <table id="table" style="display: none; width: 1160px">
+                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 700px; max-height: 400px; overflow-y: auto">
+                    <table id="table" style="display: none; width: 700px">
                         <tr id="head" style="color: white; background-color: #0b3756; cursor: default">
                             <th>Quotation ID</th>
                             <th>Client</th>
+                        </tr>
+                    </table>
+                </div>
+                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px; max-height: 400px; overflow-y: auto">
+                    <table id="table2" style="display: none; width: 1160px">
+                        <tr id="head" style="color: white; background-color: #0b3756; cursor: default">
+                            <th>Quotation ID</th>
+                            <th>Client</th>
+                            <th>Description</th>
+                            <th>Unit Price</th>
+                            <th>QTY</th>
+                            <th>Total Price</th>
+                            <th>Type</th>
                         </tr>
                     </table>
                 </div>
@@ -102,6 +115,7 @@
 
         function getKey( key1){
             showTable('table');
+            document.getElementById('table2').style.display = 'none';
             var searchKey;
             var searchKeyRed = "";
             if (key1 === "quote"){
@@ -136,16 +150,9 @@
                     '<td>' + value.Name_C + '</td>'+
                     '</tr>');
             } else{
-                // console.log(key);
-                // console.log(value);
-                // $("#head").append(
-                //     '<th>' + 'Description' + '</th>'+
-                //     '<th>' + 'Unit Price' + '</th>'+
-                //     '<th>' + 'Qty' + '</th>'+
-                //     '<th>' + 'Total Price' + '</th>'+
-                //     '<th>' + 'Type' + '</th>'
-                // );
-                $("#table").append('<tr onclick="show( '+'key'+' )" id="' + value._id + '">'+
+                document.getElementById('table').style.display = 'none';
+                document.getElementById('table2').style.display = 'block';
+                $("#table2").append('<tr onclick="show( '+'key'+' )" id="' + value._id + '">'+
                     '<td>' + value.ID_QUO + '</td>'+
                     '<td>' + value.Name_C + '</td>'+
                     '<td>' + value.Description + '</td>'+
