@@ -163,6 +163,10 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::get('/dnoten', 'SCS\DeliveryController@showDNote');
             Route::get('/searchDN', 'SCS\DeliveryController@searchDN')->name('searchDN');
             Route::post('/editDN', 'SCS\DeliveryController@editDN')->name('editDN');
+            Route::post('/deleteDDes', 'SCS\DeliveryController@deleteDDes')->name('deleteDDes');
+            Route::post('/insertDDes', 'SCS\DeliveryController@insertDDes')->name('insertDDes');
+            Route::get('/searchDD', 'SCS\DeliveryController@searchDD')->name('searchDD');
+
 
             Route::get('/dnoted', function () {
                 return view('employee.delivery.dNoteDes');
