@@ -2,8 +2,8 @@
 @section('content_1')
 
     <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
-    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px;
-    margin-left: 400px; z-index: 20; height: 800px; width: 1300px;
+    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 50px;
+    margin-left: 400px; z-index: 20; height: 800px; width: 1330px;
     background-color: rgba(240,248,248,0.57)">
         <fieldset>
             <legend style="padding: 10px; color: #0b3756; font-family: 'Times New Roman'; font-size: 35px; font-weight: bold">Hire On/Off</legend>
@@ -16,7 +16,7 @@
                 </div>
             </nav>
             <br>
-            <div style="height: 640px; width: 1290px; overflow-y: auto">
+            <div style="height: 640px; width: 1320px; overflow-y: auto">
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px" method="POST">
                     @csrf
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
@@ -198,8 +198,8 @@
                 url: "{{route('searchH')}}",
                 data: {quote: searchKey,searchType: key},
                 success: function(res) {
+                    DeleteRows();
                     if (res) {
-                        DeleteRows();
                         $.each(res, function(key,value) {
                             $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
                                 '<td>' + value.Name_C + '</td>'+
@@ -210,14 +210,13 @@
                                 '<td>' + value.Date_OFF + '</td>'+
                                 '</tr>');
                         });
-                    } else {
-                        DeleteRows();
                     }
                 }
             });
 
         };
         function show() {
+            enable();
             var rowId =
                 event.target.parentNode.id;
             var data = document.getElementById(rowId).querySelectorAll("td");
@@ -228,7 +227,7 @@
             document.getElementById('hireon').value = check(data[2].innerHTML);
             document.getElementById('dateOn').value = check(data[3].innerHTML);
             document.getElementById('hireoff').value = check(data[4].innerHTML);
-            document.getElementById('dateOff').value = check(data[4].innerHTML);
+            document.getElementById('dateOff').value = check(data[5].innerHTML);
             r = rowId;
             document.getElementById('id').value = r;
         }
@@ -238,5 +237,14 @@
                 table.deleteRow(i);
             }
         }
+        function enable() {
+            document.getElementById('dnote').disabled = false;
+            document.getElementById('hireon').disabled = false;
+            document.getElementById('hireoff').disabled = false;
+            document.getElementById('dateOff').disabled = false;
+            document.getElementById('dateOn').disabled = false;
+            document.getElementById('date').disabled = false;
+            document.getElementById('dateoff').disabled = false;
+        };
     </script>
 @stop
