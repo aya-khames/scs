@@ -2,7 +2,7 @@
 @section('content_1')
 
     <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
-    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px;
+    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 50px;
     margin-left: 400px; z-index: 20; height: 800px; width: 1270px;
     background-color: rgba(240,248,248,0.57)">
         <fieldset>
@@ -26,10 +26,13 @@
                         <span class="sp">
                         <a style="margin-left: 10px; cursor: pointer" onclick="getKey('delivery')">Search</a>
                     </span>
-                        <a onclick="getKey('editdel')" class="sp" style="margin-left: 20px; text-decoration: none">Search Edit</a>
+                        <a id="searchEdit" onclick="getKey('editdel')" class="sp" style="margin-left: 20px; text-decoration: none; cursor: default">Search Edit</a>
                         <br>
                         <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input name="work" readonly id="work" disabled class="text2" style="width: 400px" type="text">
-                        <span> <a class="sp" style="margin-left: 10px; text-decoration: none">Search</a> <label class="lab" style="font-size: 20px; width: 60px; margin-left: 20px">Client:</label> <input name="client" readonly id="client" disabled class="text2" style="width: 400px" type="text"></span>
+                        <span> <a id="search" class="sp" style="margin-left: 10px; text-decoration: none; cursor: default">Search</a>
+                            <label class="lab" style="font-size: 20px; width: 60px; margin-left: 20px">Client:</label>
+                            <input name="client" readonly id="client" disabled class="text2" style="width: 400px" type="text">
+                        </span>
                         <br>
                         <input name="id" readonly id="id" class="text2" style="display: none" type="text">
                         <label class="lab" style="font-size: 20px; width: 130px">Description:</label>
@@ -50,12 +53,19 @@
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1190px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Delivery Note</th>
+                            <th>Client</th>
+                            <th>Work Order</th>
+                        </tr>
+                    </table>
+                    <table id="table2" style="display: none; width: 1190px">
+                        <tr style="color: white; background-color: #0b3756; cursor: default">
+                            <th>Delivery Note</th>
+                            <th>Client</th>
+                            <th>Work Order</th>
+                            <th>ID Number</th>
+                            <th>Description</th>
+                            <th>QTY</th>
                         </tr>
                     </table>
                 </div>
@@ -75,12 +85,11 @@
         function get_action4(form) {
             form.action = "{{route('insertDDes')}}";
         };
+        var k = "";
         function getKey( key1){
-            showTable('table');
+            k = key1;
             var searchKey;
-            if (key1 === "delivery"){
-                searchKey = $("#delivery").val();
-            } else if (key1 === "editdel"){
+            if (k === "delivery" || k === "editdel"){
                 searchKey = $("#delivery").val();
             }
             if (searchKey === ""){
@@ -89,31 +98,31 @@
             $.ajax({
                 type: "GET",
                 url: "{{route('searchDD')}}",
-                data: {quote: searchKey, searchType:key1},
+                data: {quote: searchKey, searchType:k},
                 success: function(res) {
+                    DeleteRows();
+                    DeleteRows2();
                     if (res) {
-                        DeleteRows();
                         $.each(res, function(key,value) {
-                            toAppend(key1, key, value);
+                            toAppend(key, value);
                         });
-                    } else {
-                        DeleteRows();
                     }
                 }
             });
-        }
-        function toAppend(key, key1, value){
-            if (key === "delivery"){
-                var x = key
-                $("#table").append('<tr onclick="show(' + x + ')" id="' + value._id + '">'+
+        };
+        function toAppend(key, value){
+            if (k === "delivery"){
+                showTable('table');
+                document.getElementById('table2').style.display = 'none';
+                $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
                     '<td>' + value.ID_DN + '</td>'+
                     '<td>' + value.Name_C + '</td>'+
                     '<td>' + value.ID_WO + '</td>'+
                 '</tr>');
-                console.log(key);
-
-            } else{
-                $("#table").append('<tr onclick="show(' + x + ')" id="' + value._id + '">'+
+            }else{
+                showTable('table2');
+                document.getElementById('table').style.display = 'none';
+                $("#table2").append('<tr onclick="show()" id="' + value._id + '">'+
                     '<td>' + value.ID_DN + '</td>'+
                     '<td>' + value.Name_C + '</td>'+
                     '<td>' + value.ID_WO + '</td>'+
@@ -122,36 +131,45 @@
                     '<td>' + value.QTY + '</td>'+
                     '</tr>');
             }
-        }
+        };
         function DeleteRows() {
             var rowCount = table.rows.length;
             for (var i = rowCount - 1; i > 0; i--) {
                 table.deleteRow(i);
             }
-        }
-        function show(key) {
-            // console.log(key.id)
+        };
+        function DeleteRows2() {
+            var rowCount = table2.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table2.deleteRow(i);
+            }
+        };
+        function show() {
+            enable();
             var rowId =
                 event.target.parentNode.id;
             var data = document.getElementById(rowId).querySelectorAll("td");
-            if(key !== "delivery") {
+            if(k !== "delivery") {
                 document.getElementById('description').value = check(data[3].innerHTML);
                 document.getElementById('qty').value = check(data[4].innerHTML);
                 document.getElementById('idNumber').value = check(data[5].innerHTML);
                 r = rowId;
                 document.getElementById('id').value = r;
             }
-
             document.getElementById('delivery').value = check(data[0].innerHTML);
             document.getElementById('work').value = check(data[1].innerHTML);
-
             document.getElementById('client').value = check(data[2].innerHTML);
 
-
-
-
             r = rowId;
-        }
-
+        };
+        function enable() {
+            document.getElementById('work').disabled = false;
+            document.getElementById('client').disabled = false;
+            document.getElementById('description').disabled = false;
+            document.getElementById('qty').disabled = false;
+            document.getElementById('idNumber').disabled = false;
+            document.getElementById('searchEdit').style.cursor = 'pointer';
+            document.getElementById('search').style.cursor = 'pointer';
+        };
     </script>
 @stop
