@@ -49,7 +49,7 @@
 <!-- Icons Grid-->
 
 <div class="container" style="position: -webkit-sticky; position: sticky; top: 0; z-index: 2; margin-left: 0; width: 50%; background-color: rgb(12,60,94); box-shadow: 0 8px 6px -6px #1a1a1a">
-    <div style="margin: auto; width: 80%">
+    <div style="margin: auto">
         <div class="dropdown">
             <button class="dropbtn" onClick="document.getElementById('services').scrollIntoView();"><i class="bi bi-chevron-compact-down"></i> Services</button>
             <div class="dropdown-content">
@@ -325,13 +325,13 @@
 <!-- Footer-->
 <footer class="footer bg-light" id="foot">
     <div style="margin: auto; width: 600px">
-        <i class="bi bi-printer" style="color: #0f2185; margin-right: 10px"></i><span style="color: #032136; font-size: 20px; font-family: 'Times New Roman'"> +03 5284 574</span>
+        <i class="bi bi-printer" style="color: #032136; margin-right: 10px"></i><span style="color: #032136; font-size: 20px; font-family: 'Times New Roman'"> +03 5284 574</span>
         <br>
-        <i class="bi bi-telephone-fill" style="color: #0f2185; margin-right: 10px"></i><span style="color: #032136; font-size: 20px; font-family: 'Times New Roman'; margin-right: 129px"> 0122 1132 554</span>
+        <i class="bi bi-telephone-fill" style="color: #032136; margin-right: 10px"></i><span style="color: #032136; font-size: 20px; font-family: 'Times New Roman'; margin-right: 129px"> 0122 1132 554</span>
         <br>
-        <i class="bi bi-at" style="color: #0f2185; font-weight: bold; margin-right: 10px"></i><span style="color: #032136; font-size: 20px; font-family: 'Times New Roman'; margin-right: 50px"> scs@scsgroup-int.com</span>
+        <i class="bi bi-at" style="color:#032136; font-weight: bold; margin-right: 10px"></i><span style="color: #032136; font-size: 20px; font-family: 'Times New Roman'; margin-right: 50px"> scs@scsgroup-int.com</span>
         <br>
-        <i class="bi bi-geo-alt-fill" style="color: #0f2185; margin-right: 10px"></i><span style="color: #032136; font-size: 20px; font-family: 'Times New Roman'"> 7 Osman housing building, apartment 1 El-Syouf, Alexandria, Egypt</span>
+        <i class="bi bi-geo-alt-fill" style="color: #032136; margin-right: 10px"></i><span style="color: #032136; font-size: 20px; font-family: 'Times New Roman'"> 7 Osman housing building, apartment 1 El-Syouf, Alexandria, Egypt</span>
     </div>
 
 </footer>
