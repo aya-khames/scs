@@ -35,19 +35,19 @@
                     </div>
                 </form>
                 <br>
-                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px; max-height: 400px; overflow-y: auto">
-                    <table id="table" style="display: none; width: 1190px">
+                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 400px; max-height: 400px; overflow-y: auto">
+                    <table id="table" style="display: none; width: 400px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Client</th>
                         </tr>
                     </table>
                 </div>
             </div>
         </fieldset>
     </div>
+@stop
+@section('scripts')
+    <script>
+
+    </script>
 @stop

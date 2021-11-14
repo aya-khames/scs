@@ -53,12 +53,13 @@
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1190px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Invoice ID</th>
+                            <th>Client</th>
+                            <th>Work Order</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>QTY</th>
+                            <th>Total Price</th>
                         </tr>
                     </table>
                 </div>
@@ -99,24 +100,19 @@
                 url: "{{route('searchIND')}}",
                 data: { quote: searchKey},
                 success: function(res) {
+                    DeleteRows();
                     if (res) {
-                        console.log(res);
-
-                        DeleteRows();
                         $.each(res, function(key,value) {
                             $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
                                 '<td>' + value.ID_IN + '</td>'+
-                                '<td>' + value.ID_WO + '</td>'+
                                 '<td>' + value.Name_C + '</td>'+
+                                '<td>' + value.ID_WO + '</td>'+
                                 '<td>' + value.Description + '</td>'+
                                 '<td>' + value.Price_IN + '</td>'+
                                 '<td>' + value.QTY + '</td>'+
                                 '<td>' + value.Total_Price + '</td>'+
-                                '<td>' + value.Type_IN + '</td>'+
                                 '</tr>');
                         });
-                    } else {
-                        DeleteRows();
                     }
                 }
             });
@@ -127,8 +123,8 @@
                 event.target.parentNode.id;
             var data = document.getElementById(rowId).querySelectorAll("td");
             document.getElementById('invoice').value = check(data[0].innerHTML);
-            document.getElementById('work').value = check(data[1].innerHTML);
-            document.getElementById('client').value = check(data[2].innerHTML);
+            document.getElementById('client').value = check(data[1].innerHTML);
+            document.getElementById('work').value = check(data[2].innerHTML);
             document.getElementById('description').value = check(data[3].innerHTML);
             document.getElementById('check1').value = check(data[4].innerHTML);
             document.getElementById('check2').value = check(data[5].innerHTML);

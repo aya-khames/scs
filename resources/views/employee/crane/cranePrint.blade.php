@@ -1,7 +1,10 @@
 @extends('layouts.employeepage')
 @section('content_1')
 
-    <div style="border-radius: 20px; border: rgba(15,70,108,0.66); box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px; margin-left: 400px; z-index: 20; height: 780px; width: 1330px; background-color: rgba(240,248,248,0.57)">
+    <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
+     box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 50px;
+     margin-left: 400px; z-index: 20; height: 780px; width: 1330px;
+     background-color: rgba(240,248,248,0.57)">
         <fieldset>
             <legend style="padding: 10px; color: #0b3756; font-family: 'Times New Roman'; font-size: 35px; font-weight: bold">Crane</legend>
             <nav id="main-navbar" style="background-color: rgba(240,248,248,0.39); padding: unset" class="navbar navbar-expand-lg navbar-light bg-white">
@@ -43,12 +46,10 @@
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1250px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Certificate Number</th>
+                            <th>Client</th>
+                            <th>Work Order</th>
+                            <th>Crane Type</th>
                         </tr>
                         </tr>
                     </table>
@@ -56,4 +57,14 @@
             </div>
         </fieldset>
     </div>
+@stop
+@section('scripts')
+<script>
+    function enable() {
+        document.getElementById('client').disabled = false;
+        document.getElementById('work').disabled = false;
+        document.getElementById('craneT').disabled = false;
+        document.getElementById('certEnd').disabled = false;
+    };
+</script>
 @stop

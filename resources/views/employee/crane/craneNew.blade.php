@@ -1,7 +1,10 @@
 @extends('layouts.employeepage')
 @section('content_1')
 
-    <div style="border-radius: 20px; border: rgba(15,70,108,0.66); box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px; margin-left: 400px; z-index: 20; height: 780px; width: 1350px; background-color: rgba(240,248,248,0.57)">
+    <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
+     box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 50px;
+      margin-left: 400px; z-index: 20; height: 780px; width: 1350px;
+       background-color: rgba(240,248,248,0.57)">
         <fieldset style="overflow-y: auto">
             <legend style="padding: 10px; color: #0b3756; font-family: 'Times New Roman'; font-size: 35px; font-weight: bold">Crane</legend>
             <nav id="main-navbar" style="background-color: rgba(240,248,248,0.39); padding: unset" class="navbar navbar-expand-lg navbar-light bg-white">
@@ -24,6 +27,7 @@
                             <a style="padding: unset">
                                 <select class="miniDrop2" id="client" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <option value="" disabled selected></option>
+                                    <option>11111</option>
                                 </select>
                             </a>
                             <br>
@@ -31,6 +35,7 @@
                             <a style="padding: unset">
                                 <select class="miniDrop2" disabled id="work" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <option value="" disabled selected></option>
+                                    <option>1111</option>
                                 </select>
                             </a>
                             <br>
@@ -193,7 +198,7 @@
                 <br>
                 <div style="margin-left: 550px">
                     <button disabled class="bttn" style="box-shadow: 0 0 20px rgb(11,55,86)"><< Back</button>
-                    <button id="next" class="bttn" style="box-shadow: 0 0 20px rgb(11,55,86); margin: 20px">Next >></button>
+                    <button id="next" class="bttn" type="submit" style="box-shadow: 0 0 20px rgb(11,55,86); margin: 20px">Next >></button>
                 </div>
             </form>
         </fieldset>
@@ -201,16 +206,72 @@
 @stop
 @section('scripts')
     <script type="text/javascript">
-        // $('#next').click( function () {
-        //     console.log("222");
-        //     if(document.getElementById('craneType').value === "Crawler Crane") {
-        //         console.log("111");
-        //         location.href = 'crawler';
-        //     }else if (document.getElementById('craneType').value === "Tower Crane") {
-        //         location.href = 'tower';
-        //     }else {
-        //         location.href = 'mob';
-        //     }
-        // });
+        $('#client').change( function () {
+            clientEnable();
+        });
+        $('#work').change( function () {
+            workEnable();
+        });
+        function clientEnable() {
+            document.getElementById('work').disabled = false;
+            document.getElementById('address').disabled = false;
+        };
+        function workEnable() {
+            document.getElementById('date1').disabled = false;
+            document.getElementById('date2').disabled = false;
+            document.getElementById('placeOfInsp').disabled = false;
+            document.getElementById('typeOfCrane').disabled = false;
+            document.getElementById('makeType').disabled = false;
+            document.getElementById('makeType2').disabled = false;
+            document.getElementById('certNo').disabled = false;
+            document.getElementById('certType').disabled = false;
+            document.getElementById('craneType').disabled = false;
+            document.getElementById('workByM').disabled = false;
+            document.getElementById('nameOfMOfC').disabled = false;
+            document.getElementById('addressOfMOfC').disabled = false;
+            document.getElementById('dateFirst').disabled = false;
+            document.getElementById('serialNo').disabled = false;
+            document.getElementById('owner').disabled = false;
+            document.getElementById('dateLast').disabled = false;
+            document.getElementById('dateLast2').disabled = false;
+            document.getElementById('box1').disabled = false;
+            document.getElementById('box2').disabled = false;
+            document.getElementById('box3').disabled = false;
+            document.getElementById('box4').disabled = false;
+            document.getElementById('box5').disabled = false;
+            document.getElementById('box6').disabled = false;
+            document.getElementById('box7').disabled = false;
+            document.getElementById('box8').disabled = false;
+            document.getElementById('box9').disabled = false;
+            document.getElementById('box10').disabled = false;
+            document.getElementById('box11').disabled = false;
+            document.getElementById('box12').disabled = false;
+            document.getElementById('box13').disabled = false;
+            document.getElementById('box14').disabled = false;
+            document.getElementById('box15').disabled = false;
+            document.getElementById('box16').disabled = false;
+            document.getElementById('box17').disabled = false;
+            document.getElementById('box18').disabled = false;
+            document.getElementById('box19').disabled = false;
+            document.getElementById('box20').disabled = false;
+            document.getElementById('box21').disabled = false;
+            document.getElementById('box22').disabled = false;
+            document.getElementById('box23').disabled = false;
+            document.getElementById('box24').disabled = false;
+            document.getElementById('box25').disabled = false;
+            document.getElementById('box26').disabled = false;
+            document.getElementById('box27').disabled = false;
+            document.getElementById('box28').disabled = false;
+            document.getElementById('box29').disabled = false;
+            document.getElementById('box30').disabled = false;
+            document.getElementById('textArea1').disabled = false;
+            document.getElementById('textArea2').disabled = false;
+            document.getElementById('drop1').disabled = false;
+            document.getElementById('drop2').disabled = false;
+        };
+        function enable() {
+            clientEnable();
+            workEnable();
+        };
     </script>
 @stop

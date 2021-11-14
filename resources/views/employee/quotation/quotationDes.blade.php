@@ -61,7 +61,7 @@
                 <br>
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 700px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 700px">
-                        <tr id="head" style="color: white; background-color: #0b3756; cursor: default">
+                        <tr style="color: white; background-color: #0b3756; cursor: default">
                             <th>Quotation ID</th>
                             <th>Client</th>
                         </tr>
@@ -69,7 +69,7 @@
                 </div>
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px; max-height: 400px; overflow-y: auto">
                     <table id="table2" style="display: none; width: 1160px">
-                        <tr id="head" style="color: white; background-color: #0b3756; cursor: default">
+                        <tr style="color: white; background-color: #0b3756; cursor: default">
                             <th>Quotation ID</th>
                             <th>Client</th>
                             <th>Description</th>
@@ -112,15 +112,14 @@
                   this.setAttribute("value", "0");
               }
         });
-
+        k = "";
         function getKey( key1){
-            showTable('table');
+            k = key1;
             document.getElementById('table2').style.display = 'none';
             var searchKey;
-            var searchKeyRed = "";
-            if (key1 === "quote"){
+            if (k === "quote"){
                 searchKey = $("#quote").val();
-            } else if (key1 === "quoteitem"){
+            } else if (k === "quoteitem"){
                 searchKey = $("#client").val();
             }
             if (searchKey === ""){
@@ -129,30 +128,30 @@
             $.ajax({
                 type: "GET",
                 url: "{{route('searchQD')}}",
-                data: {quote: searchKey, searchType:key1},
+                data: {quote: searchKey, searchType:k},
                 success: function(res) {
+                    DeleteRows();
+                    DeleteRows2();
                     if (res) {
-                        DeleteRows();
-                        // console.log(res);
                         $.each(res, function(key,value) {
-                            toAppend(key1, key, value);
+                            toAppend(key, value);
                         });
-                    } else {
-                        DeleteRows();
                     }
                 }
             });
         }
-        function toAppend(key, key1, value){
-            if (key === "quote"){
+        function toAppend(key, value){
+            if (k === "quote"){
+                showTable('table');
+                document.getElementById('table2').style.display = 'none';
                 $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
                     '<td>' + value.ID_QUO + '</td>'+
                     '<td>' + value.Name_C + '</td>'+
                     '</tr>');
             } else{
+                showTable('table2');
                 document.getElementById('table').style.display = 'none';
-                document.getElementById('table2').style.display = 'block';
-                $("#table2").append('<tr onclick="show( '+'key'+' )" id="' + value._id + '">'+
+                $("#table2").append('<tr onclick="show()" id="' + value._id + '">'+
                     '<td>' + value.ID_QUO + '</td>'+
                     '<td>' + value.Name_C + '</td>'+
                     '<td>' + value.Description + '</td>'+
@@ -164,37 +163,53 @@
             }
         }
         function show(key) {
-            document.getElementById('check').disabled = false;
-            document.getElementById('searchEdit').style.cursor = "pointer";
-            document.getElementById('client').disabled = false;
-            document.getElementById('description').disabled = false;
-            document.getElementById('type').disabled = false;
-            document.getElementById('ttl').disabled = false;
-            document.getElementById('unit').disabled = false;
-            document.getElementById('check2').disabled = false;
+            enable();
             var rowId =
                 event.target.parentNode.id;
             var data = document.getElementById(rowId).querySelectorAll("td");
-            if(key === "quote"){
+            if(key !== "quote"){
+                document.getElementById('quote').value = check(data[0].innerHTML);
+                document.getElementById('client').value = check(data[1].innerHTML);
                 document.getElementById('description').value = check(data[2].innerHTML);
                 document.getElementById('unit').value = check(data[3].innerHTML);
                 document.getElementById('check2').value = check(data[4].innerHTML);
                 document.getElementById('ttl').value = check(data[5].innerHTML);
+                document.getElementById('type').value = check(data[6].innerHTML);
                 r = rowId;
                 document.getElementById('id').value = r;
 
+            }else{
+                document.getElementById('quote').value = check(data[0].innerHTML);
+                document.getElementById('client').value = check(data[1].innerHTML);
+                document.getElementById('description').value = "";
+                document.getElementById('unit').value = "";
+                document.getElementById('check2').value = "";
+                document.getElementById('ttl').value = "";
+                document.getElementById('type').value = "";
             }
-            document.getElementById('quote').value = check(data[0].innerHTML);
-            document.getElementById('client').value = check(data[1].innerHTML);
-
-            r = rowId;
         }
         function DeleteRows() {
             var rowCount = table.rows.length;
             for (var i = rowCount - 1; i > 0; i--) {
                 table.deleteRow(i);
             }
-        }
+        };
+        function DeleteRows2() {
+            var rowCount = table2.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table2.deleteRow(i);
+            }
+        };
+        function enable() {
+            document.getElementById('check').disabled = false;
+            document.getElementById('client').disabled = false;
+            document.getElementById('description').disabled = false;
+            document.getElementById('type').disabled = false;
+            document.getElementById('ttl').disabled = false;
+            document.getElementById('unit').disabled = false;
+            document.getElementById('check2').disabled = false;
+            document.getElementById('searchEdit').style.cursor = "pointer";
 
+        }
     </script>
 @stop

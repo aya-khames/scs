@@ -46,16 +46,21 @@
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1250px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Certificate Number</th>
+                            <th>Client</th>
+                            <th>Work Order</th>
+                            <th>Certificate Type</th>
+                            <th>Crane Type</th>
+                            <th>Date</th>
                         </tr>
                     </table>
                 </div>
             </div>
         </fieldset>
     </div>
+@stop
+@section('scripts')
+    <script>
+
+    </script>
 @stop

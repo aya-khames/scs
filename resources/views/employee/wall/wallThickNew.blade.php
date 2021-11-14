@@ -1,7 +1,10 @@
 @extends('layouts.employeepage')
 @section('content_1')
 
-    <div style="border-radius: 20px; border: rgba(15,70,108,0.66); box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px; margin-left: 400px; z-index: 20; height: 780px; width: 1330px; background-color: rgba(240,248,248,0.57)">
+    <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
+     box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 50px;
+      margin-left: 400px; z-index: 20; height: 780px; width: 1330px;
+       background-color: rgba(240,248,248,0.57)">
         <fieldset>
             <legend style="padding: 10px; color: #0b3756; font-family: 'Times New Roman'; font-size: 35px; font-weight: bold">Wall Thickness</legend>
             <nav id="main-navbar" style="background-color: rgba(240,248,248,0.39); padding: unset" class="navbar navbar-expand-lg navbar-light bg-white">
@@ -79,7 +82,7 @@
                             </a>
                         </div>
                         <label class="lab" style="font-size: 20px; width: 130px; margin-left: 10px">Details 2:</label>
-                        <input name="det2" disabled id="de2" type="text" class="text2" style="display: inline-block; width: 400px; height: 100px; resize: none">
+                        <textarea name="det2" disabled id="de2" class="text2" style="display: inline-block; width: 400px; height: 100px; resize: none"></textarea>
                         <br>
                         <div style="margin-left: 490px">
                             <button class="bttn" type="submit" onclick="get_action1(this.form)">Edit</button>
@@ -109,7 +112,6 @@
                             <th>Material</th>
                             <th>Details1</th>
                             <th>Details2</th>
-                            <th>Report NO</th>
                             <th>Name Inspected</th>
                             <th>Name Approved</th>
                         </tr>
@@ -143,7 +145,6 @@
                                     $.each(value, function(key1, value1) {
                                         $("#work").append('<option value="' + value1.ID_WO + '">' + value1.ID_WO +
                                             '</option>');
-                                        // console.log(value1);
                                     });
                                 }
                             });
@@ -211,8 +212,8 @@
                 url: "{{route('searchWall')}}",
                 data: {quote: searchKey},
                 success: function(res) {
+                    DeleteRows();
                     if (res) {
-                        DeleteRows();
                         $.each(res, function(key,value) {
                             $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
                                 '<td>' + value.Name_C + '</td>'+
@@ -228,30 +229,29 @@
                                 '<td>' + value.Name_Approved + '</td>'+
                                 '</tr>');
                         });
-                    } else {
-                        DeleteRows();
                     }
                 }
             });
 
         };
         function show() {
+            enable();
             var rowId =
                 event.target.parentNode.id;
             var data = document.getElementById(rowId).querySelectorAll("td");
             document.getElementById('clientname').value = check(data[0].innerHTML);
             var x = check(data[1].innerHTML)
             $("#work").append('<option>' + x + '</option>');
-            document.getElementById('work').value = check(data[1].innerHTML);
-            document.getElementById('loc').value = check(data[2].innerHTML);
+            document.getElementById('loc').value = check(data[1].innerHTML);
+            document.getElementById('work').value = check(data[2].innerHTML);
             document.getElementById('reportNo').value = check(data[3].innerHTML);
             document.getElementById('date2').value = check(data[4].innerHTML);
             document.getElementById('ID').value = check(data[5].innerHTML);
             document.getElementById('material').value = check(data[6].innerHTML);
             document.getElementById('de1').value = check(data[7].innerHTML);
-            document.getElementById('nameI').value = check(data[8].innerHTML);
-            document.getElementById('nameA').value = check(data[9].innerHTML);
-            document.getElementById('de2').value = check(data[10].innerHTML);
+            document.getElementById('de2').value = check(data[8].innerHTML);
+            document.getElementById('nameI').value = check(data[9].innerHTML);
+            document.getElementById('nameA').value = check(data[10].innerHTML);
             r = rowId;
             document.getElementById('id').value = r;
         }
@@ -261,5 +261,17 @@
                 table.deleteRow(i);
             }
         }
+        function enable() {
+            document.getElementById('loc').disabled = false;
+            document.getElementById('work').disabled = false;
+            document.getElementById('date1').disabled = false;
+            document.getElementById('date2').disabled = false;
+            document.getElementById('ID').disabled = false;
+            document.getElementById('material').disabled = false;
+            document.getElementById('de1').disabled = false;
+            document.getElementById('de2').disabled = false;
+            document.getElementById('nameI').disabled = false;
+            document.getElementById('nameA').disabled = false;
+        };
     </script>
 @stop

@@ -214,9 +214,9 @@
             $("#work").append('<option>' + x + '</option>');
             document.getElementById('work').value = check(data[1].innerHTML);
             document.getElementById('dnote').value = check(data[2].innerHTML);
-            document.getElementById('date').value = check(data[3].innerHTML);
+            document.getElementById('date2').value = check(data[3].innerHTML);
             document.getElementById('po').value = check(data[4].innerHTML);
-            document.getElementById('req').value = check(data[4].innerHTML);
+            document.getElementById('req').value = check(data[5].innerHTML);
             document.getElementById('id').value = r;
             r = rowId;
         }

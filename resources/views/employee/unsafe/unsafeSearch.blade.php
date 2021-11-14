@@ -37,16 +37,45 @@
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1220px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1220px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Unsafe ID</th>
+                            <th>Name_C</th>
+                            <th>Address</th>
+                            <th>Work Order</th>
+                            <th>Report Number</th>
+                            <th>ID Number</th>
+                            <th>Report Date</th>
+                            <th>Question 1</th>
+                            <th>Question 2</th>
+                            <th>Question 3</th>
+                            <th>Question 4</th>
+                            <th>Question 5</th>
+                            <th>Question 6</th>
+                            <th>Question 7</th>
+                            <th>Question 8</th>
+                            <th>Question 9</th>
+                            <th>Text 1</th>
+                            <th>Text 2</th>
+                            <th>Text 3</th>
+                            <th>Text 4</th>
+                            <th>Name_pre_mrep</th>
+                            <th>Name_pre_arep</th>
+                            <th>Latest Date</th>
+                            <th>Name_add_emp</th>
+                            <th>Report Number</th>
+                            <th>Client</th>
+                            <th>Work Order</th>
+                            <th>Address</th>
+                            <th>Report Date</th>
+                            <th>ID Number</th>
                         </tr>
                     </table>
                 </div>
             </div>
         </fieldset>
     </div>
+@stop
+@section('scripts')
+    <script>
+
+    </script>
 @stop

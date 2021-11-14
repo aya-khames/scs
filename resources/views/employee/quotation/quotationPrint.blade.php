@@ -54,3 +54,8 @@
         </fieldset>
     </div>
 @stop
+@section('scripts')
+    <script>
+
+    </script>
+@stop

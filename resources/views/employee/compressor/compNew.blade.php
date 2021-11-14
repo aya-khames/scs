@@ -1,7 +1,10 @@
 @extends('layouts.employeepage')
 @section('content_1')
 
-    <div style="border-radius: 20px; border: rgba(15,70,108,0.66); box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px; margin-left: 400px; z-index: 20; height: 780px; width: 1330px; background-color: rgba(240,248,248,0.57)">
+    <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
+     box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 50px;
+      margin-left: 400px; z-index: 20; height: 780px; width: 1330px;
+       background-color: rgba(240,248,248,0.57)">
         <fieldset>
             <legend style="padding: 10px; color: #0b3756; font-family: 'Times New Roman'; font-size: 35px; font-weight: bold">Compressor</legend>
             <nav id="main-navbar" style="background-color: rgba(240,248,248,0.39); padding: unset" class="navbar navbar-expand-lg navbar-light bg-white">
@@ -158,8 +161,8 @@
                 url: "{{route('searchComp')}}",
                 data: {quote: searchKey},
                 success: function(res) {
+                    DeleteRows();
                     if (res) {
-                        DeleteRows();
                         $.each(res, function(key,value) {
 
                             $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
@@ -170,14 +173,13 @@
                                 '<td>' + value.Date_NTE + '</td>'+
                                 '</tr>');
                         });
-                    } else {
-                        DeleteRows();
                     }
                 }
             });
 
         }
         function show() {
+            enable();
             var rowId =
                 event.target.parentNode.id;
             var data = document.getElementById(rowId).querySelectorAll("td");
@@ -197,6 +199,13 @@
                 table.deleteRow(i);
             }
         }
-
+        function enable() {
+            document.getElementById('work').disabled = false;
+            document.getElementById('certNo').disabled = false;
+            document.getElementById('date1').disabled = false;
+            document.getElementById('date2').disabled = false;
+            document.getElementById('date3').disabled = false;
+            document.getElementById('date4').disabled = false;
+        }
     </script>
 @stop

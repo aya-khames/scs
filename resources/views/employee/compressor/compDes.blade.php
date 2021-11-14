@@ -1,7 +1,10 @@
 @extends('layouts.employeepage')
 @section('content_1')
 
-    <div style="border-radius: 20px; border: rgba(15,70,108,0.66); box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px; margin-left: 400px; z-index: 20; height: 780px; width: 1330px; background-color: rgba(240,248,248,0.57)">
+    <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
+    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 50px;
+     margin-left: 400px; z-index: 20; height: 780px; width: 1330px;
+      background-color: rgba(240,248,248,0.57)">
         <fieldset>
             <legend style="padding: 10px; color: #0b3756; font-family: 'Times New Roman'; font-size: 35px; font-weight: bold">Compressor</legend>
             <nav id="main-navbar" style="background-color: rgba(240,248,248,0.39); padding: unset" class="navbar navbar-expand-lg navbar-light bg-white">
@@ -25,7 +28,7 @@
                         <span class="sp">
                         <a style="margin-left: 10px; cursor: pointer" onclick="getKey('search')">Search</a>
                     </span>
-                        <a onclick="getKey('searchedit')" class="sp" style="margin-left: 20px; text-decoration: none">Search Edit</a>
+                        <a id="searchEdit" onclick="getKey('searchedit')" class="sp" style="margin-left: 20px; text-decoration: none; cursor: default">Search Edit</a>
                         <br>
                         <label class="lab" style="font-size: 20px; width: 140px">Work Order:</label>
                         <input name="work" readonly disabled id="work" class="text2" style="width: 400px; margin-right: 20px" type="text">
@@ -55,12 +58,21 @@
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px; max-height: 400px; overflow-y: auto">
                     <table id="table" style="display: none; width: 1250px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Contact</th>
-                            <th>Country</th>
+                            <th>Compressor ID</th>
+                            <th>Certificate Number</th>
+                            <th>Client</th>
+                            <th>Work Order</th>
+                            </tr>
+                    </table>
+                    <table id="table2" style="display: none; width: 1250px">
+                        <tr style="color: white; background-color: #0b3756; cursor: default">
+                            <th>Certificate Number</th>
+                            <th>Client</th>
+                            <th>Work Order</th>
+                            <th>ID Number</th>
+                            <th>QTY</th>
+                            <th>Description</th>
+                            <th>Pressure</th>
                         </tr>
                     </table>
                 </div>
@@ -86,8 +98,9 @@
             }
             form.action = '{{route('deleteCD')}}'
         }
+        var k = "";
         function getKey(key1){
-            showTable('table');
+            k = key1;
             var searchKey = "";
             searchKey = $("#certNo").val();
             if (searchKey === ""){
@@ -96,23 +109,28 @@
             $.ajax({
                 type: "GET",
                 url: "{{route('searchCD')}}",
-                data: {quote: searchKey, searchType: key1},
+                data: {quote: searchKey, searchType: k},
                 success: function(res) {
+                    DeleteRows();
+                    DeleteRows2();
                     if (res) {
-                        DeleteRows();
                         $.each(res, function(key,value) {
-                            if (key1 === "search"){
-                                $("#table").append('<tr onclick="show(' +key1 +')" id="' + value._id + '">'+
+                            if (k === "search"){
+                                showTable('table');
+                                document.getElementById('table2').style.display = 'none';
+                                $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
+                                    '<td>' + value.IDCom + '</td>'+
+                                    '<td>' + value.CRET_NO + '</td>'+
                                     '<td>' + value.Name_C + '</td>'+
                                     '<td>' + value.ID_WO + '</td>'+
-                                    '<td>' + value.CRET_NO + '</td>'+
                                     '</tr>');
-                            }
-                            else {
-                                $("#table").append('<tr onclick="show(' + key1 + ')" id="' + value._id + '">'+
+                            } else {
+                                showTable('table2');
+                                document.getElementById('table').style.display = 'none';
+                                $("#table2").append('<tr onclick="show()" id="' + value._id + '">'+
+                                    '<td>' + value.CRET_NO + '</td>'+
                                     '<td>' + value.Name_C + '</td>'+
                                     '<td>' + value.ID_WO + '</td>'+
-                                    '<td>' + value.CRET_NO + '</td>'+
                                     '<td>' + value.ID_NUM + '</td>'+
                                     '<td>' + value.QTY + '</td>'+
                                     '<td>' + value.Description + '</td>'+
@@ -120,28 +138,35 @@
                                     '</tr>');
                             }
                         });
-                    } else {
-                        DeleteRows();
                     }
                 }
             });
 
         }
-        function show(key){
+        function show(){
+            enable();
             var rowId =
                 event.target.parentNode.id;
             var data = document.getElementById(rowId).querySelectorAll("td");
-            if (key === "searchedit"){
+            if (k === "searchedit"){
+                document.getElementById('certNo').value = check(data[0].innerHTML);
+                document.getElementById('client').value = check(data[1].innerHTML);
+                document.getElementById('work').value = check(data[2].innerHTML);
                 document.getElementById('idNumber').value = check(data[3].innerHTML);
                 document.getElementById('qty').value = check(data[4].innerHTML);
                 document.getElementById('description').value = check(data[5].innerHTML);
                 document.getElementById('press').value = check(data[6].innerHTML);
                 r = rowId;
                 document.getElementById('id').value = r;
+            } else{
+                document.getElementById('certNo').value = check(data[1].innerHTML);
+                document.getElementById('client').value = check(data[2].innerHTML);
+                document.getElementById('work').value = check(data[3].innerHTML);
+                document.getElementById('idNumber').value = "";
+                document.getElementById('qty').value = "";
+                document.getElementById('description').value = "";
+                document.getElementById('press').value = "";
             }
-            document.getElementById('certNo').value = check(data[0].innerHTML);
-            document.getElementById('client').value = check(data[1].innerHTML);
-            document.getElementById('work').value = check(data[2].innerHTML);
         }
         function DeleteRows() {
             var rowCount = table.rows.length;
@@ -149,5 +174,21 @@
                 table.deleteRow(i);
             }
         }
+        function DeleteRows2() {
+            var rowCount = table2.rows.length;
+            for (var i = rowCount - 1; i > 0; i--) {
+                table2.deleteRow(i);
+            }
+        }
+        function enable() {
+            document.getElementById('certNo').disabled = false;
+            document.getElementById('client').disabled = false;
+            document.getElementById('work').disabled = false;
+            document.getElementById('idNumber').disabled = false;
+            document.getElementById('qty').disabled = false;
+            document.getElementById('description').disabled = false;
+            document.getElementById('press').disabled = false;
+            document.getElementById('searchEdit').style.cursor = 'pointer';
+        };
     </script>
 @stop
