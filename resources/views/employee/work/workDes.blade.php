@@ -198,13 +198,34 @@
             document.getElementById('description').value = check(data[3].innerHTML);
             document.getElementById('qty').value = check(data[4].innerHTML);
             document.getElementById('idno').value = check(data[5].innerHTML);
-            r = rowId;
-            document.getElementById('id').value = r;
+
 
         }
-        document.getElementById('work').value = check(data[0].innerHTML);
-        document.getElementById('client').value = check(data[1].innerHTML);
-        document.getElementById('quote').value = check(data[2].innerHTML);
+        if(k === "work"){
+            document.getElementById('work').value = check(data[0].innerHTML);
+            document.getElementById('client').value = check(data[1].innerHTML);
+            document.getElementById('quote').value = check(data[2].innerHTML);
+            document.getElementById('description').value = "";
+            document.getElementById('qty').value = "";
+            document.getElementById('idno').value = "";
+        }else if (k === "searchedit"){
+            document.getElementById('work').value = check(data[0].innerHTML);
+            document.getElementById('client').value = check(data[1].innerHTML);
+            document.getElementById('idno').value = check(data[2].innerHTML);
+            document.getElementById('description').value = check(data[3].innerHTML);
+            document.getElementById('qty').value = check(data[4].innerHTML);
+            document.getElementById('quote').value = "";
+            r = rowId;
+            document.getElementById('id').value = r;
+        }else{
+            document.getElementById('quote').value = check(data[0].innerHTML);
+            document.getElementById('client').value = check(data[1].innerHTML);
+            document.getElementById('idno').value = "";
+            document.getElementById('description').value = check(data[2].innerHTML);
+            document.getElementById('qty').value = check(data[3].innerHTML);
+            r = rowId;
+            document.getElementById('id').value = r;
+        }
     }
     function DeleteRows() {
         var rowCount = table.rows.length;

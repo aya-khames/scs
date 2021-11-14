@@ -64,8 +64,8 @@ Route::group(['middleware' => 'prevent'],function(){
             });
             Route::get('/mpin', 'SCS\NdtmpiController@showNewMpi');
             Route::post('/insertMPINew', 'SCS\NdtmpiController@insertMPINew')->name('insertMPINew');
-            Route::get('/searchMPI', 'SCS\NdtdpiController@searchMPI')->name('searchMPI');
-            Route::post('/editMPI', 'SCS\NdtdpiController@editMPI')->name('editMPI');
+            Route::get('/searchMPI', 'SCS\NdtmpiController@searchMPI')->name('searchMPI');
+            Route::post('/editMPI', 'SCS\NdtmpiController@editMPI')->name('editMPI');
 
             Route::get('/walln', 'SCS\WallController@showNewWall');
             Route::post('/insertWallN', 'SCS\WallController@insertWallN')->name('insertWallN');

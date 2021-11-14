@@ -1,7 +1,10 @@
 @extends('layouts.employeepage')
 @section('content_1')
 
-    <div style="border-radius: 20px; border: rgba(15,70,108,0.66); box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 80px; margin-left: 400px; z-index: 20; height: 780px; width: 1350px; background-color: rgba(240,248,248,0.57)">
+    <div style="border-radius: 20px; border: rgba(15,70,108,0.66);
+    box-shadow: 0 0 5px 5px gainsboro; position: absolute; margin-top: 50px;
+     margin-left: 400px; z-index: 20; height: 780px; width: 1350px;
+      background-color: rgba(240,248,248,0.57)">
         <fieldset>
             <legend style="padding: 10px; color: #0b3756; font-family: 'Times New Roman'; font-size: 35px; font-weight: bold">Unsafe</legend>
             <nav id="main-navbar" style="background-color: rgba(240,248,248,0.39); padding: unset" class="navbar navbar-expand-lg navbar-light bg-white">
@@ -57,8 +60,8 @@
                         <input disabled type="radio" name="radio1" value="NO" id="box2" style="margin-left: 10px"><label for="box2" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                         <br><br>
                         <label class="lab" style="font-size: 18px; width: 350px; margin-left: 10px">If YES, has the equipment been installed correctly?</label>
-                        <input disabled type="radio" name="radio2" id="box3" style="margin-left: 10px"><label for="box3" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                        <input disabled type="radio" name="radio2" id="box4" style="margin-left: 10px"><label for="box4" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                        <input disabled type="radio" name="radio2" value="YES" id="box3" style="margin-left: 10px"><label for="box3" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                        <input disabled type="radio" name="radio2" value="NO" id="box4" style="margin-left: 10px"><label for="box4" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                     </div>
                 </div>
                 <div style="display: inline-block">
@@ -67,18 +70,18 @@
                     <div style="margin: 10px 20px 10px 10px;box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 750px">
                         <div style="padding: 10px; background-color: rgba(240,248,248,0.05)">
                             <label class="lab" style="font-size: 18px; width: 250px; margin-left: 10px">within an interval of 6 months?</label>
-                            <input disabled type="radio" name="radio3" id="box5" style="margin-left: 10px"><label for="box5" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                            <input disabled type="radio" name="radio3" id="box6" style="margin-left: 10px"><label for="box6" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                            <input disabled type="radio" name="radio3" value="YES" id="box5" style="margin-left: 10px"><label for="box5" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                            <input disabled type="radio" name="radio3" value="NO" id="box6" style="margin-left: 10px"><label for="box6" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                             <label class="lab" style="font-size: 18px; width: 210px; margin-left: 30px">In accordance with an examination scheme?</label>
-                            <input disabled type="radio" name="radio4" id="box7" style="margin-left: 10px"><label for="box7" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                            <input disabled type="radio" name="radio4" id="box8" style="margin-left: 10px"><label for="box8" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                            <input disabled type="radio" name="radio4" value="YES" id="box7" style="margin-left: 10px"><label for="box7" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                            <input disabled type="radio" name="radio4" value="NO" id="box8" style="margin-left: 10px"><label for="box8" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                             <br><br>
                             <label class="lab" style="font-size: 18px; width: 250px; margin-left: 10px">within an interval of 12 months?</label>
-                            <input disabled type="radio" name="radio5" id="box9" style="margin-left: 10px"><label for="box9" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                            <input disabled type="radio" name="radio5" id="box10" style="margin-left: 10px"><label for="box10" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                            <input disabled type="radio" name="radio5" value="YES" id="box9" style="margin-left: 10px"><label for="box9" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                            <input disabled type="radio" name="radio5" value="NO" id="box10" style="margin-left: 10px"><label for="box10" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                             <label class="lab" style="font-size: 18px; width: 210px; margin-left: 30px">After the occurrence of exceptional circumstances?</label>
-                            <input disabled type="radio" name="radio6" id="box11" style="margin-left: 10px"><label for="box11" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                            <input disabled type="radio" name="radio6" id="box12" style="margin-left: 10px"><label for="box12" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                            <input disabled type="radio" name="radio6" value="YES" id="box11" style="margin-left: 10px"><label for="box11" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                            <input disabled type="radio" name="radio6" value="NO" id="box12" style="margin-left: 10px"><label for="box12" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                         </div>
                     </div>
                 </div>
@@ -94,12 +97,12 @@
                 <div style="margin: 10px 20px 10px 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1270px">
                     <div style="padding: 20px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 20px; width: auto">Is the above a defect which is of immediate danger to persons:</label>
-                        <input disabled type="radio" name="radio7" id="box13" style="margin-left: 20px"><label for="box13" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                        <input disabled type="radio" name="radio7" id="box14" style="margin-left: 20px"><label for="box14" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                        <input disabled type="radio" name="radio7" value="YES" id="box13" style="margin-left: 20px"><label for="box13" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                        <input disabled type="radio" name="radio7" value="NO" id="box14" style="margin-left: 20px"><label for="box14" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                         <br>
                         <label class="lab" style="font-size: 20px; width: auto">Is the above a defect which is not yet but could become a danger to persons:</label>
-                        <input disabled type="radio" name="radio8" id="box15" style="margin-left: 20px"><label for="box15" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                        <input disabled type="radio" name="radio8" id="box16" style="margin-left: 20px"><label for="box16" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                        <input disabled type="radio" name="radio8" value="YES" id="box15" style="margin-left: 20px"><label for="box15" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                        <input disabled type="radio" name="radio8" value="NO" id="box16" style="margin-left: 20px"><label for="box16" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                         <input disabled id="radioYes" class="text2" style="width: 380px" type="text">
                     </div>
                 </div>
@@ -121,8 +124,8 @@
                 <div style="margin: 10px 20px 10px 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1270px">
                     <div style="padding: 20px; background-color: rgba(240,248,248,0.05)">
                         <label class="lab" style="font-size: 18px; width: auto">IS THIS EQUIPMENT SAFE TO OPERATE:</label>
-                        <input disabled type="radio" name="radio9" id="box17" style="margin-left: 20px"><label for="box17" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
-                        <input disabled type="radio" name="radio9" id="box18" style="margin-left: 20px"><label for="box18" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
+                        <input disabled type="radio" name="radio9" value="YES" id="box17" style="margin-left: 20px"><label for="box17" style="color: #0b3756; font-size: 17px; margin-left: 5px">Yes</label>
+                        <input disabled type="radio" name="radio9" value="NO" id="box18" style="margin-left: 20px"><label for="box18" style="color: #0b3756; font-size: 17px; margin-left: 5px">No</label>
                     </div>
                 </div>
                 <br>
