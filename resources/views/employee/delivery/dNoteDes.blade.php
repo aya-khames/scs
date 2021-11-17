@@ -29,7 +29,7 @@
                         <a id="searchEdit" onclick="getKey('editdel')" class="sp" style="margin-left: 20px; text-decoration: none; cursor: default">Search Edit</a>
                         <br>
                         <label class="lab" style="font-size: 20px; width: 130px">Work Order:</label> <input name="work" readonly id="work" disabled class="text2" style="width: 400px" type="text">
-                        <span> <a id="search" class="sp" style="margin-left: 10px; text-decoration: none; cursor: default">Search</a>
+                        <span> <a onclick="getKey('work')" id="search" class="sp" style="margin-left: 10px; text-decoration: none; cursor: default">Search</a>
                             <label class="lab" style="font-size: 20px; width: 60px; margin-left: 20px">Client:</label>
                             <input name="client" readonly id="client" disabled class="text2" style="width: 400px" type="text">
                         </span>
@@ -91,6 +91,8 @@
             var searchKey;
             if (k === "delivery" || k === "editdel"){
                 searchKey = $("#delivery").val();
+            } else {
+                searchKey = $("#work").val();
             }
             if (searchKey === ""){
                 searchKey = "empty"

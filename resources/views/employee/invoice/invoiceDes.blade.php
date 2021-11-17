@@ -49,20 +49,37 @@
                         </div>
                     </div>
                 </form>
+                <form name="helper" style="display: none">
+                    <input id="invoice" name="invoice" type="text">
+                </form>
                 <br>
-                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px; max-height: 400px; overflow-y: auto">
-                    <table id="table" style="display: none; width: 1190px">
-                        <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Invoice ID</th>
-                            <th>Client</th>
-                            <th>Work Order</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>QTY</th>
-                            <th>Total Price</th>
-                        </tr>
-                    </table>
-                </div>
+                @if($posts !== "")
+                    <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px; max-height: 400px; overflow-y: auto">
+                        <table id="table" style="width: 1190px">
+                            <tr style="color: white; background-color: #0b3756; cursor: default">
+                                <th>Invoice ID</th>
+                                <th>Client</th>
+                                <th>Work Order</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>QTY</th>
+                                <th>Total Price</th>
+                            </tr>
+                            @foreach($posts as $post)
+                                <tr onclick="show()" id="'+ {{$post->_id}}+ '">
+                                    <td>{{$post->ID_IN}}</td>
+                                    <td>{{$post->Name_C}}</td>
+                                    <td>{{$post->ID_WO}}</td>
+                                    <td>{{$post->Description}}</td>
+                                    <td>{{$post->Price_IN}}</td>
+                                    <td>{{$post->QTY}}</td>
+                                    <td>{{$post->Total_Price}}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                    <div>{{$posts->appends(request()->input())->links()}}</div>
+                @endif
             </div>
         </fieldset>
     </div>
@@ -88,34 +105,36 @@
         };
 
         function getKey(){
-            showTable('table');
-            var searchKey;
-            searchKey = $("#invoice").val();
-            if (searchKey === ""){
-                searchKey = "empty"
-            }
-            console.log(searchKey);
-            $.ajax({
-                type: "GET",
-                url: "{{route('searchIND')}}",
-                data: { quote: searchKey},
-                success: function(res) {
-                    DeleteRows();
-                    if (res) {
-                        $.each(res, function(key,value) {
-                            $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
-                                '<td>' + value.ID_IN + '</td>'+
-                                '<td>' + value.Name_C + '</td>'+
-                                '<td>' + value.ID_WO + '</td>'+
-                                '<td>' + value.Description + '</td>'+
-                                '<td>' + value.Price_IN + '</td>'+
-                                '<td>' + value.QTY + '</td>'+
-                                '<td>' + value.Total_Price + '</td>'+
-                                '</tr>');
-                        });
-                    }
-                }
-            });
+            document.forms["helper"].action= "{{route('searchIND')}}"
+            document.forms["helper"].submit();
+            {{--showTable('table');--}}
+            {{--var searchKey;--}}
+            {{--searchKey = $("#invoice").val();--}}
+            {{--if (searchKey === ""){--}}
+            {{--    searchKey = "empty"--}}
+            {{--}--}}
+            {{--console.log(searchKey);--}}
+            {{--$.ajax({--}}
+            {{--    type: "GET",--}}
+            {{--    url: "{{route('searchIND')}}",--}}
+            {{--    data: { quote: searchKey},--}}
+            {{--    success: function(res) {--}}
+            {{--        DeleteRows();--}}
+            {{--        if (res) {--}}
+            {{--            $.each(res, function(key,value) {--}}
+            {{--                $("#table").append('<tr onclick="show()" id="' + value._id + '">'+--}}
+            {{--                    '<td>' + value.ID_IN + '</td>'+--}}
+            {{--                    '<td>' + value.Name_C + '</td>'+--}}
+            {{--                    '<td>' + value.ID_WO + '</td>'+--}}
+            {{--                    '<td>' + value.Description + '</td>'+--}}
+            {{--                    '<td>' + value.Price_IN + '</td>'+--}}
+            {{--                    '<td>' + value.QTY + '</td>'+--}}
+            {{--                    '<td>' + value.Total_Price + '</td>'+--}}
+            {{--                    '</tr>');--}}
+            {{--            });--}}
+            {{--        }--}}
+            {{--    }--}}
+            {{--});--}}
         }
         function show() {
             enable();

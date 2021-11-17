@@ -12,16 +12,18 @@ use Illuminate\Support\Facades\Validator;
 class ClientController extends Controller{
     public function create(){
         $clients = Client::all();
-        return view('employee.client.page',['clients'=>$clients]);
+        return view('employee.client.page', ['posts' => ""]);
     }
-    public function searchClientNew(Request $request){
-        if($request->client === "empty"){
-            $c = Client::all();
+    public function searchClientNew(){
+        $keyword = (isset(\request()->search)&& \request()->search != '')? \request()->search :null;
+        if ($keyword === null){
+            $c = Client::paginate(10);
         }
         else{
-            $c = Client::where('Name_C', $request->client)->get();
+            $c = Client::where('Name_C', $keyword)->get();
         }
-        return response()->json($c);
+        return view('employee.client.page', ['posts' => $c]);
+
     }
     public function searchByName(Request $request){
         if($request->client === "empty"){

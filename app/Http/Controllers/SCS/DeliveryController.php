@@ -106,11 +106,17 @@ class DeliveryController extends Controller
         } else  if ($request->quote === "empty" && $request->searchType === "editdel") {
             $c = Deliverynoteitem::all();
         }
+        else if($request->quote === "empty"){
+            $c = Deliverynoteitem::all();
+        }
         else {
             if ($request->searchType === "delivery"){
                 $c = Deliverynote::where('ID_DN', $request->quote)->get();
             } else if ($request->searchType === "editdel") {
                 $c = Deliverynoteitem::where('ID_DN', $request->quote)->get();
+            }
+            else{
+                $c = Deliverynoteitem::where('ID_WO', $request->quote)->get();
             }
         }
         return response()->json($c);

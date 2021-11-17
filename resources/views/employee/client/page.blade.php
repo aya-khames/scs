@@ -34,8 +34,7 @@
                         </div>
                     </div>
                 </form>
-                <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 850px">
-                    @csrf
+                <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 850px" action="{{route('searchClientNew')}}">
                     <div style="padding: 15px; border-radius: 5px">
                         <label style="font-size: 20px; width: 120px" class="lab" style="width: 60px">Name</label>
                         <input id="search" name="search" class="text1" style="width: 400px" type="text" placeholder="Enter the name">
@@ -44,19 +43,38 @@
     box-shadow: 0 0 5px 5px gainsboro; margin-right: 10px; margin-left: 10px; height: 40px; width: 90px">search</button>
                     </div>
                 </form>
-                <div id="tableDiv" style="margin: 20px; display: none; height: 400px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 860px; overflow-y: auto">
-                    <table id="table">
-                        <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Name</th>
-                            <th>Address</th>
-                            <th>Tel</th>
-                            <th>Mobile</th>
-                            <th>Fax</th>
-                            <th>Email</th>
-                            <th>Tel2</th>
-                        </tr>
-                    </table>
-                </div>
+                @if($posts !== "")
+                    <div id="tableDiv" style="margin: 20px; height: 400px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 860px; overflow-y: auto">
+                        <table id="table">
+                            <tr style="color: white; background-color: #0b3756; cursor: default">
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Tel</th>
+                                <th>Mobile</th>
+                                <th>Fax</th>
+                                <th>Email</th>
+                                <th>Tel2</th>
+                            </tr>
+                            @foreach($posts as $post)
+                                <tr onclick="show()" id="'+ {{$post->_id}}+ '">
+                                    <td>{{$post->Name_C}}</td>
+                                    <td>{{$post->Address}}</td>
+                                    <td>{{$post->Tel1}}</td>
+                                    <td>{{$post->Mobile1}}</td>
+                                    <td>{{$post->Fax_C}}</td>
+                                    <td>{{$post->E_mail}}</td>
+                                    <td>{{$post->Tel2}}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                    <div>{{$posts->appends(request()->input())->links()}} </div>
+
+{{--                    <div>{!! $posts->appends(Request::capture()->except('page'))->render() !!}--}}
+{{--                    <div>{!! $posts->links() !!}</div>--}}
+{{--                    <div id="pagination">{{$posts->links()}} </div>--}}
+                @endif
+
             </div>
         </fieldset>
     </div>
@@ -69,47 +87,51 @@
         function get_action2(form) {
             form.action = "{{route('createClient')}}";
         };
-        $('#searchbtn').click(function(e) {
-            e.preventDefault();
-            var _token = $("input[name='_token']").val();
-            showTable('tableDiv');
-            var client = $("#search").val();
-            if (client === ""){
-                client = "empty";
-            }
-            if (client) {
-                $.ajax({
-                    type: "POST",
-                    url: "{{route('searchClientNew')}}",
-                    data: {_token:_token, client: client},
-                    success: function(res) {
-                        if (res) {
-                            DeleteRows();
-                            var i = 0;
-                            var ID = 'row';
-                            $.each(res, function(key,value) {
-                                ID += i;
-                                $("#table").append('<tr onclick="show()" id="' + ID + '">'+
-                                    '<td>' + value.Name_C + '</td>'+
-                                    '<td>' + value.Address + '</td>'+
-                                    '<td>' + value.Tel1 + '</td>'+
-                                    '<td>' + value.Mobile1 + '</td>'+
-                                    '<td>' + value.Fax_C + '</td>'+
-                                    '<td>' + value.E_mail + '</td>'+
-                                    '<td>' + value.Tel2 + '</td>'+
-                                    '</tr>');
-                                ID = 'row';
-                                i++;
-                            });
-                        } else {
-                            $("#table").empty();
-                        }
-                    }
-                });
-            } else {
-                $("#table").empty();
-            }
-        });
+        // console.log(document.getElementById('test').value);
+
+        {{--$('#searchbtn').click(function(e) {--}}
+        {{--    e.preventDefault();--}}
+        {{--    var _token = $("input[name='_token']").val();--}}
+
+        {{--    var client = $("#search").val();--}}
+        {{--    if (client === ""){--}}
+        {{--        client = "empty";--}}
+        {{--    }--}}
+        {{--    if (client) {--}}
+        {{--        $.ajax({--}}
+        {{--            type: "POST",--}}
+        {{--            url: "{{route('searchClientNew')}}",--}}
+        {{--            data: {_token:_token, client: client},--}}
+        {{--            success: function(res) {--}}
+        {{--                showTable('tableDiv');--}}
+        {{--            }--}}
+        {{--                // if (res) {--}}
+        {{--                //     DeleteRows();--}}
+        {{--                //     var i = 0;--}}
+        {{--                //     var ID = 'row';--}}
+        {{--                //     $.each(res, function(key,value) {--}}
+        {{--                //         ID += i;--}}
+        {{--                //         $("#table").append('<tr onclick="show()" id="' + ID + '">'+--}}
+        {{--                //             '<td>' + value.Name_C + '</td>'+--}}
+        {{--                //             '<td>' + value.Address + '</td>'+--}}
+        {{--                //             '<td>' + value.Tel1 + '</td>'+--}}
+        {{--                //             '<td>' + value.Mobile1 + '</td>'+--}}
+        {{--                //             '<td>' + value.Fax_C + '</td>'+--}}
+        {{--                //             '<td>' + value.E_mail + '</td>'+--}}
+        {{--                //             '<td>' + value.Tel2 + '</td>'+--}}
+        {{--                //             '</tr>');--}}
+        {{--                //         ID = 'row';--}}
+        {{--                //         i++;--}}
+        {{--                //     });--}}
+        {{--    //             } else {--}}
+        {{--    //                 $("#table").empty();--}}
+        {{--    //             }--}}
+        {{--    //         }--}}
+        {{--    //     });--}}
+        {{--    // } else {--}}
+        {{--    //     $("#table").empty();--}}
+        {{--    // }--}}
+        {{--});--}}
         function DeleteRows() {
             var rowCount = table.rows.length;
             for (var i = rowCount - 1; i > 0; i--) {

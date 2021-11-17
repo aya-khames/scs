@@ -16,7 +16,7 @@ class QuoteController extends Controller{
     //to show the view
     public function showQuotPage(){
         $clients = Client::all();
-        return view('employee.quotation.quotationNew',['quotation'=>'', 'clients' => $clients]);
+        return view('employee.quotation.quotationNew',['posts'=>'', 'clients' => $clients]);
     }
 
     public function getRules(){
@@ -132,24 +132,33 @@ class QuoteController extends Controller{
         }
         return redirect()->back();
     }
-    public function searchQ(Request $request)
+    public function searchQ()
     {
-        if ($request->quote === "empty") {
-            $c = Quotation::all();
-        } else{
-            if ($request->searchType === "quote") {
-                $c = Quotation::where('ID_QUO', $request->quote)->get();
-            } else if ($request->searchType === "client") {
-                $c = Quotation::where('Name_C', $request->quote)->get();
-            } else {
-                $c = Quotation::where([
-                        ['Date_QUO1', '>', $request->quote],
-                        ['Date_QUO1', '<', $request->date]
-                    ]
-                )->get();
+        $quote = (isset(\request()->quote)&& \request()->quote != '')? \request()->quote :null;
+        $client = (isset(\request()->client)&& \request()->client != '')? \request()->client :null;
+        $search = (isset(\request()->searchType)&& \request()->searchType != '')? \request()->searchType :null;
+        if ($search === "quote"){
+            if ($quote === null){
+                $c = Quotation::paginate(10);
+            } else{
+                $c =Quotation::where('ID_QUO', $quote)->paginate(10);
             }
-    }
-        return response()->json($c);
+        } else{
+            if ($client === null){
+                $c = Quotation::paginate(10);
+            } else{
+                $c =Quotation::where('Name_C', $client)->paginate(10);
+            }
+        }
+        $clients = Client::all();
+        return view('employee.quotation.quotationNew', ['posts' => $c, 'clients' => $clients]);
+
+//                $c = Quotation::where([
+//                        ['Date_QUO1', '>', $request->quote],
+//                        ['Date_QUO1', '<', $request->date]
+//                    ]
+//                )->get();
+
     }
 
     #############Quotation Description##############################################
@@ -166,20 +175,24 @@ class QuoteController extends Controller{
         $quot->save();
         return redirect('quoted');
     }
-    public function searchQD(Request $request)
+    public function searchQD()
     {
-        if ($request->quote === "empty" && $request->searchType === "quote") {
-            $c = Quotation::all();
-        } else if($request->quote === "empty" && $request->searchType === "quoteitem") {
-            $c = Qitem::all();
-        }else{
-            if ($request->searchType === "quote") {
-                $c = Quotation::where('ID_QUO', $request->quote)->get();
-            } else if($request->searchType === "quoteitem"){
-                $c = Qitem::where('Name_C', $request->quote)->get();
+        $searchType = (isset(\request()->searchType)&& \request()->searchType != '')? \request()->searchType :null;
+        $search = (isset(\request()->search)&& \request()->search != '')? \request()->search :null;
+        if ($searchType === "quote"){
+            if ($search === null ){
+                $c = Quotation::paginate(10);
+            } else{
+                $c = Quotation::where('ID_QUO', $search)->paginate(10);
+            }
+        } else {
+            if ($search === null ){
+                $c = Qitem::paginate(10);
+            } else{
+                $c = Qitem::where('Name_C', $search)->paginate(10);
             }
         }
-        return response()->json($c);
+        return view('employee.quotation.quotationDes', ['posts' => $c, 'type' => $searchType]);
     }
     public function deleteQD(Request $request){
         if ($request->id !== ""){

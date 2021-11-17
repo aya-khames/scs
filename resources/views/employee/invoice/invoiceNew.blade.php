@@ -102,10 +102,11 @@
                         </div>
                     </div>
                 </form>
-                <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px">
+                <form name="helper" style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px">
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
+                        <input name="searchType" readonly id="searchType" class="text2" style="display: none" type="text">
                         <label class="lab" style="font-size: 20px; width: 100px">Invoice:</label>
-                        <input id="inv" class="text2" style="width: 400px" type="text">
+                        <input name="invoice" id="inv" class="text2" style="width: 400px" type="text">
                         <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="getKey('invoice')">Search</a></span>
 {{--                        <label class="lab" style="font-size: 20px; width: 120px; margin-left: 25px">Date:</label>--}}
 {{--                        <input class="Date text2" style="width: 150px" type="date">--}}
@@ -114,37 +115,61 @@
 {{--                        <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>--}}
                         <br>
                         <label class="lab" style="font-size: 20px; width: 100px">Client:</label>
-                        <input id="c" class="text2" style="width: 400px" type="text">
+                        <input name="client" id="c" class="text2" style="width: 400px" type="text">
                         <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="getKey('client')">Search</a></span>
                         <label class="lab" style="font-size: 20px; width: 120px; margin-left: 20px">Work Order:</label>
-                        <input id="work" class="text2" style="width: 345px" type="text"> <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="getKey('work')">Search</a></span>
+                        <input name="work" id="work" class="text2" style="width: 345px" type="text"> <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="getKey('work')">Search</a></span>
                     </div>
                 </form>
                 <br>
-                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px; max-height: 400px; overflow-y: auto">
-                    <table id="table" style="display: none; width: 1190px">
-                        <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Name</th>
-                            <th>Work Order</th>
-                            <th>Invoice</th>
-                            <th>Invoice Type</th>
-                            <th>Address</th>
-                            <th>Req No</th>
-                            <th>Currency</th>
-                            <th>Enquiry </th>
-                            <th>Date</th>
-                            <th>Delivery Date</th>
-                            <th>Transportation</th>
-                            <th>VatNumber</th>
-                            <th>VatType</th>
-                            <th>Vat</th>
-                            <th>TaxType</th>
-                            <th>Tax</th>
-                            <th>VatClient</th>
-                        </tr>
-                    </table>
+                @if($posts !== "")
+                    <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px; max-height: 400px; overflow-y: auto">
+                        <table id="table" style="width: 1190px">
+                            <tr style="color: white; background-color: #0b3756; cursor: default">
+                                <th>Name</th>
+                                <th>Work Order</th>
+                                <th>Invoice</th>
+                                <th>Invoice Type</th>
+                                <th>Address</th>
+                                <th>Req No</th>
+                                <th>Currency</th>
+                                <th>Enquiry </th>
+                                <th>Date</th>
+                                <th>Delivery Date</th>
+                                <th>Transportation</th>
+                                <th>VatNumber</th>
+                                <th>VatType</th>
+                                <th>Vat</th>
+                                <th>TaxType</th>
+                                <th>Tax</th>
+                                <th>VatClient</th>
+                            </tr>
+                            @foreach($posts as $post)
+                                <tr onclick="show()" id="'+ {{$post->_id}}+ '">
+                                    <td>{{$post->Name_C}}</td>
+                                    <td>{{$post->ID_WO}}</td>
+                                    <td>{{$post->ID_IN}}</td>
+                                    <td>{{$post->INType}}</td>
+                                    <td>{{$post->Address}}</td>
+                                    <td>{{$post->REQ_NO}}</td>
+                                    <td>{{$post->Currency_IN}}</td>
+                                    <td>{{$post->Enquiry}}</td>
+                                    <td>{{$post->Date_IN1}}</td>
+                                    <td>{{$post->Delivery_Time}}</td>
+                                    <td>{{$post->Transportation}}</td>
+                                    <td>{{$post->VatNumber}}</td>
+                                    <td>{{$post->VatType}}</td>
+                                    <td>{{$post->Vat}}</td>
+                                    <td>{{$post->TaxType}}</td>
+                                    <td>{{$post->Tax}}</td>
+                                    <td>{{$post->VatClient}}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                    <div>{{$posts->appends(request()->input())->links()}}</div>
+                @endif
                 </div>
-            </div>
         </fieldset>
     </div>
 @stop
@@ -249,53 +274,9 @@
             form.action = "{{route('deleteInvoiceN')}}";
         };
         function getKey( key){
-            showTable('table')
-            var searchKey;
-            if (key === "invoice"){
-                searchKey = $("#inv").val();
-                console.log(searchKey);
-            } else if (key === "client"){
-                searchKey = $("#c").val();
-            } else if (key === "work"){
-                searchKey = $("#work").val();
-            }
-            if (searchKey === ""){
-                searchKey = "empty"
-            }
-            $.ajax({
-                type: "GET",
-                url: "{{route('searchIn')}}",
-                data: {quote: searchKey, searchType:key},
-                success: function(res) {
-                    if (res) {
-                        DeleteRows();
-                        $.each(res, function(key,value) {
-                            $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
-                                '<td>' + value.Name_C + '</td>'+
-                                '<td>' + value.ID_WO + '</td>'+
-                                '<td>' + value.ID_IN + '</td>'+
-                                // '<td>' + value.ID_IN + '</td>'+
-                                '<td>' + value.INType + '</td>'+
-                                '<td>' + value.Address + '</td>'+
-                                '<td>' + value.REQ_NO + '</td>'+
-                                '<td>' + value.Currency_IN + '</td>'+
-                                '<td>' + value.Enquiry + '</td>'+
-                                '<td>' + value.Date_IN1 + '</td>'+
-                                '<td>' + value.Delivery_Time + '</td>'+
-                                '<td>' + value.Transportation + '</td>'+
-                                '<td>' + value.VatNumber + '</td>'+
-                                '<td>' + value.VatType + '</td>'+
-                                '<td>' + value.Vat + '</td>'+
-                                '<td>' + value.TaxType + '</td>'+
-                                '<td>' + value.Tax + '</td>'+
-                                '<td>' + value.VatClient + '</td>'+
-                                '</tr>');
-                        });
-                    } else {
-                        DeleteRows();
-                    }
-                }
-            });
+            document.getElementById('searchType').value = key;
+            document.forms["helper"].action= "{{route('searchIn')}}"
+            document.forms["helper"].submit();
         }
         var r = "";
         function show() {

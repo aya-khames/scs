@@ -13,7 +13,7 @@ class TestvController extends Controller{
 
     public function showTVN(){
         $clients = Client::all();
-        return view('employee.test.testvisual.TVNew',['clients' => $clients]);
+        return view('employee.test.testvisual.TVNew',['clients' => $clients, 'posts' => ""]);
     }
     public function insertTVNew(Request $request){
         $tv = new Testvisual();
@@ -48,21 +48,23 @@ class TestvController extends Controller{
         $cer->save();
         return redirect()->back();
     }
-    public function searchTV(Request $request)
+    public function searchTV()
     {
-        if ($request->quote === "empty") {
-            $c = Testvisual::all();
-        } else {
-            if ($request->searchType === "report") {
-                $c = Testvisual::where('Report_num', $request->quote)->get();
-
-            } else if ($request->searchType === "idno") {
-                $c = Testvisual::all();
-            } else if ($request->searchType === "rn") {
-                $c = Testvisual::all();
+        $searchType = (isset(\request()->searchType)&& \request()->searchType != '')? \request()->searchType :null;
+        $repNo = (isset(\request()->repNo)&& \request()->repNo != '')? \request()->repNo :null;
+//        $idNo = (isset(\request()->idNo)&& \request()->idNo != '')? \request()->idNo :null;
+//        $rn = (isset(\request()->rn)&& \request()->rn != '')? \request()->rn :null;
+        if ($searchType === "repno") {
+            if ($repNo !== null){
+                $c = Testvisual::where('Report_num', $repNo)->paginate(10);
+            } else {
+                $c = Testvisual::paginate(10);
             }
+        } else{
+            $c = Testvisual::paginate(10);
         }
-        return response()->json($c);
+        $clients = Client::all();
+        return view('employee.test.testmpi.TMVMNew',['clients' => $clients, 'posts' =>$c]);
     }
     public function editTV(Request $request){
         if ($request->id !== ""){

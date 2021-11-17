@@ -161,7 +161,7 @@ Route::group(['middleware' => 'prevent'],function(){
         Route::middleware(['isAccountant', 'isClient'])->group(function (){
             //quotation
             Route::get('/quoten', 'SCS\QuoteController@showQuotPage')->name('show');
-            Route::post('/searchClientNew', 'SCS\ClientController@searchClientNew')->name('searchClientNew');
+            Route::any('/searchClientNew', 'SCS\ClientController@searchClientNew')->name('searchClientNew');
 
             Route::post('/storeQuote', 'SCS\QuoteController@insertQuote')-> name('insertQuote');
             Route::post('/editQuote', 'SCS\QuoteController@editQuote')-> name('editQuote');
@@ -177,7 +177,7 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::post('/insertQuoteDes', 'SCS\QuoteController@insertQD')-> name('insertQuoteDesc');
 
             Route::get('/quoted', function () {
-                return view('employee.quotation.quotationDes');
+                return view('employee.quotation.quotationDes', ['posts' => "", 'type' => ""]);
             });
             Route::get('/quotep', function () {
                 return view('employee.quotation.quotationPrint');
@@ -269,7 +269,7 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::get('/searchIND', 'SCS\InvoiceController@searchIND')->name('searchIND');
 
             Route::get('/invd', function () {
-                return view('employee.invoice.invoiceDes');
+                return view('employee.invoice.invoiceDes',['posts' => ""]);
             });
             Route::post('/ins-inv-des', 'SCS\InvoiceController@insertInvoceD')->name('insertInvoiceD');
             Route::post('/edit-inv-des', 'SCS\InvoiceController@editInvoiceD')->name('editInvoiceD');

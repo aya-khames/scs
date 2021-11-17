@@ -13,7 +13,7 @@ class WorkController extends Controller {
 
     public function showWorkNew(){
         $clients = Client::all();
-        return view('employee.work.workNew',['clients'=>$clients]);
+        return view('employee.work.workNew',['clients'=>$clients, 'posts' => ""]);
     }
     public function showWorkDes(){
         return view('employee.work.workDes');
@@ -97,18 +97,43 @@ class WorkController extends Controller {
             ]);
     }
     public function searchW(Request $request){
-        if ($request->quote === "empty") {
-            $c = Workorder::all();
+        $searchType = (isset(\request()->searchType)&& \request()->searchType != '')? \request()->searchType :null;
+        $work = (isset(\request()->work)&& \request()->work != '')? \request()->work :null;
+        $client = (isset(\request()->client)&& \request()->client != '')? \request()->client :null;
+        $quote = (isset(\request()->quote)&& \request()->quote != '')? \request()->quote :null;
+
+        if ($searchType === "work"){
+            if ($work === null ){
+                $c = Workorder::paginate(10);
+            } else{
+                $c = Workorder::where('ID_WO', $work)->paginate(10);
+            }
+        } else if ($searchType === "quote") {
+            if ($quote === null ){
+                $c = Workorder::paginate(10);
+            } else{
+                $c = Qitem::where('ID_QUO', $quote)->paginate(10);
+            }
         } else{
-            if ($request->searchType === "work") {
-                $c = Workorder::where('ID_WO', $request->quote)->get();
-            } else if ($request->searchType === "client") {
-                $c = Workorder::where('Name_C', $request->quote)->get();
-            } else if ($request->searchType === "quote") {
-                $c = Workorder::where('ID_QUO', $request->quote)->get();
+            if ($client === null ){
+                $c = Workorder::paginate(10);
+            } else{
+                $c = Qitem::where('Name_C', $client)->paginate(10);
             }
         }
-        return response()->json($c);
+        $clients = Client::all();
+        return view('employee.work.workNew',['clients'=>$clients, 'posts' => $c]);//        if ($request->quote === "empty") {
+//            $c = Workorder::all();
+//        } else{
+//            if ($request->searchType === "work") {
+//                $c = Workorder::where('ID_WO', $request->quote)->get();
+//            } else if ($request->searchType === "client") {
+//                $c = Workorder::where('Name_C', $request->quote)->get();
+//            } else if ($request->searchType === "quote") {
+//                $c = Workorder::where('ID_QUO', $request->quote)->get();
+//            }
+//        }
+//        return response()->json($c);
 
     }
 

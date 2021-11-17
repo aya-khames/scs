@@ -12,7 +12,7 @@ class InvoiceController extends Controller
 {
     public function index(){
         $clients = Client::all();
-        return view('employee.invoice.invoiceNew',['clients'=>$clients]);
+        return view('employee.invoice.invoiceNew',['clients'=>$clients, 'posts' => ""]);
     }
     public function insertInvoce(Request $request)
     {
@@ -58,12 +58,14 @@ class InvoiceController extends Controller
         return redirect()->back();
     }
     public function searchIND(Request $request){
-        if ($request->quote === "empty"){
-            $c = Invoiceitem::all();
+        $invoice = (isset(\request()->invoice) && \request()->invoice != '') ? \request()->invoice : null;
+
+        if ($invoice === null){
+            $c = Invoiceitem::paginate(10);
         } else{
-            $c = Invoiceitem::where('ID_IN', $request->quote)->get();
+            $c = Invoiceitem::where('ID_IN', $invoice)->paginate(10);
         }
-        return response()->json($c);
+        return view('employee.invoice.invoiceDes', ['posts' => $c]);
     }
     public function editInvoice(Request $request)
     {
@@ -91,20 +93,25 @@ class InvoiceController extends Controller
     }
     public function searchIn(Request $request)
     {
-        if ($request->quote === "empty") {
-            $c = Invoice::all();
-        } else{
-            if ($request->searchType === "invoice") {
-                $c = Invoice::where('ID_IN', $request->quote)->get();
-            } else if ($request->searchType === "client") {
-                $c = Invoice::where('Name_C', $request->quote)->get();
+        $searchType = (isset(\request()->searchType) && \request()->searchType != '') ? \request()->searchType : null;
+        $invoice = (isset(\request()->invoice) && \request()->invoice != '') ? \request()->invoice : null;
+        $client = (isset(\request()->client) && \request()->client != '') ? \request()->client : null;
+        $work = (isset(\request()->work) && \request()->work != '') ? \request()->work : null;
+
+        if (($searchType === "invoice" && $invoice === null) || ($searchType === "client" && $client === null || ($searchType === "work" && $work === null))) {
+            $c = Invoice::paginate(10);
+        } else {
+            if ($searchType === "invoice") {
+                $c = Invoice::where('ID_IN', $invoice)->paginate(10);
+            } else if ($searchType === "client") {
+                $c = Invoice::where('Name_C', $client)->paginate(10);
             } else {
-                $c = Invoice::where('ID_WO', $request->quote)->get();
+                $c = Invoice::where('ID_WO', $work)->paginate(10);
             }
         }
-        return response()->json($c);
+        $clients = Client::all();
+        return view('employee.invoice.invoiceNew', ['clients' => $clients, 'posts' => $c]);
     }
-
     public function findAdd(Request $request)
     {
         $add = Client::where('Name_C', $request->client)->first();

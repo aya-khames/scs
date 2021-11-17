@@ -56,34 +56,54 @@
                         </div>
                     </div>
                 </form>
-                <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px">
+                <form name="helper" style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px">
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
-                        <label class="lab" style="font-size: 20px; width: 120px">Work Order:</label> <input id="workS" class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a id="searchW" style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+                        <input name="searchType" readonly id="searchType" class="text2" style="display: none" type="text">
+                        <label class="lab" style="font-size: 20px; width: 120px">Work Order:</label> <input name="work" id="workS" class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a onclick="getKey('work', this.form)" id="searchW" style="cursor: pointer">Search</a></span>
 {{--                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 25px">Date:</label><input class="Date text2" style="width: 150px" type="date"><span><label class="lab" style="font-size: 20px; width: 20px; margin-left: 10px">To:</label> <input class="Date text2" style="width: 150px" type="date" ></span> <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>--}}
                         <br>
-                        <label class="lab" style="font-size: 20px; width: 120px">Client:</label> <input id="clientS" class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a id="searchC" style="cursor: pointer" onclick="showTable('table')">Search</a></span>
-                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 20px">Quotation:</label> <input id="QS" class="text2" style="width: 345px" type="text"> <span style="width: 80px" class="sp"><a id="searchQ" style="cursor: pointer" onclick="showTable('table')">Search</a></span>
+                        <label class="lab" style="font-size: 20px; width: 120px">Client:</label> <input name="client" id="clientS" class="text2" style="width: 400px" type="text"> <span style="width: 80px" class="sp"><a onclick="getKey('client', this.form)" id="searchC" style="cursor: pointer">Search</a></span>
+                        <label class="lab" style="font-size: 20px; width: 100px; margin-left: 20px">Quotation:</label> <input name="quote" id="QS" class="text2" style="width: 345px" type="text"> <span style="width: 80px" class="sp"><a onclick="getKey('quote', this.form)" id="searchQ" style="cursor: pointer" >Search</a></span>
                     </div>
                 </form>
                 <br>
-                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px; max-height: 400px; overflow-y: auto">
-                    <table id="table" style="display: none; width: 1250px">
-                        <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Name</th>
-                            <th>Quotation</th>
-                            <th>Work Order</th>
-                            <th>Contact Person</th>
-                            <th>PO</th>
-                            <th>Fax</th>
-                            <th>Currency</th>
-                            <th>Date</th>
-                            <th>Delivery Date</th>
-                            <th>Validity</th>
-                            <th>Note</th>
-                            <th>Case</th>
-                        </tr>
-                    </table>
-                </div>
+                @if($posts !== "")
+                    <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1250px; max-height: 400px; overflow-y: auto">
+                        <table id="table" style="width: 1250px">
+                            <tr style="color: white; background-color: #0b3756; cursor: default">
+                                <th>Name</th>
+                                <th>Quotation</th>
+                                <th>Work Order</th>
+                                <th>Contact Person</th>
+                                <th>PO</th>
+                                <th>Fax</th>
+                                <th>Currency</th>
+                                <th>Date</th>
+                                <th>Delivery Date</th>
+                                <th>Validity</th>
+                                <th>Note</th>
+                                <th>Case</th>
+                            </tr>
+                            @foreach($posts as $post)
+                                <tr onclick="show()" id="'+ {{$post->_id}}+ '">
+                                    <td>{{$post->Name_C}}</td>
+                                    <td>{{$post->ID_QUO}}</td>
+                                    <td>{{$post->ID_WO}}</td>
+                                    <td>{{$post->C_P}}</td>
+                                    <td>{{$post->P_O}}</td>
+                                    <td>{{$post->Fax_C}}</td>
+                                    <td>{{$post->Currency_WO}}</td>
+                                    <td>{{$post->Date_WO}}</td>
+                                    <td>{{$post->Delivery_Date}}</td>
+                                    <td>{{$post->VALIDITY_WO}}</td>
+                                    <td>{{$post->Note_WO}}</td>
+                                    <td>{{$post->Case_WO}}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                    <div>{{$posts->appends(request()->input())->links()}} </div>
+                @endif
             </div>
         </fieldset>
     </div>
@@ -165,46 +185,15 @@
 
         });
         function getKey( key){
-            var searchKey;
             if (key === "work"){
-                searchKey = $("#workS").val();
-            } else if (key === "client"){
-                searchKey = $("#clientS").val();
-            } else {
-                searchKey = $("#QS").val();
+                document.getElementById('searchType').value = "work";
+            } else if(key === "client"){
+                document.getElementById('searchType').value = "client";
+            }else{
+                document.getElementById('searchType').value = "quote";
             }
-            if (searchKey === ""){
-                searchKey = "empty"
-            }
-            console.log(searchKey);
-            $.ajax({
-                type: "GET",
-                url: "{{route('searchW')}}",
-                data: {quote: searchKey, searchType:key},
-                success: function(res) {
-                    if (res) {
-                        DeleteRows();
-                        $.each(res, function(key,value) {
-                            $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
-                                '<td>' + value.Name_C + '</td>'+
-                                '<td>' + value.ID_QUO + '</td>'+
-                                '<td>' + value.ID_WO + '</td>'+
-                                '<td>' + value.C_P + '</td>'+
-                                '<td>' + value.P_O + '</td>'+
-                                '<td>' + value.Fax_C + '</td>'+
-                                '<td>' + value.Currency_WO + '</td>'+
-                                '<td>' + value.Date_WO + '</td>'+
-                                '<td>' + value.Delivery_Date + '</td>'+
-                                '<td>' + value.VALIDITY_WO + '</td>'+
-                                '<td>' + value.Note_WO + '</td>'+
-                                '<td>' + value.Case_WO + '</td>'+
-                                '</tr>');
-                        });
-                    } else {
-                        DeleteRows();
-                    }
-                }
-            });
+            document.forms["helper"].action= "{{route('searchW')}}"
+            document.forms["helper"].submit();
         }
         var r = "";
         function show() {
@@ -244,18 +233,6 @@
                 table.deleteRow(i);
             }
         }
-        $('#searchW').click(function() {
-            showTable('table');
-            getKey("work");
-        });
-        $('#searchC').click(function() {
-            showTable('table');
-            getKey("client");
-        });
-        $('#searchQ').click(function() {
-            showTable('table');
-            getKey("quote");
-        });
         $('#editW').click(function(e) {
             e.preventDefault();
             var _token = $("input[name='_token']").val();

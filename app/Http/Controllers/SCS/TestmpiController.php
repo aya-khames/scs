@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 class TestmpiController extends Controller{
     public function showTVM(){
         $clients = Client::all();
-        return view('employee.test.testmpi.TMVMNew',['clients' => $clients]);
+        return view('employee.test.testmpi.TMVMNew',['clients' => $clients, 'posts' => ""]);
     }
     public function insertTVMNew(Request $request){
         $tv = new Testvisualmpi();
@@ -56,20 +56,24 @@ class TestmpiController extends Controller{
         return redirect()->back();
     }
 
-    public function searchTM(Request $request){
-        if ($request->quote === "empty") {
-            $c = Testvisualmpi::all();
-        } else {
-            if ($request->searchType === "report") {
-                $c = Testvisualmpi::where('Report_num', $request->quote)->get();
-
-            } else if ($request->searchType === "idno") {
-                $c = Testvisualmpi::all();
-            } else if ($request->searchType === "rn") {
-                $c = Testvisualmpi::all();
+    public function searchTM(){
+        $searchType = (isset(\request()->searchType)&& \request()->searchType != '')? \request()->searchType :null;
+        $repNo = (isset(\request()->repNo)&& \request()->repNo != '')? \request()->repNo :null;
+        $idNo = (isset(\request()->idNo)&& \request()->idNo != '')? \request()->idNo :null;
+        $rn = (isset(\request()->rn)&& \request()->rn != '')? \request()->rn :null;
+        if ($searchType === "repno") {
+            if ($repNo !== null){
+                $c = Testvisualmpi::where('Report_num', $repNo)->paginate(10);
+            } else {
+                $c = Testvisualmpi::paginate(10);
             }
+        } else if ($searchType === "idno") {
+            $c = Testvisualmpi::paginate(10);
+        } else if ($searchType === "rn") {
+            $c = Testvisualmpi::paginate(10);
         }
-        return response()->json($c);
+        $clients = Client::all();
+        return view('employee.test.testmpi.TMVMNew',['clients' => $clients, 'posts' =>$c]);
 }
     public function editTM(Request $request){
         if ($request->id !== ""){

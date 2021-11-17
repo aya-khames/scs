@@ -58,28 +58,57 @@
 
                     </div>
                 </form>
+                <form name="helper" id="helper" style="display:none;">
+                    <input name="searchType" readonly id="searchType" class="text2" style="display: none" type="text">
+                    <input name="search" readonly id="search" class="text2" style="display: none" type="text">
+                </form>
                 <br>
-                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 700px; max-height: 400px; overflow-y: auto">
-                    <table id="table" style="display: none; width: 700px">
-                        <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Quotation ID</th>
-                            <th>Client</th>
-                        </tr>
-                    </table>
-                </div>
-                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px; max-height: 400px; overflow-y: auto">
-                    <table id="table2" style="display: none; width: 1160px">
-                        <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Quotation ID</th>
-                            <th>Client</th>
-                            <th>Description</th>
-                            <th>Unit Price</th>
-                            <th>QTY</th>
-                            <th>Total Price</th>
-                            <th>Type</th>
-                        </tr>
-                    </table>
-                </div>
+                @if($posts !== "")
+                    <p>{{$type}}</p>
+                    @if($type === "quote")
+                        <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 700px; max-height: 400px; overflow-y: auto">
+                            <table id="table" style="width: 700px">
+                                <tr style="color: white; background-color: #0b3756; cursor: default">
+                                    <th>Quotation ID</th>
+                                    <th>Client</th>
+                                </tr>
+                                @foreach($posts as $post)
+                                    <tr onclick="show()" id="'+ {{$post->_id}}+ '">
+                                        <td>{{$post->ID_QUO}}</td>
+                                        <td>{{$post->Name_C}}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                        <div>{{$posts->appends(request()->input())->links()}} </div>
+                    @elseif($type !== "quote")
+                        <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px; max-height: 400px; overflow-y: auto">
+                            <table id="table2" style="width: 1160px">
+                                <tr style="color: white; background-color: #0b3756; cursor: default">
+                                    <th>Quotation ID</th>
+                                    <th>Client</th>
+                                    <th>Description</th>
+                                    <th>Unit Price</th>
+                                    <th>QTY</th>
+                                    <th>Total Price</th>
+                                    <th>Type</th>
+                                </tr>
+                                @foreach($posts as $post)
+                                    <tr onclick="show()" id="'+ {{$post->_id}}+ '">
+                                        <td>{{$post->ID_QUO}}</td>
+                                        <td>{{$post->Name_C}}</td>
+                                        <td>{{$post->Description}}</td>
+                                        <td>{{$post->Price_QUO}}</td>
+                                        <td>{{$post->QTY}}</td>
+                                        <td>{{$post->Total_Price}}</td>
+                                        <td>{{$post->Type_QUO}}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                        <div>{{$posts->appends(request()->input())->links()}} </div>
+                    @endif
+                @endif
             </div>
         </fieldset>
     </div>
@@ -113,54 +142,16 @@
               }
         });
         k = "";
-        function getKey( key1){
-            k = key1;
-            document.getElementById('table2').style.display = 'none';
-            var searchKey;
-            if (k === "quote"){
-                searchKey = $("#quote").val();
-            } else if (k === "quoteitem"){
-                searchKey = $("#client").val();
+        function getKey(key){
+            if (key === "quote"){
+                document.getElementById('searchType').value = "quote";
+                document.getElementById('search').value = $("#quote").val();;
+            } else {
+                document.getElementById('searchType').value = "quoteitem";
+                document.getElementById('search').value = $("#client").val();;
             }
-            if (searchKey === ""){
-                searchKey = "empty"
-            }
-            $.ajax({
-                type: "GET",
-                url: "{{route('searchQD')}}",
-                data: {quote: searchKey, searchType:k},
-                success: function(res) {
-                    DeleteRows();
-                    DeleteRows2();
-                    if (res) {
-                        $.each(res, function(key,value) {
-                            toAppend(key, value);
-                        });
-                    }
-                }
-            });
-        }
-        function toAppend(key, value){
-            if (k === "quote"){
-                showTable('table');
-                document.getElementById('table2').style.display = 'none';
-                $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
-                    '<td>' + value.ID_QUO + '</td>'+
-                    '<td>' + value.Name_C + '</td>'+
-                    '</tr>');
-            } else{
-                showTable('table2');
-                document.getElementById('table').style.display = 'none';
-                $("#table2").append('<tr onclick="show()" id="' + value._id + '">'+
-                    '<td>' + value.ID_QUO + '</td>'+
-                    '<td>' + value.Name_C + '</td>'+
-                    '<td>' + value.Description + '</td>'+
-                    '<td>' + value.Price_QUO + '</td>'+
-                    '<td>' + value.QTY + '</td>'+
-                    '<td>' + value.Total_Price + '</td>'+
-                    '<td>' + value.Type_QUO + '</td>'+
-                    '</tr>');
-            }
+            document.forms["helper"].action = "{{route('searchQD')}}";
+            document.forms["helper"].submit();
         }
         function show(key) {
             enable();

@@ -72,17 +72,28 @@
                 </form>
                 <form style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px">
                     <div style="padding: 20px; border-radius: 5px; background-color: rgba(240,248,248,0.05)">
-                        <label class="lab" style="font-size: 20px; width: 100px">Quotation:</label> <input id="quote" class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp">
-                            <a style="cursor: pointer" id="searchQuote">Search</a></span> <br>
-                        <label class="lab" style="font-size: 20px; width: 100px">Client:</label> <input id="c" class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp">
-                            <a style="cursor: pointer" id="searchClient" onclick="showTable('table')">Search</a></span> <br>
+                        <input name="searchType" readonly id="searchType" class="text2" style="display: none" type="text">
+                        <label class="lab" style="font-size: 20px; width: 100px">Quotation:</label> <input name="quote" id="quote" class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp">
+                            <button type="submit" id="searchQuote" id="searchbtn" onclick="getKey('quote', this.form)" style="background-color: #0b3756;color: #fff;border-radius: 15px; letter-spacing: 1px;
+    border: 2px rgba(255, 255, 255, 0.15); text-align: center;
+    box-shadow: 0 0 5px 5px gainsboro; margin-right: 10px; margin-left: 10px; height: 40px; width: 90px">search</button>
+{{--                            <a style="cursor: pointer" id="searchQuote">Search</a>--}}
+                        </span>
+                        <br>
+                        <label class="lab" style="font-size: 20px; width: 100px">Client:</label> <input name="client" id="c" class="text2" style="width: 706px" type="text"> <span style="width: 80px" class="sp">
+                            <button type="submit" id="searchQuote" id="searchbtn" onclick="getKey('client', this.form)" style="background-color: #0b3756;color: #fff;border-radius: 15px; letter-spacing: 1px;
+    border: 2px rgba(255, 255, 255, 0.15); text-align: center;
+    box-shadow: 0 0 5px 5px gainsboro; margin-right: 10px; margin-left: 10px; height: 40px; width: 90px">search</button>
+{{--                            <a style="cursor: pointer" id="searchClient" onclick="showTable('table')">Search</a>--}}
+                        </span> <br>
 {{--                        <label class="lab" style="font-size: 20px; width: 100px">Date:</label> <input id="datefrom" class="Date text2" style="width: 300px" type="date" ><span><label class="lab" style="font-size: 20px; width: 45px; margin-left: 45px">To:</label> <input id="dateto" class="Date text2" style="width: 300px" type="date" ></span> <span class="sp">--}}
 {{--                            <a style="cursor: pointer" id="searchDate" onclick="showTable('table')">Search</a></span><br>--}}
                     </div>
                 </form>
                 <br>
+                @if($posts !== "")
                 <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1160px; max-height: 400px; overflow-y: auto">
-                    <table id="table" style="display: none; width: 1160px">
+                    <table id="table" style=" width: 1160px">
                         <tr style="color: white; background-color: #0b3756; cursor: default">
                             <th>Client</th>
                             <th>Contact</th>
@@ -95,7 +106,26 @@
                             <th>Vat</th>
                             <th>Validity</th>
                         </tr>
+                        @foreach($posts as $post)
+                            <tr onclick="show()" id="'+ {{$post->_id}}+ '">
+                                <td>{{$post->Name_C}}</td>
+                                <td>{{$post->C_P}}</td>
+                                <td>{{$post->ID_QUO}}</td>
+                                <td>{{$post->Enquiry}}</td>
+                                <td>{{$post->Currency_QUO}}</td>
+                                <td>{{$post->Date_QUO1}}</td>
+                                <td>{{$post->Delivery_Time}}</td>
+                                <td>{{$post->Transportation_QUO}}</td>
+                                <td>{{$post->VatType}}</td>
+                                <td>{{$post->VALIDITY_QUO}}</td>
+                            </tr>
+                        @endforeach
                     </table>
+                            </div>
+                            <div>{{$posts->appends(request()->input())->links()}} </div>
+                    @endif
+                </div>
+            </table>
                 </div>
             </div>
         </fieldset>
@@ -157,47 +187,13 @@
             }
 
         });
-        function getKey( key){
-            var searchKey;
-            var searchKeyRed = "";
+        function getKey( key, form){
             if (key === "quote"){
-                searchKey = $("#quote").val();
-                console.log(searchKey);
-            } else if (key === "client"){
-                searchKey = $("#c").val();
+                document.getElementById('searchType').value = "quote";
             } else {
-                searchKey = $("#datefrom").val();
-                searchKeyRed = $("#dateto").val();
+                document.getElementById('searchType').value = "client";
             }
-            if (searchKey === ""){
-                searchKey = "empty"
-            }
-            $.ajax({
-                type: "GET",
-                url: "{{route('searchQ')}}",
-                data: {quote: searchKey, date: searchKeyRed, searchType:key},
-                success: function(res) {
-                    if (res) {
-                        DeleteRows();
-                        $.each(res, function(key,value) {
-                            $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
-                                '<td>' + value.Name_C + '</td>'+
-                                '<td>' + value.C_P + '</td>'+
-                                '<td>' + value.ID_QUO + '</td>'+
-                                '<td>' + value.Enquiry + '</td>'+
-                                '<td>' + value.Currency_QUO + '</td>'+
-                                '<td>' + value.Date_QUO1 + '</td>'+
-                                '<td>' + value.Delivery_Time + '</td>'+
-                                '<td>' + value.Transportation_QUO + '</td>'+
-                                '<td>' + value.VatType + '</td>'+
-                                '<td>' + value.VALIDITY_QUO + '</td>'+
-                                '</tr>');
-                        });
-                    } else {
-                        DeleteRows();
-                    }
-                }
-            });
+            form.action = "{{route('searchQ')}}"
         }
         $('#searchQuote').click(function() {
             showTable('table');

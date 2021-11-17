@@ -158,11 +158,12 @@
                         <button class="bttn" type="submit" onclick="get_action1(this.form)" style="box-shadow: 0 0 20px rgb(11,55,86); margin: 20px">Insert</button>
                     </div>
                 </form>
-                <form style="margin: 5px; width: 1320px">
+                <form name="helper" style="margin: 5px; width: 1320px">
                     <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1270px">
                         <div style="padding: 20px; background-color: rgba(240,248,248,0.05)">
+                            <input name="searchType" readonly id="searchType" class="text2" style="display: none" type="text">
                             <label class="lab" style="font-size: 18px; width: 90px">Report No:</label>
-                            <input id="repno" class="text2" style="width: 300px" type="text">
+                            <input name="repNo" id="repno" class="text2" style="width: 300px" type="text">
                             <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="getKey('repno')">Search</a></span>
 {{--                            <label class="lab" style="font-size: 18px; width: 110px; margin-left: 30px">Report Date:</label>--}}
 {{--                            <input class="Date text2" style="width: 120px" type="date">--}}
@@ -171,52 +172,85 @@
 {{--                            <span class="sp"><a style="cursor: pointer" onclick="showTable('table')">Search</a></span>--}}
                             <br>
                             <label class="lab" style="font-size: 20px; width: 90px">ID NO.</label>
-                            <input id="idno" class="text2" style="width: 300px" type="text">
+                            <input name="idNo" id="idno" class="text2" style="width: 300px" type="text">
                             <span style="width: 80px" class="sp"><a style="cursor: pointer" onclick="getKey('idno')">Search</a></span>
                             <label class="lab" style="font-size: 20px; width: 110px; margin-left: 30px">R.N MPI:</label>
-                            <input id="rn" class="Date text2" style="width: 300px" type="text">
+                            <input name="rn" id="rn" class="Date text2" style="width: 300px" type="text">
                             <span class="sp"><a style="cursor: pointer" onclick="getKey('rn')">Search</a></span>
                         </div>
                     </div>
                 </form>
                 <br>
-                <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1280px; max-height: 400px; overflow-y: auto">
-                    <table id="table" style="display: none; width: 1280px">
-                        <tr style="color: white; background-color: #0b3756; cursor: default">
-                            <th>Name_C</th>
-                            <th>Address</th>
-                            <th>ID_WO</th>
-                            <th>Report_num</th>
-                            <th>Date_Report</th>
-                            <th>Date_Report1</th>
-                            <th>Date_TE</th>
-                            <th>Date_TE1</th>
-                            <th>Date_MK</th>
-                            <th>Date_LTE</th>
-                            <th>Date_NTE</th>
-                            <th>Type_TV</th>
-                            <th>SAFE_OP</th>
-                            <th>UNIT_TB</th>
-                            <th>UNIT_CN</th>
-                            <th>UNIT_TD</th>
-                            <th>SLING_TB</th>
-                            <th>SLING_CN</th>
-                            <th>SLING_TD</th>
-                            <th>Name_per_mrep</th>
-                            <th>Name_per_arep</th>
-                            <th>Latest_date</th>
-                            <th>Latest_date1</th>
-                            <th>Name_add_emp</th>
-                        </tr>
-                    </table>
-                </div>
+                @if($posts !== "")
+                    <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1280px; max-height: 400px; overflow-y: auto">
+                        <table id="table" style="display: none; width: 1280px">
+                            <tr style="color: white; background-color: #0b3756; cursor: default">
+                                <th>Name_C</th>
+                                <th>Address</th>
+                                <th>ID_WO</th>
+                                <th>Report_num</th>
+                                <th>Date_Report</th>
+                                <th>Date_Report1</th>
+                                <th>Date_TE</th>
+                                <th>Date_TE1</th>
+                                <th>Date_MK</th>
+                                <th>Date_LTE</th>
+                                <th>Date_NTE</th>
+                                <th>Type_TV</th>
+                                <th>SAFE_OP</th>
+                                <th>UNIT_TB</th>
+                                <th>UNIT_CN</th>
+                                <th>UNIT_TD</th>
+                                <th>SLING_TB</th>
+                                <th>SLING_CN</th>
+                                <th>SLING_TD</th>
+
+                                <th>Name_per_mrep</th>
+                                <th>Name_per_arep</th>
+                                <th>Latest_date</th>
+                                <th>Latest_date1</th>
+                                <th>Name_add_emp</th>
+                            </tr>
+                            @foreach($posts as $post)
+                                <tr onclick="show()" id="'+ {{$post->_id}}+ '">
+                                    <td>{{$post->Name_C}}</td>
+                                    <td>{{$post->Address}}</td>
+                                    <td>{{$post->ID_WO}}</td>
+                                    <td>{{$post->Report_num}}</td>
+                                    <td>{{$post->Date_Report}}</td>
+                                    <td>{{$post->Date_Report1}}</td>
+                                    <td>{{$post->Date_TE}}</td>
+                                    <td>{{$post->Date_TE1}}</td>
+                                    <td>{{$post->Date_TE1}}</td>
+                                    <td>{{$post->Date_LTE}}</td>
+                                    <td>{{$post->Date_NTE}}</td>
+                                    <td>{{$post->Type_TV}}</td>
+
+                                    <td>{{$post->SAFE_OP}}</td>
+                                    <td>{{$post->UNIT_TB}}</td>
+                                    <td>{{$post->UNIT_CN}}</td>
+                                    <td>{{$post->UNIT_TD}}</td>
+                                    <td>{{$post->SLING_TB}}</td>
+                                    <td>{{$post->SLING_CN}}</td>
+                                    <td>{{$post->SLING_TD}}</td>
+
+                                    <td>{{$post->Name_per_mrep}}</td>
+                                    <td>{{$post->Name_per_arep}}</td>
+                                    <td>{{$post->Latest_date}}</td>
+                                    <td>{{$post->Latest_date1}}</td>
+                                    <td>{{$post->Name_add_emp}}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                    <div>{{$posts->appends(request()->input())->links()}} </div>
+                @endif
             </div>
         </fieldset>
     </div>
 @stop
 @section('scripts')
     <script type="text/javascript">
-
         $('#clientname').change(function() {
             document.getElementById('address').disabled = false;
             document.getElementById('work').disabled = false;
@@ -324,60 +358,9 @@
             form.action = "{{route('editTV')}}";
         };
         function getKey(key){
-            showTable('table')
-            var searchKey = "";
-            if (key === "report"){
-                searchKey = $("#repno").val();
-            } else if (key === "idno"){
-                searchKey = $("#idno").val();
-            } else if (key === "rn") {
-                searchKey = $("#rn").val();
-            }
-            if (searchKey === ""){
-                searchKey = "empty"
-            }
-            $.ajax({
-                type: "GET",
-                url: "{{route('searchTV')}}",
-                data: {quote: searchKey,searchType: key},
-                success: function(res) {
-                    if (res) {
-                        DeleteRows();
-                        $.each(res, function(key,value) {
-                            $("#table").append('<tr onclick="show()" id="' + value._id + '">'+
-                                '<td>' + value.Name_C + '</td>'+
-                                '<td>' + value.Address + '</td>'+
-                                '<td>' + value.ID_WO + '</td>'+
-                                '<td>' + value.Report_num + '</td>'+
-                                '<td>' + value.Date_Report + '</td>'+
-                                '<td>' + value.Date_Report1 + '</td>'+
-                                '<td>' + value.Date_TE + '</td>'+
-                                '<td>' + value.Date_TE1 + '</td>'+
-                                '<td>' + value.Date_MK + '</td>'+
-                                '<td>' + value.Date_LTE + '</td>'+
-                                '<td>' + value.Date_NTE + '</td>'+
-                                '<td>' + value.Type_TV + '</td>'+
-
-                                '<td>' + value.SAFE_OP + '</td>'+
-                                '<td>' + value.UNIT_TB + '</td>'+
-                                '<td>' + value.UNIT_CN + '</td>'+
-                                '<td>' + value.UNIT_TD + '</td>'+
-                                '<td>' + value.SLING_TB + '</td>'+
-                                '<td>' + value.SLING_CN + '</td>'+
-                                '<td>' + value.SLING_TD + '</td>'+
-                                '<td>' + value.Name_per_mrep + '</td>'+
-                                '<td>' + value.Name_per_arep + '</td>'+
-                                '<td>' + value.Latest_date + '</td>'+
-                                '<td>' + value.Latest_date1 + '</td>'+
-                                '<td>' + value.Name_add_emp + '</td>'+
-                                '</tr>');
-                        });
-                    } else {
-                        DeleteRows();
-                    }
-                }
-            });
-
+            document.getElementById('searchType').value = key;
+            document.forms["helper"].action= "{{route('searchTV')}}"
+            document.forms["helper"].submit();
         };
         function DeleteRows() {
             var rowCount = table.rows.length;
