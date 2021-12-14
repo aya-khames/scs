@@ -64,7 +64,7 @@
                 </form>
                 <br>
                 @if($posts !== "")
-                    <p>{{$type}}</p>
+{{--                    <p>{{$type}}</p>--}}
                     @if($type === "quote")
                         <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 700px; max-height: 400px; overflow-y: auto">
                             <table id="table" style="width: 700px">

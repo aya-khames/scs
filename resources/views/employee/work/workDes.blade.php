@@ -161,20 +161,6 @@
                     '</tr>');
         } else {
             var arr = value;
-            // arr = value
-            // if (key === "t"){
-            //     arr.push(value.ID_QUO);
-            //     console.log()
-            // }
-            // if(key === "t"){
-            //     arr.push(value.Name_C);
-            //     arr.push(value.Description);
-            //     arr.push(value.QTY)
-            //     arr.push(value.Price_QUO)
-            //     arr.push(value.Total_Price)
-            //     arr.push(value.Type_QUO)
-            //
-            // }
             document.getElementById('table2').style.display = 'none';
             document.getElementById('table').style.display = 'none';
             showTable('table3');

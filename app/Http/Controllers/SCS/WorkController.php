@@ -159,8 +159,6 @@ class WorkController extends Controller {
     public function editWD(Request $request){
         $w = Woitem::where('_id', $request->id)->first();
         if ($w !== null){
-//            $w->Name_C = $request->client;
-//            $w->ID_WO = $request->work;
             $w->ID_NUM = $request->idN;
             $w->Description = $request->description;
         }

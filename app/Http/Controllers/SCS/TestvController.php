@@ -15,6 +15,10 @@ class TestvController extends Controller{
         $clients = Client::all();
         return view('employee.test.testvisual.TVNew',['clients' => $clients, 'posts' => ""]);
     }
+    public function showTVD(){
+        return view('employee.test.testvisual.TVDes',['t' => "", 'posts' => ""]);
+    }
+
     public function insertTVNew(Request $request){
         $tv = new Testvisual();
         $tv->Name_C = $request->client;
@@ -52,8 +56,6 @@ class TestvController extends Controller{
     {
         $searchType = (isset(\request()->searchType)&& \request()->searchType != '')? \request()->searchType :null;
         $repNo = (isset(\request()->repNo)&& \request()->repNo != '')? \request()->repNo :null;
-//        $idNo = (isset(\request()->idNo)&& \request()->idNo != '')? \request()->idNo :null;
-//        $rn = (isset(\request()->rn)&& \request()->rn != '')? \request()->rn :null;
         if ($searchType === "repno") {
             if ($repNo !== null){
                 $c = Testvisual::where('Report_num', $repNo)->paginate(10);
@@ -106,19 +108,19 @@ class TestvController extends Controller{
     ################desc######################
     public function searchTVD(Request $request){
         if ($request->searchType === "search"){
-            if ($request->quote === "empty"){
-                $c = Testvisual::all();
+            if ($request->report === "empty"){
+                $c = Testvisual::paginate(10);
             } else{
-                $c = Testvisual::where('Report_num', $request->quote)->get();
+                $c = Testvisual::where('Report_num', $request->report)->paginate(10);
             }
         } else{
-            if ($request->quote === "empty"){
-                $c = Testvisualitem::all();
+            if ($request->report === "empty"){
+                $c = Testvisualitem::paginate(10);
             } else{
-                $c = Testvisualitem::where('Report_num', $request->quote)->get();
+                $c = Testvisualitem::where('Report_num', $request->report)->paginate(10);
             }
         }
-        return response()->json($c);
+        return view('employee.test.testvisual.TVDes',['t' => $request->searchType, 'posts' =>$c]);
     }
     public function insertTVD(Request $request){
         $t = Testvisualitem::where('_id', $request->id)->first();

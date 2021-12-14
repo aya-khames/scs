@@ -94,9 +94,11 @@ Route::group(['middleware' => 'prevent'],function(){
             Route::post('/editTVD', 'SCS\TestvController@editTVD')->name('editTVD');
             Route::post('/deleteTVD', 'SCS\TestvController@deleteTVD')->name('deleteTVD');
 
-            Route::get('/tvd', function () {
-                return view('employee.test.testvisual.TVDes');
-            });
+//            Route::get('/tvd', function () {
+//                return view('employee.test.testvisual.TVDes');
+//            });
+            Route::get('/tvd', 'SCS\TestvController@showTVD');
+
             Route::get('/tvp', function () {
                 return view('employee.test.testvisual.TVPrint');
             });

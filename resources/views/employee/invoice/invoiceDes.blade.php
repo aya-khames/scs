@@ -107,34 +107,7 @@
         function getKey(){
             document.forms["helper"].action= "{{route('searchIND')}}"
             document.forms["helper"].submit();
-            {{--showTable('table');--}}
-            {{--var searchKey;--}}
-            {{--searchKey = $("#invoice").val();--}}
-            {{--if (searchKey === ""){--}}
-            {{--    searchKey = "empty"--}}
-            {{--}--}}
-            {{--console.log(searchKey);--}}
-            {{--$.ajax({--}}
-            {{--    type: "GET",--}}
-            {{--    url: "{{route('searchIND')}}",--}}
-            {{--    data: { quote: searchKey},--}}
-            {{--    success: function(res) {--}}
-            {{--        DeleteRows();--}}
-            {{--        if (res) {--}}
-            {{--            $.each(res, function(key,value) {--}}
-            {{--                $("#table").append('<tr onclick="show()" id="' + value._id + '">'+--}}
-            {{--                    '<td>' + value.ID_IN + '</td>'+--}}
-            {{--                    '<td>' + value.Name_C + '</td>'+--}}
-            {{--                    '<td>' + value.ID_WO + '</td>'+--}}
-            {{--                    '<td>' + value.Description + '</td>'+--}}
-            {{--                    '<td>' + value.Price_IN + '</td>'+--}}
-            {{--                    '<td>' + value.QTY + '</td>'+--}}
-            {{--                    '<td>' + value.Total_Price + '</td>'+--}}
-            {{--                    '</tr>');--}}
-            {{--            });--}}
-            {{--        }--}}
-            {{--    }--}}
-            {{--});--}}
+
         }
         function show() {
             enable();
