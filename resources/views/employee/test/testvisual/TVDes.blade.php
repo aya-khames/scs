@@ -56,7 +56,6 @@
                 </form>
                 <br>
                 @if($posts !== "")
-{{--                    <p>{{$t}}</p>--}}
                     @if($t === "search")
                         <div style="margin: 20px; box-shadow: 0 0 20px rgba(15,70,108,0.65); width: 1190px; max-height: 400px; overflow-y: auto">
                             <table id="table" style="width: 1190px">
@@ -108,27 +107,6 @@
             </div>
         </fieldset>
     </div>
-    {{--                        @foreach($posts as $post)--}}
-    {{--                            @if($t === "search")--}}
-    {{--                                <tr onclick="show()" id="'+ {{$post->_id}}+ '">--}}
-    {{--                                    <td>{{$post->Name_C}}</td>--}}
-    {{--                                    <td>{{$post->ID_WO}}</td>--}}
-    {{--                                    <td>{{$post->Report_num}}</td>--}}
-    {{--                                </tr>--}}
-    {{--                            @elseif($t !== "search")--}}
-    {{--                                <tr onclick="show()" id="'+ {{$post->_id}}+ '">--}}
-    {{--                                    <td>{{$post->Name_C}}</td>--}}
-    {{--                                    <td>{{$post->ID_WO}}</td>--}}
-    {{--                                    <td>{{$post->Report_num}}</td>--}}
-    {{--                                    <td>{{$post->ID_NUM}}</td>--}}
-    {{--                                    <td>{{$post->QTY}}</td>--}}
-    {{--                                    <td>{{$post->Description}}</td>--}}
-    {{--                                    <td>{{$post->Safe_WL}}</td>--}}
-    {{--                                    <td>{{$post->Proof_load}}</td>--}}
-    {{--                                </tr>--}}
-    {{--                            @endif--}}
-    {{--                        @endforeach--}}
-    {{--                        </table>--}}
 @stop
 @section('scripts')
     <script>
@@ -160,47 +138,6 @@
             document.forms["helper"].action = "{{route('searchTVD')}}";
             document.forms["helper"].submit();
         }
-        {{--function getKey(key1) {--}}
-        {{--    k = key1;--}}
-        {{--    showTable('table');--}}
-        {{--    var searchKey = "";--}}
-        {{--    searchKey = $("#repNo").val();--}}
-        {{--    if (searchKey === "") {--}}
-        {{--        searchKey = "empty";--}}
-        {{--    }--}}
-        {{--    $.ajax({--}}
-        {{--        type: "GET",--}}
-        {{--        url: "{{route('searchTVD')}}",--}}
-        {{--        data: {quote: searchKey, searchType: key1},--}}
-        {{--        success: function (res) {--}}
-        {{--            if (res) {--}}
-        {{--                DeleteRows();--}}
-        {{--                $.each(res, function (key, value) {--}}
-        {{--                    if (key1 === "search") {--}}
-        {{--                        $("#table").append('<tr onclick="show()" id="' + value._id + '">' +--}}
-        {{--                            '<td>' + value.Name_C + '</td>' +--}}
-        {{--                            '<td>' + value.ID_WO + '</td>' +--}}
-        {{--                            '<td>' + value.Report_num + '</td>' +--}}
-        {{--                            '</tr>');--}}
-        {{--                    } else {--}}
-        {{--                        $("#table").append('<tr onclick="show()" id="' + value._id + '">' +--}}
-        {{--                            '<td>' + value.Name_C + '</td>' +--}}
-        {{--                            '<td>' + value.ID_WO + '</td>' +--}}
-        {{--                            '<td>' + value.Report_num + '</td>' +--}}
-        {{--                            '<td>' + value.ID_NUM + '</td>' +--}}
-        {{--                            '<td>' + value.QTY + '</td>' +--}}
-        {{--                            '<td>' + value.Description + '</td>' +--}}
-        {{--                            '<td>' + value.Safe_WL + '</td>' +--}}
-        {{--                            '<td>' + value.Proof_load + '</td>' +--}}
-        {{--                            '</tr>');--}}
-        {{--                    }--}}
-        {{--                });--}}
-        {{--            } else {--}}
-        {{--                DeleteRows();--}}
-        {{--            }--}}
-        {{--        }--}}
-        {{--    });--}}
-        {{--}--}}
         function show(key){
             var rowId =
                 event.target.parentNode.id;
